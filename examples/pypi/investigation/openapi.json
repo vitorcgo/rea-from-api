@@ -3,7 +3,7 @@
   "info": {
     "title": "pypi.org (observed by rea-from-api)",
     "version": "2026-10-23",
-    "description": "Reverse-engineered description of the data interfaces behind https://pypi.org/project/requests/.\n\nGoal: Discover how PyPI exposes public package metadata (versions, releases) and build a TypeScript integration\n\nSchemas describe observed responses, not a published contract. Each operation carries `x-rea-from-api` with status, confidence and evidence ids."
+    "description": "Reverse-engineered description of the data interfaces behind https://pypi.org/project/requests/.\n\nGoal: public package metadata\n\nSchemas describe observed responses, not a published contract. Each operation carries `x-rea-from-api` with status, confidence and evidence ids."
   },
   "servers": [
     {
@@ -600,10 +600,10 @@
             "verify"
           ],
           "evidenceIds": [
-            "ev-0006",
-            "ev-0027"
+            "ev-0015",
+            "ev-0038"
           ],
-          "verifiedAt": "2026-10-23T07:08:42.722Z",
+          "verifiedAt": "2026-10-23T09:07:52.577Z",
           "goalRelevance": 1
         }
       }
@@ -1255,11 +1255,113 @@
             "verify"
           ],
           "evidenceIds": [
-            "ev-0005",
-            "ev-0031"
+            "ev-0014",
+            "ev-0036"
           ],
-          "verifiedAt": "2026-10-23T07:08:43.628Z",
+          "verifiedAt": "2026-10-23T09:07:52.265Z",
           "goalRelevance": 1
+        }
+      }
+    },
+    "/api/v2/status.json": {
+      "servers": [
+        {
+          "url": "https://2p66nmmycsj3.statuspage.io"
+        }
+      ],
+      "get": {
+        "operationId": "get_api_v2_status_json",
+        "summary": "List/read status.json (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Expected response (not replayed)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "time_zone": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "url",
+                        "time_zone",
+                        "updated_at"
+                      ]
+                    },
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "indicator": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "indicator",
+                        "description"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "page",
+                    "status"
+                  ]
+                },
+                "example": {
+                  "page": {
+                    "id": "2p66nmmycsj3",
+                    "name": "Python Infrastructure",
+                    "url": "https://status.python.org",
+                    "time_zone": "Etc/UTC",
+                    "updated_at": "2026-10-23T09:04:15.044Z"
+                  },
+                  "status": {
+                    "indicator": "none",
+                    "description": "All Systems Operational"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-02a0d3ec",
+          "status": "observed",
+          "testStatus": "skipped-cross-origin",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "rea-browser"
+          ],
+          "evidenceIds": [
+            "ev-0019",
+            "ev-0016"
+          ],
+          "goalRelevance": 0.15
         }
       }
     },
@@ -1955,7 +2057,7 @@
                   "releases_url": "https://api.github.com/repos/psf/requests/releases{/id}",
                   "deployments_url": "https://api.github.com/repos/psf/requests/deployments",
                   "created_at": "2011-02-13T18:38:17Z",
-                  "updated_at": "2026-10-23T07:04:09Z",
+                  "updated_at": "2026-10-23T08:16:29Z",
                   "pushed_at": "2026-09-28T16:55:48Z",
                   "git_url": "git://github.com/psf/requests.git",
                   "ssh_url": "git@github.com:psf/requests.git",
@@ -1963,8 +2065,8 @@
                   "svn_url": "https://github.com/psf/requests",
                   "homepage": "https://requests.readthedocs.io/en/latest/",
                   "size": 13631,
-                  "stargazers_count": 54614,
-                  "watchers_count": 54614,
+                  "stargazers_count": 54613,
+                  "watchers_count": 54613,
                   "language": "Python",
                   "has_issues": true,
                   "has_projects": false,
@@ -1972,7 +2074,7 @@
                   "has_wiki": true,
                   "has_pages": false,
                   "has_discussions": false,
-                  "forks_count": 12913,
+                  "forks_count": 12915,
                   "mirror_url": null,
                   "archived": false,
                   "disabled": false,
@@ -1995,9 +2097,9 @@
                     "forhumans"
                   ],
                   "visibility": "public",
-                  "forks": 12913,
+                  "forks": 12915,
                   "open_issues": 244,
-                  "watchers": 54614,
+                  "watchers": 54613,
                   "default_branch": "main",
                   "temp_clone_token": null,
                   "custom_properties": {},
@@ -2022,7 +2124,7 @@
                     "user_view_type": "public",
                     "site_admin": false
                   },
-                  "network_count": 12913,
+                  "network_count": 12915,
                   "subscribers_count": 1331
                 }
               }
@@ -2039,122 +2141,11 @@
             "rea-browser"
           ],
           "evidenceIds": [
-            "ev-0011",
-            "ev-0007",
-            "ev-0013"
+            "ev-0020",
+            "ev-0016",
+            "ev-0022"
           ],
-          "goalRelevance": 0.35
-        }
-      }
-    },
-    "/_includes/unauthed/flash-messages/": {
-      "get": {
-        "operationId": "get_includes_unauthed_flash_messages",
-        "summary": "List/read flash-messages (inferred from URL shape)",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Observed successful response",
-            "content": {
-              "": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "x-rea-from-api": {
-          "id": "get-b0a2c059",
-          "status": "confirmed",
-          "testStatus": "passed",
-          "confidence": "medium",
-          "documented": false,
-          "discoveredBy": [
-            "rea-browser",
-            "verify"
-          ],
-          "evidenceIds": [
-            "ev-0009",
-            "ev-0007",
-            "ev-0029"
-          ],
-          "verifiedAt": "2026-10-23T07:08:43.321Z",
-          "goalRelevance": 0.3,
-          "rateLimitHeaders": {
-            "retry-after": "0"
-          }
-        }
-      }
-    },
-    "/_includes/unauthed/notification-banners/": {
-      "get": {
-        "operationId": "get_includes_unauthed_notification_banners",
-        "summary": "List/read notification-banners (inferred from URL shape)",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Observed successful response",
-            "content": {
-              "text/html": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "x-rea-from-api": {
-          "id": "get-0ff29434",
-          "status": "confirmed",
-          "testStatus": "passed",
-          "confidence": "medium",
-          "documented": false,
-          "discoveredBy": [
-            "rea-browser",
-            "verify"
-          ],
-          "evidenceIds": [
-            "ev-0008",
-            "ev-0007",
-            "ev-0028"
-          ],
-          "verifiedAt": "2026-10-23T07:08:43.021Z",
-          "goalRelevance": 0.3
-        }
-      }
-    },
-    "/project/requests/": {
-      "get": {
-        "operationId": "get_project_requests",
-        "summary": "Public HTML page \"requests · PyPI\"",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Observed successful response",
-            "content": {
-              "text/html": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "x-rea-from-api": {
-          "id": "get-aa82a775",
-          "status": "confirmed",
-          "testStatus": "passed",
-          "confidence": "high",
-          "documented": false,
-          "discoveredBy": [
-            "html-static"
-          ],
-          "evidenceIds": [
-            "ev-0001"
-          ],
-          "verifiedAt": "2026-10-23T07:08:19.277Z",
-          "goalRelevance": 0.3
+          "goalRelevance": 0.15
         }
       }
     },
@@ -2642,19 +2633,382 @@
             "rea-browser"
           ],
           "evidenceIds": [
-            "ev-0012",
-            "ev-0007",
-            "ev-0014"
+            "ev-0021",
+            "ev-0016",
+            "ev-0023"
           ],
           "goalRelevance": 0.15
+        }
+      }
+    },
+    "/_includes/unauthed/flash-messages/": {
+      "get": {
+        "operationId": "get_includes_unauthed_flash_messages",
+        "summary": "List/read flash-messages (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-b0a2c059",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "rea-browser",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0018",
+            "ev-0016",
+            "ev-0026"
+          ],
+          "verifiedAt": "2026-10-23T09:07:49.447Z",
+          "goalRelevance": 0.1,
+          "rateLimitHeaders": {
+            "retry-after": "0"
+          }
+        }
+      }
+    },
+    "/_includes/unauthed/notification-banners/": {
+      "get": {
+        "operationId": "get_includes_unauthed_notification_banners",
+        "summary": "List/read notification-banners (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-0ff29434",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "rea-browser",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0017",
+            "ev-0016",
+            "ev-0025"
+          ],
+          "verifiedAt": "2026-10-23T09:07:49.138Z",
+          "goalRelevance": 0.1
+        }
+      }
+    },
+    "/0.sitemap.xml": {
+      "get": {
+        "operationId": "get_0_sitemap_xml",
+        "summary": "List/read 0.sitemap.xml (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-cfef48a4",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "wayback",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0005",
+            "ev-0027"
+          ],
+          "verifiedAt": "2026-10-23T09:07:49.770Z",
+          "goalRelevance": 0.1
+        }
+      }
+    },
+    "/0a.sitemap.xml": {
+      "get": {
+        "operationId": "get_0a_sitemap_xml",
+        "summary": "List/read 0a.sitemap.xml (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-4ad0157e",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "wayback",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0006",
+            "ev-0028"
+          ],
+          "verifiedAt": "2026-10-23T09:07:50.092Z",
+          "goalRelevance": 0.1
+        }
+      }
+    },
+    "/0b.sitemap.xml": {
+      "get": {
+        "operationId": "get_0b_sitemap_xml",
+        "summary": "List/read 0b.sitemap.xml (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-f7644fe6",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "wayback",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0007",
+            "ev-0029"
+          ],
+          "verifiedAt": "2026-10-23T09:07:50.392Z",
+          "goalRelevance": 0.1
+        }
+      }
+    },
+    "/0c.sitemap.xml": {
+      "get": {
+        "operationId": "get_0c_sitemap_xml",
+        "summary": "List/read 0c.sitemap.xml (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-60d9518f",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "wayback",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0008",
+            "ev-0030"
+          ],
+          "verifiedAt": "2026-10-23T09:07:50.703Z",
+          "goalRelevance": 0.1
+        }
+      }
+    },
+    "/0d.sitemap.xml": {
+      "get": {
+        "operationId": "get_0d_sitemap_xml",
+        "summary": "List/read 0d.sitemap.xml (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-677cafd7",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "wayback",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0009",
+            "ev-0031"
+          ],
+          "verifiedAt": "2026-10-23T09:07:51.017Z",
+          "goalRelevance": 0.1
+        }
+      }
+    },
+    "/0e.sitemap.xml": {
+      "get": {
+        "operationId": "get_0e_sitemap_xml",
+        "summary": "List/read 0e.sitemap.xml (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-8681cd49",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "wayback",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0010",
+            "ev-0032"
+          ],
+          "verifiedAt": "2026-10-23T09:07:51.329Z",
+          "goalRelevance": 0.1
+        }
+      }
+    },
+    "/0f.sitemap.xml": {
+      "get": {
+        "operationId": "get_0f_sitemap_xml",
+        "summary": "List/read 0f.sitemap.xml (inferred from URL shape)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-837992e9",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "medium",
+          "documented": false,
+          "discoveredBy": [
+            "wayback",
+            "verify"
+          ],
+          "evidenceIds": [
+            "ev-0011",
+            "ev-0033"
+          ],
+          "verifiedAt": "2026-10-23T09:07:51.640Z",
+          "goalRelevance": 0.1
+        }
+      }
+    },
+    "/project/requests/": {
+      "get": {
+        "operationId": "get_project_requests",
+        "summary": "Public HTML page \"requests · PyPI\"",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed successful response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-rea-from-api": {
+          "id": "get-aa82a775",
+          "status": "confirmed",
+          "testStatus": "passed",
+          "confidence": "high",
+          "documented": false,
+          "discoveredBy": [
+            "html-static"
+          ],
+          "evidenceIds": [
+            "ev-0001"
+          ],
+          "verifiedAt": "2026-10-23T09:06:44.656Z",
+          "goalRelevance": 0.1
         }
       }
     }
   },
   "components": {},
   "x-rea-from-api": {
-    "version": "0.2.0",
-    "investigatedAt": "2026-10-23T07:08:43.652Z",
+    "version": "0.3.0",
+    "investigatedAt": "2026-10-23T09:07:52.583Z",
     "appType": "server-rendered HTML site",
     "limitations": [
       "Documentation links on other origins were not fetched automatically (re-run with --allow-origin to include them): https://docs.pypi.org/, https://requests.readthedocs.io/, https://packaging.python.org/en/latest/discussions/package-formats/#package-formats",
@@ -2662,109 +3016,35 @@
       "REA: Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
       "REA: Captured response-body bytes are the result of Playwright's Response.body() API. Playwright may satisfy that API with a credentialed follow-up load of the request URL when CDP has no body, so transaction and event links do not verify that retained bytes came from the original network transaction.",
       "REA: Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+      "REA analyze-web-bundle refused the page (target_not_allowed) on this platform/browser; bundle analysis relied on js-static (source maps + scanner/jsluice).",
+      "jsluice not installed: JS extraction used the built-in literal scanner (install: go install github.com/BishopFox/jsluice/cmd/jsluice@latest).",
       "Some documented endpoints are disallowed by robots.txt for crawlers and were verified only because --robots-exempt was given. Check the provider's API terms; keep request volume low and cache aggressively."
     ]
   },
   "x-rea-from-api-candidates": [
     {
       "method": "GET",
-      "url": "https://pypi.org/_includes/authed/",
-      "status": "unavailable",
-      "testStatus": "skipped-robots",
-      "evidenceIds": [
-        "ev-0018"
-      ],
-      "notes": [
-        "Found in JavaScript; not seen on the wire",
-        "robots.txt disallows /_includes/authed/"
-      ]
-    },
-    {
-      "method": "GET",
-      "url": "https://pypi.org/account/login",
+      "url": "https://gitlab.com/api/v4/projects/{param}",
       "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "evidenceIds": [
-        "ev-0023"
-      ],
-      "notes": [
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "method": "GET",
-      "url": "https://pypi.org/account/webauthn-authenticate/options{param}",
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "evidenceIds": [
-        "ev-0022"
-      ],
-      "notes": [
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "method": "POST",
-      "url": "https://pypi.org/account/webauthn-authenticate/validate{param}",
-      "status": "inferred",
-      "testStatus": "skipped-unsafe-method",
+      "testStatus": "skipped-cross-origin",
       "evidenceIds": [
         "ev-0024"
       ],
       "notes": [
-        "Found in JavaScript; not seen on the wire"
+        "Third-party URL in JavaScript"
       ]
     },
     {
       "method": "GET",
-      "url": "https://pypi.org/manage/account",
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
+      "url": "https://pypi.org/{resourceId}/fst-post-back",
+      "status": "unavailable",
+      "testStatus": "failed",
       "evidenceIds": [
-        "ev-0021"
+        "ev-0012",
+        "ev-0034"
       ],
       "notes": [
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "method": "GET",
-      "url": "https://pypi.org/manage/account/webauthn-provision/options",
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "evidenceIds": [
-        "ev-0016",
-        "ev-0015",
-        "ev-0019"
-      ],
-      "notes": [
-        "REA static bundle candidate; does not prove the call executes",
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "method": "GET",
-      "url": "https://pypi.org/manage/account/webauthn-provision/validate",
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "evidenceIds": [
-        "ev-0017",
-        "ev-0015"
-      ],
-      "notes": [
-        "REA static bundle candidate; does not prove the call executes"
-      ]
-    },
-    {
-      "method": "POST",
-      "url": "https://pypi.org/manage/account/webauthn-provision/validate",
-      "status": "inferred",
-      "testStatus": "skipped-unsafe-method",
-      "evidenceIds": [
-        "ev-0020"
-      ],
-      "notes": [
-        "Found in JavaScript; not seen on the wire"
+        "Historical URL from the Wayback Machine (2024); may no longer exist"
       ]
     },
     {
@@ -2779,31 +3059,6 @@
       "notes": [
         "Derived from a GET <form>; response format unknown until verified",
         "robots.txt disallows /search/"
-      ]
-    },
-    {
-      "method": "GET",
-      "url": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
-      "status": "unavailable",
-      "testStatus": "skipped-cross-origin",
-      "evidenceIds": [
-        "ev-0010",
-        "ev-0007"
-      ],
-      "notes": [
-        "Third-party request seen in browser traffic"
-      ]
-    },
-    {
-      "method": "GET",
-      "url": "https://gitlab.com/api/v4/projects/{param}",
-      "status": "inferred",
-      "testStatus": "skipped-cross-origin",
-      "evidenceIds": [
-        "ev-0025"
-      ],
-      "notes": [
-        "Third-party URL in JavaScript"
       ]
     }
   ]

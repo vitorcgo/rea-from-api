@@ -240,3 +240,14 @@ test("package.json, server.json and VERSION agree", async () => {
   assert.equal(server.name, pkg.mcpName);
   assert.ok(server.description.length <= 100, "MCP registry descriptions are limited to 100 characters");
 });
+
+test("validation reports hide the user's home directory", async () => {
+  const { homedir } = await import("node:os");
+  const { hidePersonalPaths } = await import("../src/validate.ts");
+  const h = homedir();
+  const slashed = h.split("\\").join("/");
+  const out = hidePersonalPaths(`tsc -p ${h}/tmp/x.json and ${slashed}/y and ${JSON.stringify(h)}`);
+  assert.ok(!out.includes(h) && !out.includes(slashed), out);
+  assert.match(out, /~/);
+  assert.equal(hidePersonalPaths("V:\\work\\app\\integration and V:/work/app/x", "V:\\work\\app"), ".\\integration and ./x");
+});

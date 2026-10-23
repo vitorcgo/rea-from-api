@@ -43,7 +43,8 @@ export const passiveSources: Strategy = {
 };
 
 async function getJson(ctx: InvestigationContext, url: string): Promise<unknown> {
-  const r = await ctx.http.request(url, { accept: "application/json", respectRobots: false });
+  // Public indexes (Wayback CDX especially) are slow: allow 45 s instead of the default 15 s.
+  const r = await ctx.http.request(url, { accept: "application/json", respectRobots: false, timeoutMs: 45_000 });
   if (r.status === 404) return undefined;
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return JSON.parse(r.text);
@@ -71,7 +72,7 @@ async function apisGuru(ctx: InvestigationContext, domains: string[]): Promise<s
 }
 
 async function wayback(ctx: InvestigationContext, site: string): Promise<string> {
-  const q = new URLSearchParams({ url: site, matchType: "domain", output: "json", fl: "original,mimetype,statuscode,timestamp", filter: "statuscode:200", collapse: "urlkey", limit: "1500" });
+  const q = new URLSearchParams({ url: site, matchType: "domain", output: "json", fl: "original,mimetype,statuscode,timestamp", filter: "statuscode:200", collapse: "urlkey", limit: "1000" });
   const rows = (await getJson(ctx, `${WAYBACK()}/cdx/search/cdx?${q}`)) as string[][] | undefined;
   if (!Array.isArray(rows) || rows.length < 2) return "no archived URLs";
   const [header, ...data] = rows;

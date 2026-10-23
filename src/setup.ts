@@ -120,7 +120,7 @@ export async function setup(o: SetupOptions): Promise<number> {
       if (a.skillDir) installSkill(a.skillDir);
     }
   }
-  o.say(o.uninstall ? "removed — restart your agents" : "done — restart your agents so they load the MCP server and skill");
+  o.say(o.uninstall ? "removed; restart your agents" : "done; restart your agents so they load the MCP server and skill");
   return 0;
 }
 

@@ -1,0 +1,13 @@
+{
+  "page": {
+    "id": "2p66nmmycsj3",
+    "name": "Python Infrastructure",
+    "url": "https://status.python.org",
+    "time_zone": "Etc/UTC",
+    "updated_at": "2026-10-23T09:04:15.044Z"
+  },
+  "status": {
+    "indicator": "none",
+    "description": "All Systems Operational"
+  }
+}

@@ -15,7 +15,7 @@ import type { EndpointRecord, EvidenceRecord, Investigation, InvestigationInput 
 
 export function loadInvestigation(dir: string): Investigation {
   const p = join(resolve(dir), "investigation", "investigation.json");
-  if (!existsSync(p)) throw new Error(`no investigation at ${p} — run investigate first`);
+  if (!existsSync(p)) throw new Error(`no investigation at ${p}; run investigate first`);
   return JSON.parse(readFileSync(p, "utf8")) as Investigation;
 }
 
@@ -90,7 +90,7 @@ export function planIntegration(dir: string, opts: PlanOptions & { target?: stri
 
 export function readPlan(dir: string): IntegrationPlan {
   const p = join(resolve(dir), "architecture", "plan.json");
-  if (!existsSync(p)) throw new Error("no plan — run plan first");
+  if (!existsSync(p)) throw new Error("no plan; run plan first");
   return JSON.parse(readFileSync(p, "utf8")) as IntegrationPlan;
 }
 
@@ -120,7 +120,7 @@ export async function conformance(dir: string, opts: { baseUrl?: string; maxExam
   const reportDir = join(abs, "conformance");
   const r = await runConformance(doc, { ...opts, reportDir, auth: loadInvestigation(abs).input.auth });
   const fence = "`".repeat(3);
-  const md = [`# Conformance (Schemathesis) — ${r.status.toUpperCase()}`, "", `${r.operations} confirmed GET operations · positive inputs · rate limited`, "", r.command ? `Command: ${r.command}` : "", "", fence, r.output.replaceAll(fence, "'''"), fence, ""].join("\n");
+  const md = [`# Conformance (Schemathesis): ${r.status.toUpperCase()}`, "", `${r.operations} confirmed GET operations · positive inputs · rate limited`, "", r.command ? `Command: ${r.command}` : "", "", fence, r.output.replaceAll(fence, "'''"), fence, ""].join("\n");
   mkdirSync(reportDir, { recursive: true });
   const file = join(reportDir, "conformance.md");
   writeFileSync(file, md);

@@ -1,4 +1,4 @@
-// rea-from-api CLI. A thin layer over src/operations.ts — the MCP server
+// rea-from-api CLI. A thin layer over src/operations.ts; the MCP server
 // (src/mcp/server.ts) exposes the same operations with the same contracts.
 
 import { parseArgs } from "node:util";
@@ -9,7 +9,7 @@ import { findTool, TOOLS } from "./providers/external.ts";
 import { STRATEGIES } from "./strategies/index.ts";
 import { VERSION } from "./version.ts";
 
-const HELP = `rea-from-api ${VERSION} — reverse engineer how any website serves its data, prove it with evidence,
+const HELP = `rea-from-api ${VERSION}: reverse engineer how any website serves its data, prove it with evidence,
 and ship a tested client (TypeScript or Python). Powered by REA.
 
 Usage:
@@ -176,12 +176,12 @@ async function doctor(): Promise<number> {
   const chromium = findChromium();
   const [maj, min] = process.versions.node.split(".").map(Number) as [number, number];
   say(`node ${process.versions.node} ${maj > 22 || (maj === 22 && min >= 18) ? "ok" : "TOO OLD (need >= 22.18)"}`);
-  say(`REA CLI: ${rea.available ? `ok ${rea.version} (${rea.bin})` : `unavailable — ${rea.reason}`}`);
-  say(`Chromium: ${chromium ?? "not found — browser strategies disabled (set REA_FROM_API_CHROMIUM)"}`);
+  say(`REA CLI: ${rea.available ? `ok ${rea.version} (${rea.bin})` : `unavailable: ${rea.reason}`}`);
+  say(`Chromium: ${chromium ?? "not found (browser strategies disabled; set REA_FROM_API_CHROMIUM)"}`);
   say(`HTTPS proxy: ${process.env.HTTPS_PROXY || process.env.https_proxy ? "configured (passed to Chromium via wrapper)" : "none"}`);
   for (const t of Object.values(TOOLS)) {
     const bin = findTool(t.id);
-    say(`${t.id}: ${bin ? `ok (${bin})` : `optional, not installed — ${t.install}`}  · ${t.purpose}`);
+    say(`${t.id}: ${bin ? `ok (${bin})` : `optional, not installed: ${t.install}`}  · ${t.purpose}`);
   }
   say(`Strategies: ${STRATEGIES.map((s) => s.id).join(", ")}`);
   return 0;
@@ -218,7 +218,7 @@ async function doInvestigate(): Promise<{ code: number; dir: string }> {
     },
   );
   const s = ops.summarize(inv, out);
-  say(`\n${s.url} — ${s.appType}`);
+  say(`\n${s.url}: ${s.appType}`);
   say(`endpoints: ${s.counts.confirmed} confirmed · ${s.counts.observed} observed · ${s.counts.inferred} inferred · ${s.counts.unavailable} unavailable · embedded blocks: ${s.counts.embedded}`);
   for (const e of s.recommended) say(`  ✅ ${e.id}  ${e.method} ${e.url}  (relevance ${e.relevance}${e.pagination ? `, ${e.pagination}` : ""})`);
   for (const st of s.strategies) say(`  [${st.status}] ${st.id}: ${st.detail}`);

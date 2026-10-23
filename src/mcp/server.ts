@@ -53,7 +53,7 @@ export function createServer(): McpServer {
         node: process.versions.node,
         rea: rea.available ? { ok: true, version: rea.version } : { ok: false, reason: rea.reason },
         chromium: findChromium() ?? null,
-        engines: Object.fromEntries(Object.values(TOOLS).map((t) => [t.id, findTool(t.id) ? "available" : `not installed — ${t.install}`])),
+        engines: Object.fromEntries(Object.values(TOOLS).map((t) => [t.id, findTool(t.id) ? "available" : `not installed: ${t.install}`])),
         strategies: STRATEGIES.map((s) => ({ id: s.id, description: s.description })),
       };
     }),

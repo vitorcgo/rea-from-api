@@ -1,6 +1,6 @@
 // Turns an investigation into an integration plan + Mermaid diagram.
 // The diagram is rendered from the plan, which is exactly what the generator
-// consumes — so the diagram always reflects the code that gets generated.
+// consumes, so the diagram always reflects the code that gets generated.
 
 import { existsSync, readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -100,7 +100,7 @@ export function buildPlan(inv: Investigation, opts: PlanOptions = {}): Integrati
     if (chosen.includes(e)) continue;
     const reason =
       /graphql/i.test(e.bodyFormat ?? "") ? "GraphQL: schema exported (samples/graphql-schema-*.json); typed operations are not generated automatically"
-      : e.method !== "GET" ? "write operation — never generated automatically"
+      : e.method !== "GET" ? "write operation: never generated automatically"
       : e.status !== "confirmed" ? `not confirmed (${e.status}, test ${e.testStatus})`
       : e.responseFormat !== "json" ? `response format ${e.responseFormat}`
       : e.goalRelevance < minRel ? `low goal relevance (${e.goalRelevance})`
@@ -235,12 +235,12 @@ export function writePlan(dir: string, plan: IntegrationPlan): void {
 }
 
 export function renderPlanMd(p: IntegrationPlan): string {
-  const L = [`# Integration plan — ${p.name}`, "", `Goal: ${p.goal}`, "", `Strategy: **${p.strategy}** · language: ${p.language}`, ""];
+  const L = [`# Integration plan: ${p.name}`, "", `Goal: ${p.goal}`, "", `Strategy: **${p.strategy}** · language: ${p.language}`, ""];
   L.push("## Sources", "");
   for (const s of p.sources)
     L.push(`- \`${s.fnName}\` ← \`${s.method} ${s.urlTemplate}\` (${s.documented ? "documented" : "undocumented"}, ${s.status}, auth ${s.auth}${s.pagination ? `, pagination ${s.pagination.style}` : ""})`);
   for (const e of p.embedded) L.push(`- \`${e.fnName}\` ← ${e.kind} \`${e.selector}\` in ${e.pageUrl}`);
-  if (!p.sources.length && !p.embedded.length) L.push("- none — nothing confirmed is suitable; see investigation/findings.md");
+  if (!p.sources.length && !p.embedded.length) L.push("- none: nothing confirmed is suitable; see investigation/findings.md");
   L.push("", "## Execution order", "", p.executionOrder.map((x, i) => `${i + 1}. ${x}`).join("\n") || "_n/a_", "");
   if (p.dependencies.length) L.push("## Dependencies", "", ...p.dependencies.map((d) => `- ${d.to}({${d.param}}) uses \`${d.field}\` from ${d.from}`), "");
   L.push("## Transformations", "", ...(p.transformations.length ? p.transformations.map((t) => `- ${t}`) : ["- none"]), "");
@@ -384,7 +384,7 @@ export function detectTarget(root: string | undefined, name: string): TargetInfo
     const ts = existsSync(join(root, "tsconfig.json")) || !!pkg.devDependencies?.typescript || !!pkg.dependencies?.typescript;
     const dir = existsSync(join(root, "src")) ? join("src", "integrations", name) : join("integrations", name);
     if (!ts) notes.push("Project has no TypeScript config; generated .ts files need Node >= 22.18 (type stripping) or a TS toolchain.");
-    if (pkg.type !== "module") notes.push("Project is CommonJS; generated code is ESM — import it from ESM or a bundler.");
+    if (pkg.type !== "module") notes.push("Project is CommonJS; generated code is ESM; import it from ESM or a bundler.");
     return { kind: ts ? "node-ts" : "node-js", root, integrationDir: dir, moduleSystem: pkg.type === "module" ? "esm" : "cjs", notes };
   }
   if (existsSync(join(root, "pyproject.toml")) || existsSync(join(root, "requirements.txt")))

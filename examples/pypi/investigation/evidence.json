@@ -1,7 +1,7 @@
 [
   {
     "id": "ev-0001",
-    "at": "2026-10-23T07:08:19.259Z",
+    "at": "2026-10-23T09:06:44.642Z",
     "strategy": "html-static",
     "kind": "http-response",
     "source": "https://pypi.org/project/requests/",
@@ -13,7 +13,7 @@
   },
   {
     "id": "ev-0002",
-    "at": "2026-10-23T07:08:19.277Z",
+    "at": "2026-10-23T09:06:44.656Z",
     "strategy": "html-static",
     "kind": "html-analysis",
     "source": "https://pypi.org/project/requests/",
@@ -21,7 +21,7 @@
   },
   {
     "id": "ev-0003",
-    "at": "2026-10-23T07:08:19.279Z",
+    "at": "2026-10-23T09:06:44.658Z",
     "strategy": "html-static",
     "kind": "html-analysis",
     "source": "https://pypi.org/project/requests/",
@@ -29,7 +29,7 @@
   },
   {
     "id": "ev-0004",
-    "at": "2026-10-23T07:08:20.196Z",
+    "at": "2026-10-23T09:06:45.727Z",
     "strategy": "official-docs",
     "kind": "robots",
     "source": "https://pypi.org/robots.txt",
@@ -37,32 +37,104 @@
   },
   {
     "id": "ev-0005",
-    "at": "2026-10-23T07:08:26.954Z",
+    "at": "2026-10-23T09:07:12.270Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://pypi.org/0.sitemap.xml",
+    "summary": "Wayback Machine archived text/xml at 20200228"
+  },
+  {
+    "id": "ev-0006",
+    "at": "2026-10-23T09:07:12.271Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://pypi.org/0a.sitemap.xml",
+    "summary": "Wayback Machine archived text/xml at 20220624"
+  },
+  {
+    "id": "ev-0007",
+    "at": "2026-10-23T09:07:12.271Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://pypi.org/0b.sitemap.xml",
+    "summary": "Wayback Machine archived text/xml at 20220624"
+  },
+  {
+    "id": "ev-0008",
+    "at": "2026-10-23T09:07:12.271Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://pypi.org/0c.sitemap.xml",
+    "summary": "Wayback Machine archived text/xml at 20220624"
+  },
+  {
+    "id": "ev-0009",
+    "at": "2026-10-23T09:07:12.271Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://pypi.org/0d.sitemap.xml",
+    "summary": "Wayback Machine archived text/xml at 20220624"
+  },
+  {
+    "id": "ev-0010",
+    "at": "2026-10-23T09:07:12.271Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://pypi.org/0e.sitemap.xml",
+    "summary": "Wayback Machine archived text/xml at 20220624"
+  },
+  {
+    "id": "ev-0011",
+    "at": "2026-10-23T09:07:12.271Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://pypi.org/0f.sitemap.xml",
+    "summary": "Wayback Machine archived text/xml at 20220624"
+  },
+  {
+    "id": "ev-0012",
+    "at": "2026-10-23T09:07:12.272Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://pypi.org/_fs-ch-1T1wmsGaOgGaSxcX/fst-post-back",
+    "summary": "Wayback Machine archived application/json at 20241208"
+  },
+  {
+    "id": "ev-0013",
+    "at": "2026-10-23T09:07:29.981Z",
+    "strategy": "passive-sources",
+    "kind": "note",
+    "source": "https://docs.pypi.org",
+    "summary": "Certificate Transparency lists API-like host docs.pypi.org"
+  },
+  {
+    "id": "ev-0014",
+    "at": "2026-10-23T09:07:30.960Z",
     "strategy": "seeds",
     "kind": "note",
     "source": "https://pypi.org/pypi/{project:requests}/json",
     "summary": "Seed candidate supplied by caller: https://pypi.org/pypi/{project:requests}/json"
   },
   {
-    "id": "ev-0006",
-    "at": "2026-10-23T07:08:26.954Z",
+    "id": "ev-0015",
+    "at": "2026-10-23T09:07:30.961Z",
     "strategy": "seeds",
     "kind": "note",
     "source": "https://pypi.org/pypi/{project:requests}/{version:2.32.3}/json",
     "summary": "Seed candidate supplied by caller: https://pypi.org/pypi/{project:requests}/{version:2.32.3}/json"
   },
   {
-    "id": "ev-0007",
-    "at": "2026-10-23T07:08:34.568Z",
+    "id": "ev-0016",
+    "at": "2026-10-23T09:07:39.612Z",
     "strategy": "rea-browser",
     "kind": "rea-evidence",
     "source": "https://pypi.org/project/requests/",
-    "summary": "REA capture_browser_scenario: 54 requests, 27 responses, 22 bodies, 0 dropped events",
-    "reaEvidenceId": "ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b"
+    "summary": "REA capture_browser_scenario: 58 requests, 56 responses, 49 bodies, 0 dropped events",
+    "reaEvidenceId": "ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da"
   },
   {
-    "id": "ev-0008",
-    "at": "2026-10-23T07:08:34.569Z",
+    "id": "ev-0017",
+    "at": "2026-10-23T09:07:39.612Z",
     "strategy": "rea-browser",
     "kind": "browser-capture",
     "source": "https://pypi.org/_includes/unauthed/notification-banners/",
@@ -71,182 +143,90 @@
     "status": 200,
     "contentType": "text/html; charset=UTF-8",
     "excerpt": "  <div class=\"notification-bar notification-bar--dismissable\"\n       data-controller=\"notification\"\n       data-notification-target=\"notification\"\nid=\"7db75c59-4647-45e6-87f0-88b2f48e942b\">\n    <div class=\"notification-bar__container\">\n      <span class=\"notification-bar__icon\">\n        <i class=\"fa… [828 more chars]",
-    "reaEvidenceId": "ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b"
+    "reaEvidenceId": "ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da"
   },
   {
-    "id": "ev-0009",
-    "at": "2026-10-23T07:08:34.570Z",
+    "id": "ev-0018",
+    "at": "2026-10-23T09:07:39.613Z",
     "strategy": "rea-browser",
     "kind": "browser-capture",
     "source": "https://pypi.org/_includes/unauthed/flash-messages/",
     "summary": "GET https://pypi.org/_includes/unauthed/flash-messages/ → 200 (fetch, no body)",
     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "status": 200,
-    "reaEvidenceId": "ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b"
-  },
-  {
-    "id": "ev-0010",
-    "at": "2026-10-23T07:08:34.570Z",
-    "strategy": "rea-browser",
-    "kind": "browser-capture",
-    "source": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
-    "summary": "GET https://2p66nmmycsj3.statuspage.io/api/v2/status.json → no response (fetch, no body)",
-    "reaEvidenceId": "ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b"
-  },
-  {
-    "id": "ev-0011",
-    "at": "2026-10-23T07:08:34.570Z",
-    "strategy": "rea-browser",
-    "kind": "browser-capture",
-    "source": "https://api.github.com/repos/psf/requests",
-    "summary": "GET https://api.github.com/repos/psf/requests → 200 (fetch, application/json; charset=utf-8)",
-    "sha256": "d725ceb6f0ffe157b929e7a8552e25298ac284db8905dde70d892b46451de5e1",
-    "status": 200,
-    "contentType": "application/json; charset=utf-8",
-    "excerpt": "{\n  \"id\": 1362490,\n  \"node_id\": \"MDEwOlJlcG9zaXRvcnkxMzYyNDkw\",\n  \"name\": \"requests\",\n  \"full_name\": \"psf/requests\",\n  \"private\": false,\n  \"owner\": {\n    \"login\": \"psf\",\n    \"id\": 50630501,\n    \"node_id\": \"MDEyOk9yZ2FuaXphdGlvbjUwNjMwNTAx\",\n    \"avatar_url\": \"https://avatars.githubusercontent.com/u/… [6376 more chars]",
-    "reaEvidenceId": "ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b",
-    "samplePath": "samples/endpoint-get-171be125.json"
-  },
-  {
-    "id": "ev-0012",
-    "at": "2026-10-23T07:08:34.572Z",
-    "strategy": "rea-browser",
-    "kind": "browser-capture",
-    "source": "https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1",
-    "summary": "GET https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1 → 200 (fetch, application/json; charset=utf-8)",
-    "sha256": "d2bdddaa6d6a0e0932a878532c5e147b46ddddb0df29b5fdcc263792c3aa936f",
-    "status": 200,
-    "contentType": "application/json; charset=utf-8",
-    "excerpt": "{\"total_count\":156,\"incomplete_results\":false,\"items\":[{\"url\":\"https://api.github.com/repos/psf/requests/issues/7634\",\"repository_url\":\"https://api.github.com/repos/psf/requests\",\"labels_url\":\"https://api.github.com/repos/psf/requests/issues/7634/labels{/name}\",\"comments_url\":\"https://api.github.com… [4133 more chars]",
-    "reaEvidenceId": "ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b",
-    "samplePath": "samples/endpoint-get-7ec9e483.json"
-  },
-  {
-    "id": "ev-0013",
-    "at": "2026-10-23T07:08:34.574Z",
-    "strategy": "rea-browser",
-    "kind": "browser-capture",
-    "source": "https://api.github.com/repos/psf/requests",
-    "summary": "GET https://api.github.com/repos/psf/requests → 200 (fetch, application/json; charset=utf-8)",
-    "sha256": "d725ceb6f0ffe157b929e7a8552e25298ac284db8905dde70d892b46451de5e1",
-    "status": 200,
-    "contentType": "application/json; charset=utf-8",
-    "excerpt": "{\n  \"id\": 1362490,\n  \"node_id\": \"MDEwOlJlcG9zaXRvcnkxMzYyNDkw\",\n  \"name\": \"requests\",\n  \"full_name\": \"psf/requests\",\n  \"private\": false,\n  \"owner\": {\n    \"login\": \"psf\",\n    \"id\": 50630501,\n    \"node_id\": \"MDEyOk9yZ2FuaXphdGlvbjUwNjMwNTAx\",\n    \"avatar_url\": \"https://avatars.githubusercontent.com/u/… [6376 more chars]",
-    "reaEvidenceId": "ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b"
-  },
-  {
-    "id": "ev-0014",
-    "at": "2026-10-23T07:08:34.575Z",
-    "strategy": "rea-browser",
-    "kind": "browser-capture",
-    "source": "https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1",
-    "summary": "GET https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1 → 200 (fetch, application/json; charset=utf-8)",
-    "sha256": "d2bdddaa6d6a0e0932a878532c5e147b46ddddb0df29b5fdcc263792c3aa936f",
-    "status": 200,
-    "contentType": "application/json; charset=utf-8",
-    "excerpt": "{\"total_count\":156,\"incomplete_results\":false,\"items\":[{\"url\":\"https://api.github.com/repos/psf/requests/issues/7634\",\"repository_url\":\"https://api.github.com/repos/psf/requests\",\"labels_url\":\"https://api.github.com/repos/psf/requests/issues/7634/labels{/name}\",\"comments_url\":\"https://api.github.com… [4133 more chars]",
-    "reaEvidenceId": "ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b"
-  },
-  {
-    "id": "ev-0015",
-    "at": "2026-10-23T07:08:41.497Z",
-    "strategy": "rea-bundle",
-    "kind": "rea-evidence",
-    "source": "https://pypi.org/project/requests/",
-    "summary": "REA analyze_web_bundle: 3/3 scripts analysed, 8 inferences, 2 endpoint observations",
-    "reaEvidenceId": "ev_63015f6a422faa7c7cbc799ce50415f4e89f6171ea8c9338664364a5c90fc74f"
-  },
-  {
-    "id": "ev-0016",
-    "at": "2026-10-23T07:08:41.498Z",
-    "strategy": "rea-bundle",
-    "kind": "static-js",
-    "source": "https://pypi.org/project/requests/",
-    "summary": "REA endpoint candidate \"/manage/account/webauthn-provision/options\" (detector observation)",
-    "reaEvidenceId": "ev_63015f6a422faa7c7cbc799ce50415f4e89f6171ea8c9338664364a5c90fc74f"
-  },
-  {
-    "id": "ev-0017",
-    "at": "2026-10-23T07:08:41.498Z",
-    "strategy": "rea-bundle",
-    "kind": "static-js",
-    "source": "https://pypi.org/project/requests/",
-    "summary": "REA endpoint candidate \"/manage/account/webauthn-provision/validate\" (detector observation)",
-    "reaEvidenceId": "ev_63015f6a422faa7c7cbc799ce50415f4e89f6171ea8c9338664364a5c90fc74f"
-  },
-  {
-    "id": "ev-0018",
-    "at": "2026-10-23T07:08:42.529Z",
-    "strategy": "js-static",
-    "kind": "static-js",
-    "source": "https://pypi.org/static/js/warehouse.87bb959e.js",
-    "summary": "jsluice \"/_includes/authed/\" in https://pypi.org/static/js/warehouse.87bb959e.js",
-    "sha256": "cdd88b66bffe16f04e96db71bade7edc49874fc112bf3f394da30be63880b295",
-    "excerpt": "new URL(r,\"http://example.com\").pathname.startsWith"
+    "reaEvidenceId": "ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da"
   },
   {
     "id": "ev-0019",
-    "at": "2026-10-23T07:08:42.529Z",
-    "strategy": "js-static",
-    "kind": "static-js",
-    "source": "https://pypi.org/static/js/warehouse.87bb959e.js",
-    "summary": "jsluice \"/manage/account/webauthn-provision/options\" GET in https://pypi.org/static/js/warehouse.87bb959e.js",
-    "sha256": "cdd88b66bffe16f04e96db71bade7edc49874fc112bf3f394da30be63880b295",
-    "excerpt": "fetch"
+    "at": "2026-10-23T09:07:39.613Z",
+    "strategy": "rea-browser",
+    "kind": "browser-capture",
+    "source": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
+    "summary": "GET https://2p66nmmycsj3.statuspage.io/api/v2/status.json → 200 (fetch, application/json; charset=utf-8)",
+    "sha256": "edb91b9d71ea506a14e0e110443a8e57167a53a17f8c36552409a422b9ed9ab4",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "excerpt": "{\"page\":{\"id\":\"2p66nmmycsj3\",\"name\":\"Python Infrastructure\",\"url\":\"https://status.python.org\",\"time_zone\":\"Etc/UTC\",\"updated_at\":\"2026-10-23T09:04:15.044Z\"},\"status\":{\"indicator\":\"none\",\"description\":\"All Systems Operational\"}}",
+    "reaEvidenceId": "ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da",
+    "samplePath": "samples/endpoint-get-02a0d3ec.json"
   },
   {
     "id": "ev-0020",
-    "at": "2026-10-23T07:08:42.529Z",
-    "strategy": "js-static",
-    "kind": "static-js",
-    "source": "https://pypi.org/static/js/warehouse.87bb959e.js",
-    "summary": "jsluice \"/manage/account/webauthn-provision/validate\" POST in https://pypi.org/static/js/warehouse.87bb959e.js",
-    "sha256": "cdd88b66bffe16f04e96db71bade7edc49874fc112bf3f394da30be63880b295",
-    "excerpt": "fetch"
+    "at": "2026-10-23T09:07:39.614Z",
+    "strategy": "rea-browser",
+    "kind": "browser-capture",
+    "source": "https://api.github.com/repos/psf/requests",
+    "summary": "GET https://api.github.com/repos/psf/requests → 200 (fetch, application/json; charset=utf-8)",
+    "sha256": "68ce57273a054302713679d62a478fd1699205b0552bde112815117ec4131656",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "excerpt": "{\n  \"id\": 1362490,\n  \"node_id\": \"MDEwOlJlcG9zaXRvcnkxMzYyNDkw\",\n  \"name\": \"requests\",\n  \"full_name\": \"psf/requests\",\n  \"private\": false,\n  \"owner\": {\n    \"login\": \"psf\",\n    \"id\": 50630501,\n    \"node_id\": \"MDEyOk9yZ2FuaXphdGlvbjUwNjMwNTAx\",\n    \"avatar_url\": \"https://avatars.githubusercontent.com/u/… [6376 more chars]",
+    "reaEvidenceId": "ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da",
+    "samplePath": "samples/endpoint-get-171be125.json"
   },
   {
     "id": "ev-0021",
-    "at": "2026-10-23T07:08:42.529Z",
-    "strategy": "js-static",
-    "kind": "static-js",
-    "source": "https://pypi.org/static/js/warehouse.87bb959e.js",
-    "summary": "jsluice \"/manage/account\" GET in https://pypi.org/static/js/warehouse.87bb959e.js",
-    "sha256": "cdd88b66bffe16f04e96db71bade7edc49874fc112bf3f394da30be63880b295",
-    "excerpt": "locationReplacement"
+    "at": "2026-10-23T09:07:39.615Z",
+    "strategy": "rea-browser",
+    "kind": "browser-capture",
+    "source": "https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1",
+    "summary": "GET https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1 → 200 (fetch, application/json; charset=utf-8)",
+    "sha256": "1656f830b5f091da507fff4c90191ac5bfaa6122d9a73c1fdd96486edeab04ed",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "excerpt": "{\n  \"total_count\": 156,\n  \"incomplete_results\": false,\n  \"items\": [\n    {\n      \"url\": \"https://api.github.com/repos/psf/requests/issues/7634\",\n      \"repository_url\": \"https://api.github.com/repos/psf/requests\",\n      \"labels_url\": \"https://api.github.com/repos/psf/requests/issues/7634/labels{/name… [4848 more chars]",
+    "reaEvidenceId": "ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da",
+    "samplePath": "samples/endpoint-get-7ec9e483.json"
   },
   {
     "id": "ev-0022",
-    "at": "2026-10-23T07:08:42.529Z",
-    "strategy": "js-static",
-    "kind": "static-js",
-    "source": "https://pypi.org/static/js/warehouse.87bb959e.js",
-    "summary": "jsluice \"/account/webauthn-authenticate/options{param}\" GET in https://pypi.org/static/js/warehouse.87bb959e.js",
-    "sha256": "cdd88b66bffe16f04e96db71bade7edc49874fc112bf3f394da30be63880b295",
-    "excerpt": "fetch"
+    "at": "2026-10-23T09:07:39.616Z",
+    "strategy": "rea-browser",
+    "kind": "browser-capture",
+    "source": "https://api.github.com/repos/psf/requests",
+    "summary": "GET https://api.github.com/repos/psf/requests → 200 (fetch, application/json; charset=utf-8)",
+    "sha256": "68ce57273a054302713679d62a478fd1699205b0552bde112815117ec4131656",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "excerpt": "{\n  \"id\": 1362490,\n  \"node_id\": \"MDEwOlJlcG9zaXRvcnkxMzYyNDkw\",\n  \"name\": \"requests\",\n  \"full_name\": \"psf/requests\",\n  \"private\": false,\n  \"owner\": {\n    \"login\": \"psf\",\n    \"id\": 50630501,\n    \"node_id\": \"MDEyOk9yZ2FuaXphdGlvbjUwNjMwNTAx\",\n    \"avatar_url\": \"https://avatars.githubusercontent.com/u/… [6376 more chars]",
+    "reaEvidenceId": "ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da"
   },
   {
     "id": "ev-0023",
-    "at": "2026-10-23T07:08:42.529Z",
-    "strategy": "js-static",
-    "kind": "static-js",
-    "source": "https://pypi.org/static/js/warehouse.87bb959e.js",
-    "summary": "jsluice \"/account/login\" GET in https://pypi.org/static/js/warehouse.87bb959e.js",
-    "sha256": "cdd88b66bffe16f04e96db71bade7edc49874fc112bf3f394da30be63880b295",
-    "excerpt": "locationReplacement"
+    "at": "2026-10-23T09:07:39.617Z",
+    "strategy": "rea-browser",
+    "kind": "browser-capture",
+    "source": "https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1",
+    "summary": "GET https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1 → 200 (fetch, application/json; charset=utf-8)",
+    "sha256": "1656f830b5f091da507fff4c90191ac5bfaa6122d9a73c1fdd96486edeab04ed",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "excerpt": "{\n  \"total_count\": 156,\n  \"incomplete_results\": false,\n  \"items\": [\n    {\n      \"url\": \"https://api.github.com/repos/psf/requests/issues/7634\",\n      \"repository_url\": \"https://api.github.com/repos/psf/requests\",\n      \"labels_url\": \"https://api.github.com/repos/psf/requests/issues/7634/labels{/name… [4848 more chars]",
+    "reaEvidenceId": "ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da"
   },
   {
     "id": "ev-0024",
-    "at": "2026-10-23T07:08:42.529Z",
-    "strategy": "js-static",
-    "kind": "static-js",
-    "source": "https://pypi.org/static/js/warehouse.87bb959e.js",
-    "summary": "jsluice \"/account/webauthn-authenticate/validate{param}\" POST in https://pypi.org/static/js/warehouse.87bb959e.js",
-    "sha256": "cdd88b66bffe16f04e96db71bade7edc49874fc112bf3f394da30be63880b295",
-    "excerpt": "fetch"
-  },
-  {
-    "id": "ev-0025",
-    "at": "2026-10-23T07:08:42.529Z",
+    "at": "2026-10-23T09:07:48.853Z",
     "strategy": "js-static",
     "kind": "static-js",
     "source": "https://pypi.org/static/js/warehouse.87bb959e.js",
@@ -255,29 +235,8 @@
     "excerpt": " data: ${t.message||t}`),0)),e={method:\"GET\",mode:\"cors\"},s=`https://gitlab.com/api/v4/projects/${encodeURIComponent(this.repositoryValue)}`,r"
   },
   {
-    "id": "ev-0026",
-    "at": "2026-10-23T07:08:42.559Z",
-    "strategy": "verify",
-    "kind": "note",
-    "source": "https://pypi.org/pypi/requests/2.32.3/json",
-    "summary": "robots.txt disallows /pypi/requests/2.32.3/json for crawlers; called once because the caller declared it an officially documented API (--robots-exempt)"
-  },
-  {
-    "id": "ev-0027",
-    "at": "2026-10-23T07:08:42.723Z",
-    "strategy": "verify",
-    "kind": "verification",
-    "source": "https://pypi.org/pypi/requests/2.32.3/json",
-    "summary": "GET https://pypi.org/pypi/requests/2.32.3/json → 200 application/json",
-    "sha256": "f5190fe51e5a5d086db03fb57ce8c0f778fa53437808e164662a41f4da2f0c2f",
-    "status": 200,
-    "contentType": "application/json",
-    "excerpt": "{\"info\":{\"author\":\"Kenneth Reitz\",\"author_email\":\"me@kennethreitz.org\",\"bugtrack_url\":null,\"classifiers\":[\"Development Status :: 5 - Production/Stable\",\"Environment :: Web Environment\",\"Intended Audience :: Developers\",\"License :: OSI Approved :: Apache Software License\",\"Natural Language :: English… [9833 more chars]",
-    "samplePath": "samples/endpoint-get-d006766a.json"
-  },
-  {
-    "id": "ev-0028",
-    "at": "2026-10-23T07:08:43.021Z",
+    "id": "ev-0025",
+    "at": "2026-10-23T09:07:49.138Z",
     "strategy": "verify",
     "kind": "verification",
     "source": "https://pypi.org/_includes/unauthed/notification-banners/",
@@ -288,8 +247,8 @@
     "excerpt": "  <div class=\"notification-bar notification-bar--dismissable\"\n       data-controller=\"notification\"\n       data-notification-target=\"notification\"\nid=\"7db75c59-4647-45e6-87f0-88b2f48e942b\">\n    <div class=\"notification-bar__container\">\n      <span class=\"notification-bar__icon\">\n        <i class=\"fa… [828 more chars]"
   },
   {
-    "id": "ev-0029",
-    "at": "2026-10-23T07:08:43.321Z",
+    "id": "ev-0026",
+    "at": "2026-10-23T09:07:49.447Z",
     "strategy": "verify",
     "kind": "verification",
     "source": "https://pypi.org/_includes/unauthed/flash-messages/",
@@ -300,16 +259,112 @@
     "excerpt": ""
   },
   {
+    "id": "ev-0027",
+    "at": "2026-10-23T09:07:49.770Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/0.sitemap.xml",
+    "summary": "GET https://pypi.org/0.sitemap.xml → 200 text/xml; charset=UTF-8",
+    "sha256": "33f57ce73974cb669d46fcc9027a02c65647fc797b4cb9c86f503eea5ff11a62",
+    "status": 200,
+    "contentType": "text/xml; charset=UTF-8",
+    "excerpt": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n</urlset>"
+  },
+  {
+    "id": "ev-0028",
+    "at": "2026-10-23T09:07:50.094Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/0a.sitemap.xml",
+    "summary": "GET https://pypi.org/0a.sitemap.xml → 200 text/xml; charset=UTF-8",
+    "sha256": "47644b6692783de91f9e3f04a6bdb62030ae7c75b717357dd2b3a26f98cc1fc2",
+    "status": 200,
+    "contentType": "text/xml; charset=UTF-8",
+    "excerpt": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://pypi.org/project/0x01-autocert-dns-aliyun/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/128autograder-ipython/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/pro… [542833 more chars]"
+  },
+  {
+    "id": "ev-0029",
+    "at": "2026-10-23T09:07:50.394Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/0b.sitemap.xml",
+    "summary": "GET https://pypi.org/0b.sitemap.xml → 200 text/xml; charset=UTF-8",
+    "sha256": "0275501ebc372fbd43e4eeaff16853719e214bc251b6953d5ab54653ab83c756",
+    "status": 200,
+    "contentType": "text/xml; charset=UTF-8",
+    "excerpt": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://pypi.org/project/2023-assignment1-devops/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/36ke-py/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/3ms/</loc>… [548899 more chars]"
+  },
+  {
     "id": "ev-0030",
-    "at": "2026-10-23T07:08:43.322Z",
+    "at": "2026-10-23T09:07:50.705Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/0c.sitemap.xml",
+    "summary": "GET https://pypi.org/0c.sitemap.xml → 200 text/xml; charset=UTF-8",
+    "sha256": "2113449d6cc86307d74056e67220ea0700c760fa6afd69f323dee22e16818d13",
+    "status": 200,
+    "contentType": "text/xml; charset=UTF-8",
+    "excerpt": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://pypi.org/project/101703604-topsis/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/3ptest/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/9lives/</loc>\n  </… [543361 more chars]"
+  },
+  {
+    "id": "ev-0031",
+    "at": "2026-10-23T09:07:51.019Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/0d.sitemap.xml",
+    "summary": "GET https://pypi.org/0d.sitemap.xml → 200 text/xml; charset=UTF-8",
+    "sha256": "a05ef675bc289365b70fd2e6ea5bdb028b48a190d55ba07f780364dd7bdbb85c",
+    "status": 200,
+    "contentType": "text/xml; charset=UTF-8",
+    "excerpt": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://pypi.org/project/10xscale-agentflow/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/21x-sdk/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/3dvision/</loc>… [554457 more chars]"
+  },
+  {
+    "id": "ev-0032",
+    "at": "2026-10-23T09:07:51.331Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/0e.sitemap.xml",
+    "summary": "GET https://pypi.org/0e.sitemap.xml → 200 text/xml; charset=UTF-8",
+    "sha256": "495a93b35f67dc2c4a23d6014617aa436853a0b2570318722b94ee32fdc17203",
+    "status": 200,
+    "contentType": "text/xml; charset=UTF-8",
+    "excerpt": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://pypi.org/project/0x-python/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/1up-mcp/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/a-gis/</loc>\n  </url>\n  … [540148 more chars]"
+  },
+  {
+    "id": "ev-0033",
+    "at": "2026-10-23T09:07:51.642Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/0f.sitemap.xml",
+    "summary": "GET https://pypi.org/0f.sitemap.xml → 200 text/xml; charset=UTF-8",
+    "sha256": "de234b4261f501d986a2af9688a8092962a0102a8e42f5fa142a7c15fc0c8f31",
+    "status": 200,
+    "contentType": "text/xml; charset=UTF-8",
+    "excerpt": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://pypi.org/project/102053010/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/aas-core3-0-micropython/</loc>\n  </url>\n  <url>\n    <loc>https://pypi.org/project/ab-sdk/<… [542107 more chars]"
+  },
+  {
+    "id": "ev-0034",
+    "at": "2026-10-23T09:07:51.949Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/_fs-ch-1T1wmsGaOgGaSxcX/fst-post-back",
+    "summary": "GET https://pypi.org/_fs-ch-1T1wmsGaOgGaSxcX/fst-post-back → 405 text/plain; charset=utf-8",
+    "sha256": "555b372ed0338418597f4d85d252f25a461f79e7bc6fffdf73d6203570bba3af",
+    "status": 405,
+    "contentType": "text/plain; charset=utf-8",
+    "excerpt": "This method is not allowed\n"
+  },
+  {
+    "id": "ev-0035",
+    "at": "2026-10-23T09:07:51.949Z",
     "strategy": "verify",
     "kind": "note",
     "source": "https://pypi.org/pypi/requests/json",
     "summary": "robots.txt disallows /pypi/requests/json for crawlers; called once because the caller declared it an officially documented API (--robots-exempt)"
   },
   {
-    "id": "ev-0031",
-    "at": "2026-10-23T07:08:43.629Z",
+    "id": "ev-0036",
+    "at": "2026-10-23T09:07:52.266Z",
     "strategy": "verify",
     "kind": "verification",
     "source": "https://pypi.org/pypi/requests/json",
@@ -319,5 +374,26 @@
     "contentType": "application/json",
     "excerpt": "{\"info\":{\"author\":null,\"author_email\":\"Kenneth Reitz <me@kennethreitz.org>\",\"bugtrack_url\":null,\"classifiers\":[\"Development Status :: 5 - Production/Stable\",\"Environment :: Web Environment\",\"Intended Audience :: Developers\",\"License :: OSI Approved :: Apache Software License\",\"Natural Language :: En… [192661 more chars]",
     "samplePath": "samples/endpoint-get-d181f4ff.json"
+  },
+  {
+    "id": "ev-0037",
+    "at": "2026-10-23T09:07:52.284Z",
+    "strategy": "verify",
+    "kind": "note",
+    "source": "https://pypi.org/pypi/requests/2.32.3/json",
+    "summary": "robots.txt disallows /pypi/requests/2.32.3/json for crawlers; called once because the caller declared it an officially documented API (--robots-exempt)"
+  },
+  {
+    "id": "ev-0038",
+    "at": "2026-10-23T09:07:52.577Z",
+    "strategy": "verify",
+    "kind": "verification",
+    "source": "https://pypi.org/pypi/requests/2.32.3/json",
+    "summary": "GET https://pypi.org/pypi/requests/2.32.3/json → 200 application/json",
+    "sha256": "f5190fe51e5a5d086db03fb57ce8c0f778fa53437808e164662a41f4da2f0c2f",
+    "status": 200,
+    "contentType": "application/json",
+    "excerpt": "{\"info\":{\"author\":\"Kenneth Reitz\",\"author_email\":\"me@kennethreitz.org\",\"bugtrack_url\":null,\"classifiers\":[\"Development Status :: 5 - Production/Stable\",\"Environment :: Web Environment\",\"Intended Audience :: Developers\",\"License :: OSI Approved :: Apache Software License\",\"Natural Language :: English… [9833 more chars]",
+    "samplePath": "samples/endpoint-get-d006766a.json"
   }
 ]

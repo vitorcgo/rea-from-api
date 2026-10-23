@@ -151,7 +151,7 @@ export function classifyAppType(a: HtmlAnalysis, bodyText: string): string {
   const visibleText = bodyText.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
   const spaShell = visibleText.length < 200 && a.scripts.length > 0;
   const fw = a.tech.map((t) => t.name).filter((n) => /Next|Nuxt|React|Angular|Vue|Svelte/.test(n));
-  if (spaShell) return `client-rendered SPA shell${fw.length ? ` (${fw.join(", ")})` : ""} — data likely loaded via XHR/fetch`;
+  if (spaShell) return `client-rendered SPA shell${fw.length ? ` (${fw.join(", ")})` : ""}; data likely loaded via XHR/fetch`;
   if (fw.length) return `server-rendered/hydrated app (${fw.join(", ")})`;
   return "server-rendered HTML site";
 }

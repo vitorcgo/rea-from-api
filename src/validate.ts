@@ -5,7 +5,7 @@
 import { spawn } from "node:child_process";
 import { existsSync, writeFileSync, mkdtempSync, rmSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { IS_WINDOWS, commandFor, findOnPath, packageDir } from "./core/platform.ts";
 
@@ -108,8 +108,25 @@ export async function validateIntegration(integrationDir: string, opts: { live?:
   return finish(dir, checks, opts);
 }
 
-function finish(dir: string, checks: CheckResult[], opts: { live?: boolean; reportDir?: string }): ValidationReport {
-  const report: ValidationReport = { integrationDir: dir, at: new Date().toISOString(), live: !!opts.live, checks, ok: checks.every((c) => c.status !== "failed") };
+/**
+ * Reports get shared: the current directory becomes "." and the user's home
+ * directory (it contains their account name) becomes "~", so reports do not
+ * reveal the disk layout or the account name.
+ */
+export function hidePersonalPaths(text: string, cwd = process.cwd()): string {
+  let out = text;
+  const swap = (dir: string, placeholder: string) => {
+    if (!dir || dir.length < 3) return;
+    for (const v of new Set([dir, dir.replace(/\\/g, "/"), dir.replace(/\\/g, "\\\\")])) out = out.split(v).join(placeholder);
+  };
+  swap(cwd, ".");
+  swap(homedir(), "~");
+  return out;
+}
+
+function finish(dir: string, rawChecks: CheckResult[], opts: { live?: boolean; reportDir?: string }): ValidationReport {
+  const checks = rawChecks.map((c) => ({ ...c, command: c.command && hidePersonalPaths(c.command), output: hidePersonalPaths(c.output) }));
+  const report: ValidationReport = { integrationDir: hidePersonalPaths(dir), at: new Date().toISOString(), live: !!opts.live, checks, ok: checks.every((c) => c.status !== "failed") };
   const outDir = opts.reportDir ?? dir;
   writeFileSync(join(outDir, "validation.json"), `${JSON.stringify(report, null, 2)}\n`);
   writeFileSync(join(outDir, "validation.md"), renderValidation(report));
@@ -142,7 +159,7 @@ async function validatePython(dir: string, live: boolean): Promise<CheckResult[]
 }
 
 export function renderValidation(r: ValidationReport): string {
-  const L = [`# Validation — ${r.ok ? "PASSED" : "FAILED"}`, "", `Integration: \`${r.integrationDir}\` · ${r.at} · live: ${r.live}`, "", "| Check | Status | ms |", "|---|---|---|"];
+  const L = [`# Validation: ${r.ok ? "PASSED" : "FAILED"}`, "", `Integration: \`${r.integrationDir}\` · ${r.at} · live: ${r.live}`, "", "| Check | Status | ms |", "|---|---|---|"];
   for (const c of r.checks) L.push(`| ${c.name} | ${c.status} | ${c.durationMs} |`);
   L.push("");
   for (const c of r.checks) {

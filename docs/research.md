@@ -1,7 +1,7 @@
 # Research: what makes an API reverse-engineering tool genuinely useful
 
-Goal: make rea-from-api for **APIs** what REA is for binaries — one CLI + MCP server
-that an agent drives, with evidence for every claim — and connect it to the
+Goal: make rea-from-api for **APIs** what REA is for binaries (one CLI + MCP server
+that an agent drives, with evidence for every claim) and connect it to the
 ecosystem instead of re-inventing (or stopping at) a headless browser.
 
 ## 1. What REA does well (and we copy)
@@ -65,7 +65,7 @@ Ranked by value / risk. All are bounded, read-only, and recorded as evidence.
 ## 4. Validation beyond "the code compiles"
 
 1. Built-in replay + schema validation (exists).
-2. **Schemathesis** against the exported spec, GET-only, rate-limited, few examples —
+2. **Schemathesis** against the exported spec, GET-only, rate-limited, few examples:
    finds params/edge cases the samples never showed.
 3. **Drift monitoring**: re-verify later and diff schemas (built-in; oasdiff if present).
 4. **Spectral** lint of the exported spec (optional).

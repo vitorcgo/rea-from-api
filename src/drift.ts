@@ -105,7 +105,7 @@ export async function driftReport(before: Doc, after: Doc): Promise<DriftReport>
 }
 
 export function renderDrift(r: DriftReport, labelA: string, labelB: string): string {
-  const L = [`# Drift — ${labelA} → ${labelB}`, "", `**${r.breaking} breaking**, ${r.changes.filter((c) => c.level === "warning").length} warnings, ${r.changes.filter((c) => c.level === "info").length} info`, ""];
+  const L = [`# Drift: ${labelA} → ${labelB}`, "", `**${r.breaking} breaking**, ${r.changes.filter((c) => c.level === "warning").length} warnings, ${r.changes.filter((c) => c.level === "info").length} info`, ""];
   if (r.changes.length) {
     L.push("| Level | Where | Change |", "|---|---|---|");
     for (const c of r.changes) L.push(`| ${c.level} | \`${c.path}\` | ${c.message} |`);

@@ -1,117 +1,58 @@
-# Validation — PASSED
+# Validation: PASSED
 
-Integration: `/home/user/rea-from-api/examples/pypi/integration` · 2026-10-23T07:08:47.139Z · live: true
+Integration: `.\examples\pypi\integration` · 2026-10-23T09:08:14.671Z · live: true
 
 | Check | Status | ms |
 |---|---|---|
-| typecheck | passed | 1096 |
-| offline tests (recorded fixtures) | passed | 1312 |
-| live smoke tests | passed | 744 |
-| usage example | passed | 305 |
+| typecheck | passed | 1442 |
+| offline tests (recorded fixtures) | passed | 1498 |
+| live smoke tests | passed | 828 |
+| usage example | passed | 326 |
 
 ## offline tests (recorded fixtures)
 
-`/opt/node22/bin/node --test tests/schemas.test.ts tests/client.test.ts`
+`C:\Program Files\nodejs\node.exe --test tests/schemas.test.ts tests/client.test.ts`
 
 ```
-TAP version 13
-# Subtest: getPypiByProjectVersion returns validated data
-ok 1 - getPypiByProjectVersion returns validated data
-  ---
-  duration_ms: 36.643663
-  type: 'test'
-  ...
-# Subtest: getPypi returns validated data
-ok 2 - getPypi returns validated data
-  ---
-  duration_ms: 10.58867
-  type: 'test'
-  ...
-# Subtest: retries transient 503 then succeeds
-ok 3 - retries transient 503 then succeeds
-  ---
-  duration_ms: 257.611676
-  type: 'test'
-  ...
-# Subtest: gives up after maxRetries with HttpError
-ok 4 - gives up after maxRetries with HttpError
-  ---
-  duration_ms: 757.480775
-  type: 'test'
-  ...
-# Subtest: serves repeated calls from cache
-ok 5 - serves repeated calls from cache
-  ---
-  duration_ms: 4.396664
-  type: 'test'
-  ...
-# Subtest: PypiByProjectVersionResponse accepts the recorded response
-ok 6 - PypiByProjectVersionResponse accepts the recorded response
-  ---
-  duration_ms: 1.994772
-  type: 'test'
-  ...
-# Subtest: PypiByProjectVersionResponse rejects a drifted response
-ok 7 - PypiByProjectVersionResponse rejects a drifted response
-  ---
-  duration_ms: 0.490117
-  type: 'test'
-  ...
-# Subtest: PypiResponse accepts the recorded response
-ok 8 - PypiResponse accepts the recorded response
-  ---
-  duration_ms: 2.512303
-  type: 'test'
-  ...
-# Subtest: PypiResponse rejects a drifted response
-ok 9 - PypiResponse rejects a drifted response
-  ---
-  duration_ms: 0.215425
-  type: 'test'
-  ...
-1..9
-# tests 9
-# suites 0
-# pass 9
-# fail 0
-# cancelled 0
-# skipped 0
-# todo 0
-# duration_ms 1270.033855
+✔ getPypiByProjectVersion returns validated data (33.6165ms)
+✔ getPypi returns validated data (8.804ms)
+✔ retries transient 503 then succeeds (280.5832ms)
+✔ gives up after maxRetries with HttpError (806.2376ms)
+✔ serves repeated calls from cache (16.2034ms)
+✔ PypiByProjectVersionResponse accepts the recorded response (6.715ms)
+✔ PypiByProjectVersionResponse rejects a drifted response (0.6902ms)
+✔ PypiResponse accepts the recorded response (3.9196ms)
+✔ PypiResponse rejects a drifted response (0.2763ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1418.2814
 ```
 
 ## live smoke tests
 
-`/opt/node22/bin/node --test tests/live.test.ts`
+`C:\Program Files\nodejs\node.exe --test tests/live.test.ts`
 
 ```
-TAP version 13
-# Subtest: live: getPypiByProjectVersion
-ok 1 - live: getPypiByProjectVersion
-  ---
-  duration_ms: 99.932134
-  type: 'test'
-  ...
-# Subtest: live: getPypi
-ok 2 - live: getPypi
-  ---
-  duration_ms: 431.549262
-  type: 'test'
-  ...
-1..2
-# tests 2
-# suites 0
-# pass 2
-# fail 0
-# cancelled 0
-# skipped 0
-# todo 0
-# duration_ms 700.084814
+✔ live: getPypiByProjectVersion (122.4034ms)
+✔ live: getPypi (427.9856ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 749.6643
 ```
 
 ## usage example
 
-`/opt/node22/bin/node examples/basic.ts`
+`C:\Program Files\nodejs\node.exe examples/basic.ts`
 
 ```
 [ok] https://pypi.org/pypi/requests/2.32.3/json 200

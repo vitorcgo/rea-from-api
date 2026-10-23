@@ -95,7 +95,7 @@ export function redactJson(value: unknown, depth = 0): unknown {
   return value;
 }
 
-/** Header names only — values are never persisted. */
+/** Header names only, values are never persisted. */
 export function headerNames(headers: Headers | Record<string, string>): string[] {
   const names = headers instanceof Headers ? [...headers.keys()] : Object.keys(headers);
   return [...new Set(names.map((n) => n.toLowerCase()))].sort();

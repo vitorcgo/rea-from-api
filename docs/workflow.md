@@ -51,14 +51,14 @@ earlier (e.g. `items[0].id` → `/products/{id}` or `?product=`). It never guess
 |---|---|---|
 | direct requests | 60 | 500 |
 | wall clock | 5 min | 30 min |
-| per-request timeout | 15 s | — |
+| per-request timeout | 15 s | none |
 | retries (network, 502/503/504, 429 with Retry-After ≤ 10 s) | 2 | 4 |
-| per-host pacing | 300 ms | — |
-| body read | 2 MiB | — |
+| per-host pacing | 300 ms | none |
+| body read | 2 MiB | none |
 | scripts scanned | 15 | 60 |
-| spec probes | 10 | — |
+| spec probes | 10 | none |
 | pagination pages checked | 2 | 10 |
-| REA call timeout | 120 s | — |
+| REA call timeout | 120 s | none |
 
 A 429 without an acceptable Retry-After, or any bot challenge, stops all further
 requests to that host for the run.

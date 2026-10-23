@@ -1,6 +1,6 @@
-# Integration plan — pypi-json
+# Integration plan: pypi-json
 
-Goal: Discover how PyPI exposes public package metadata (versions, releases) and build a TypeScript integration
+Goal: public package metadata
 
 Strategy: **json-api** · language: typescript
 
@@ -42,22 +42,22 @@ Strategy: **json-api** · language: typescript
 
 ## Excluded endpoints
 
+- get-02a0d3ec: not confirmed (observed, test skipped-cross-origin)
 - get-171be125: not confirmed (observed, test skipped-cross-origin)
+- get-7ec9e483: not confirmed (observed, test skipped-cross-origin)
 - get-b0a2c059: response format binary
 - get-0ff29434: response format html
+- get-cfef48a4: response format xml
+- get-4ad0157e: response format xml
+- get-f7644fe6: response format xml
+- get-60d9518f: response format xml
+- get-677cafd7: response format xml
+- get-8681cd49: response format xml
+- get-837992e9: response format xml
 - get-aa82a775: response format html
-- get-bc3e279f: not confirmed (unavailable, test skipped-robots)
-- get-43f441ec: not confirmed (inferred, test skipped-sensitive-path)
-- get-2703a397: not confirmed (inferred, test skipped-sensitive-path)
-- post-9c20df45: write operation — never generated automatically
-- get-27e07e87: not confirmed (inferred, test skipped-sensitive-path)
-- get-04720b64: not confirmed (inferred, test skipped-sensitive-path)
-- get-c182d6ea: not confirmed (inferred, test skipped-sensitive-path)
-- post-ffcb4ba9: write operation — never generated automatically
-- get-88845aca: not confirmed (unavailable, test skipped-robots)
-- get-7ec9e483: not confirmed (observed, test skipped-cross-origin)
-- get-02a0d3ec: not confirmed (unavailable, test skipped-cross-origin)
 - get-7573cdc5: not confirmed (inferred, test skipped-cross-origin)
+- get-c8496205: not confirmed (unavailable, test failed)
+- get-88845aca: not confirmed (unavailable, test skipped-robots)
 
 ## Diagram
 

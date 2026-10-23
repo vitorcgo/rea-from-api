@@ -2,7 +2,7 @@
 
 All types: `src/core/types.ts`.
 
-## `investigation/endpoints.json` — `EndpointRecord[]`
+## `investigation/endpoints.json`: `EndpointRecord[]`
 
 | Field | Meaning |
 |---|---|
@@ -24,7 +24,7 @@ All types: `src/core/types.ts`.
 Status only moves *up* through merges (inferred → observed → confirmed); `verify`
 can move it to `unavailable` when a replay fails.
 
-## `investigation/evidence.json` — `EvidenceRecord[]`
+## `investigation/evidence.json`: `EvidenceRecord[]`
 
 `id`, `at`, `strategy`, `kind` (http-response, browser-capture, static-js,
 html-analysis, spec, robots, rea-evidence, har, verification, note), `source`,
@@ -32,7 +32,7 @@ html-analysis, spec, robots, rea-evidence, har, verification, note), `source`,
 a redacted ≤300-char `excerpt`, `reaEvidenceId` linking to REA's own Evidence object,
 and `samplePath` (redacted JSON in `samples/`).
 
-## `investigation/openapi.json` — OpenAPI 3.1
+## `investigation/openapi.json`: OpenAPI 3.1
 
 Confirmed, observed and documented operations become `paths`; weaker candidates are listed under
 `x-rea-from-api-candidates`. Each operation has `x-rea-from-api` with `id`, `status`, `testStatus`,
@@ -42,10 +42,10 @@ requests; response examples are trimmed samples. Other origins use path-level `s
 
 ## Other files
 
-- `investigation.json` — everything above plus app type, tech hints, embedded blocks,
+- `investigation.json`: everything above plus app type, tech hints, embedded blocks,
   strategy runs, limitations, budget used.
-- `progress.jsonl` — timestamped log of every request (URL redacted) and step.
-- `findings.md` — human report; site strings are escaped and treated as data.
-- `architecture/plan.json|plan.md|flow.mmd|data-models.ts` — the plan, its diagram
+- `progress.jsonl`: timestamped log of every request (URL redacted) and step.
+- `findings.md`: human report; site strings are escaped and treated as data.
+- `architecture/plan.json|plan.md|flow.mmd|data-models.ts`: the plan, its diagram
   and inferred types.
-- `validation.json|validation.md` — every check with command, duration and output.
+- `validation.json|validation.md`: every check with command, duration and output.

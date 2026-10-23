@@ -67,8 +67,8 @@ export const verify: Strategy = {
 };
 
 /**
- * Fills placeholders of a templated endpoint — path params and query values
- * like `?product={param}` — with real values taken from confirmed list
+ * Fills placeholders of a templated endpoint (path params and query values
+ * like `?product={param}`) with real values taken from confirmed list
  * responses (e.g. items[0].id from GET /products). Never guesses values that
  * were not observed.
  */

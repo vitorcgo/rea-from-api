@@ -1,6 +1,6 @@
 ---
 name: rea-from-api
-description: Reverse engineer how a website serves its data — publisher API catalogs (RFC 9727), OpenAPI/Swagger, framework data routes, APIs.guru, Wayback history, Certificate Transparency, REA browser capture and bundle analysis, jsluice + source maps, GraphQL introspection — verify every endpoint with evidence, export OpenAPI 3.1, then generate and test a TypeScript or Python client. Use when the user gives a URL plus a data goal. Not for bypassing auth, CAPTCHAs, anti-bot or rate limits.
+description: Reverse engineer how a website serves its data (RFC 9727 API catalogs, OpenAPI/Swagger, framework data routes, APIs.guru, Wayback history, Certificate Transparency, REA browser capture and bundle analysis, jsluice + source maps, GraphQL introspection), verify every endpoint with evidence, export OpenAPI 3.1, then generate and test a TypeScript or Python client. Use when the user gives a URL plus a data goal. Not for bypassing auth, CAPTCHAs, anti-bot or rate limits.
 metadata:
   version: "0.3.0"
 ---
@@ -44,7 +44,7 @@ CAPTCHA/anti-bot circumvention, load testing, vulnerability hunting.
 
 `doctor`. If REA or Chromium is missing, continue: 10 of 11 discovery strategies work without a
 browser; say that browser observation was skipped. Optional engines (`jsluice`, `schemathesis`,
-`oasdiff`, `mypy`) are reported with install commands — offer, never install without consent.
+`oasdiff`, `mypy`) are reported with install commands; offer them, never install without consent.
 
 ## 4. Investigate
 
@@ -62,7 +62,7 @@ Then read `findings.md` (or `list_endpoints`) and decide:
 - **API on another origin**: re-run with `allow_origins`. Same-site servers declared in official specs
   are allowed automatically.
 - **401/403 (`auth: required`)**: tell the user the API needs their own key; once they set the env var,
-  re-run with `auth`. "Rejected the provided credential" means wrong header/query/scope — check the
+  re-run with `auth`. "Rejected the provided credential" means wrong header/query/scope; check the
   provider's docs. Never look for keys in pages, bundles or traffic.
 - **Data needs interaction/login**: ask for a HAR of the user's own session (`har_path`).
 - **Nothing usable**: report it honestly with evidence ids. Never invent endpoints.
@@ -86,7 +86,7 @@ Schemathesis is available, `run_conformance` tests confirmed GET operations with
 rate limit. Report violations as contract gaps (e.g. "field can be null"), not as bugs of the site.
 Do not run conformance against third-party production APIs without the user's agreement.
 
-## 7. Plan — show before generating
+## 7. Plan: show before generating
 
 `plan_integration(dir, select?, target?, language?)` → show `plan.md` (sources, dependencies, order,
 pagination, auth, cache, pacing, risks) and the Mermaid diagram. GraphQL schemas are exported but typed
@@ -96,7 +96,7 @@ GraphQL clients are not generated; write operations are never generated.
 
 ## 8. Generate and validate (required before claiming success)
 
-`generate_integration(dir)` refuses to overwrite (exit 3) — show conflicts, ask, then `force`.
+`generate_integration(dir)` refuses to overwrite (exit 3): show conflicts, ask, then `force`.
 `validate_integration(integration_dir, live=true)`: TypeScript → tsc + node tests; Python → compileall,
 mypy (if installed), unittest. Fix failures (in generated code, or in the generator when it is a
 generator bug) and re-validate. Offline-only is not "fully verified": say what could not run and why.

@@ -11,7 +11,7 @@ Everything marked ✅ below was **executed in this environment**, not just read.
   are permissive; optional `frida` is LGPL-2.0 with WxWindows exception; Ghidra, JEB,
   Hopper, IDA etc. are *separately obtained* engines, not bundled).
 - REA's `DISCLAIMER.md` restricts use to lawful/authorized analysis and excludes
-  bypassing auth, bot protection or access controls — rea-from-api adopts the same line.
+  bypassing auth, bot protection or access controls; rea-from-api adopts the same line.
 
 ## Structure (relevant parts)
 

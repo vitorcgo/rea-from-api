@@ -60,13 +60,13 @@ function at(value: unknown, path: string): unknown {
 void at;
 void sameOrigin;
 
-/** GET https://pypi.org/pypi/{project}/{version}/json — documented; status at generation: confirmed. */
+/** GET https://pypi.org/pypi/{project}/{version}/json: documented; status at generation: confirmed. */
 export async function getPypiByProjectVersion(ctx: Ctx, path: { project: string | number; version: string | number }, query: Record<string, string | number> = {}, opts?: CallOptions): Promise<PypiByProjectVersionResponse> {
   const url = buildUrl(ctx, "https://pypi.org/pypi/{project}/{version}/json", path, query as Query);
   return cached(ctx, url, opts, async () => validatePypiByProjectVersionResponse((await ctx.http.get(url)).data));
 }
 
-/** GET https://pypi.org/pypi/{project}/json — documented; status at generation: confirmed. */
+/** GET https://pypi.org/pypi/{project}/json: documented; status at generation: confirmed. */
 export async function getPypi(ctx: Ctx, path: { project: string | number }, query: Record<string, string | number> = {}, opts?: CallOptions): Promise<PypiResponse> {
   const url = buildUrl(ctx, "https://pypi.org/pypi/{project}/json", path, query as Query);
   return cached(ctx, url, opts, async () => validatePypiResponse((await ctx.http.get(url)).data));

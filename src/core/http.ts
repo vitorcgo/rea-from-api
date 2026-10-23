@@ -1,7 +1,7 @@
 // The only path through which the investigator itself issues HTTP requests.
 // It enforces: request budget, wall-clock budget, per-host pacing, timeouts,
 // bounded retries, robots.txt for replays, read-only methods, body size caps,
-// and challenge/CAPTCHA detection (which stops — never bypasses).
+// and challenge/CAPTCHA detection (which stops, never bypasses).
 
 import { createHash } from "node:crypto";
 import type { Limits } from "./limits.ts";
@@ -55,6 +55,8 @@ export interface SafeFetchOptions {
   method?: "GET" | "HEAD" | "POST";
   /** Only GRAPHQL_INTROSPECTION_QUERY is accepted as a POST body. */
   graphqlIntrospection?: boolean;
+  /** Overrides the per-request timeout (slow third-party indexes such as the Wayback CDX API). */
+  timeoutMs?: number;
   accept?: string;
   /** Enforce robots.txt (default true). Discovery of robots.txt itself bypasses it. */
   respectRobots?: boolean;
@@ -160,7 +162,7 @@ export class SafeHttp {
         const res = await fetch(u, {
           method,
           redirect: "follow",
-          signal: AbortSignal.timeout(this.limits.requestTimeoutMs),
+          signal: AbortSignal.timeout(opts.timeoutMs ?? this.limits.requestTimeoutMs),
           headers: {
             "user-agent": USER_AGENT,
             accept: opts.accept ?? "*/*",

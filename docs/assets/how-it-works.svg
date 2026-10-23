@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" font-family="Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif">
+  <title>How rea-from-api works: discovery sources, read-only verification, evidence and OpenAPI, tested client</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7385"/>
+    </marker>
+    <style>
+      .card { fill: #161a23; stroke: #2a303d; stroke-width: 1.2; }
+      .src  { fill: #1b2130; stroke: #313a4d; stroke-width: 1; }
+      .h    { fill: #e6e9ef; font-size: 15px; font-weight: 600; }
+      .s    { fill: #9aa3b5; font-size: 12.5px; }
+      .tag  { fill: #7dd3fc; font-size: 11px; font-weight: 600; letter-spacing: .08em; }
+      .ok   { fill: #4ade80; font-size: 12.5px; font-weight: 600; }
+      .line { stroke: #6b7385; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="560" rx="18" fill="#0d1017"/>
+
+  <!-- Inputs -->
+  <text x="40" y="52" class="tag">INPUT</text>
+  <rect x="40" y="66" width="190" height="88" rx="12" class="card"/>
+  <text x="58" y="96" class="h">URL + goal</text>
+  <text x="58" y="118" class="s">"public product data"</text>
+  <text x="58" y="138" class="s">optional: your API key</text>
+
+  <!-- Discovery -->
+  <text x="290" y="52" class="tag">DISCOVERY · 11 STRATEGIES</text>
+  <g>
+    <rect x="290" y="66" width="250" height="62" rx="10" class="src"/>
+    <text x="306" y="92" class="h">Publisher</text>
+    <text x="306" y="113" class="s">api-catalog · OpenAPI · llms.txt</text>
+
+    <rect x="290" y="138" width="250" height="62" rx="10" class="src"/>
+    <text x="306" y="164" class="h">Passive history</text>
+    <text x="306" y="185" class="s">APIs.guru · Wayback · cert. logs</text>
+
+    <rect x="290" y="210" width="250" height="62" rx="10" class="src"/>
+    <text x="306" y="236" class="h">Framework routes</text>
+    <text x="306" y="257" class="s">Next.js · Nuxt · Shopify · Woo</text>
+
+    <rect x="290" y="282" width="250" height="62" rx="10" class="src"/>
+    <text x="306" y="308" class="h">Real browser traffic</text>
+    <text x="306" y="329" class="s">fetch / XHR with response bodies</text>
+
+    <rect x="290" y="354" width="250" height="62" rx="10" class="src"/>
+    <text x="306" y="380" class="h">JavaScript</text>
+    <text x="306" y="401" class="s">bundles · source maps · GraphQL</text>
+
+    <rect x="290" y="426" width="250" height="62" rx="10" class="src"/>
+    <text x="306" y="452" class="h">Your session</text>
+    <text x="306" y="473" class="s">HAR you recorded (offline)</text>
+  </g>
+
+  <!-- Verify -->
+  <text x="600" y="52" class="tag">PROOF</text>
+  <rect x="600" y="200" width="220" height="150" rx="12" class="card"/>
+  <text x="618" y="232" class="h">Verify</text>
+  <text x="618" y="256" class="s">read-only replay (GET)</text>
+  <text x="618" y="276" class="s">schema + pagination</text>
+  <text x="618" y="296" class="s">auth · rate limits · robots</text>
+  <text x="618" y="326" class="ok">confirmed / observed /</text>
+  <text x="618" y="342" class="ok" style="fill:#9aa3b5;font-weight:400">inferred / unavailable</text>
+
+  <!-- Outputs -->
+  <text x="880" y="52" class="tag">OUTPUT</text>
+  <rect x="880" y="66" width="280" height="96" rx="12" class="card"/>
+  <text x="898" y="96" class="h">Evidence report</text>
+  <text x="898" y="118" class="s">findings.md · evidence.json</text>
+  <text x="898" y="138" class="s">every endpoint with proof</text>
+
+  <rect x="880" y="182" width="280" height="96" rx="12" class="card"/>
+  <text x="898" y="212" class="h">OpenAPI 3.1</text>
+  <text x="898" y="234" class="s">conformance tests · drift monitor</text>
+  <text x="898" y="254" class="s">feeds any OpenAPI tool</text>
+
+  <rect x="880" y="298" width="280" height="190" rx="12" class="card"/>
+  <text x="898" y="328" class="h">Tested client for your app</text>
+  <text x="898" y="352" class="s">TypeScript or Python, no runtime deps</text>
+  <text x="898" y="374" class="s">types · validation · pagination</text>
+  <text x="898" y="396" class="s">cache · retries · your key from env</text>
+  <text x="898" y="430" class="ok" xml:space="preserve">✔ typecheck     ✔ offline tests</text>
+  <text x="898" y="452" class="ok" xml:space="preserve">✔ live tests    ✔ example runs</text>
+
+  <!-- Arrows -->
+  <path d="M230 110 C 260 110, 262 97, 288 97" class="line"/>
+  <path d="M540 97  C 575 97, 570 240, 598 248" class="line"/>
+  <path d="M540 169 C 572 169, 572 255, 598 262" class="line"/>
+  <path d="M540 241 C 568 241, 572 270, 598 275" class="line"/>
+  <path d="M540 313 C 568 313, 572 290, 598 288" class="line"/>
+  <path d="M540 385 C 572 385, 572 305, 598 302" class="line"/>
+  <path d="M540 457 C 575 457, 572 320, 598 316" class="line"/>
+  <path d="M820 250 C 850 250, 850 114, 878 114" class="line"/>
+  <path d="M820 270 C 850 270, 852 230, 878 230" class="line"/>
+  <path d="M820 300 C 850 300, 852 393, 878 393" class="line"/>
+</svg>

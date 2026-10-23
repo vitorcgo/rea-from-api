@@ -56,7 +56,7 @@ export function sameSite(a: string, b: string): boolean {
 
 export interface IngestOptions {
   strategy: string;
-  /** Fetching documentation from a third-party host (directory, CDN) — not the target. */
+  /** Fetching documentation from a third-party host (directory, CDN), not the target. */
   thirdParty?: boolean;
   label?: string;
 }

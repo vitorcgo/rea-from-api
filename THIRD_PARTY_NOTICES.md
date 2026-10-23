@@ -4,7 +4,7 @@ rea-from-api's own code is MIT (see `LICENSE`). It contains no copied third-part
 source code. The components below are used as separately installed dependencies and
 keep their own licenses.
 
-## REA — Reverse Engineer Anything (`rea-agents@6.7.0`, optional dependency)
+## REA: Reverse Engineer Anything (`rea-agents@6.7.0`, optional dependency)
 
 Invoked through its CLI (`capture-browser-scenario`, `analyze-web-bundle`,
 `list-browser-targets`, `inspect-web-network-capture`). Not modified, not vendored.
@@ -41,17 +41,17 @@ same boundaries (see `docs/safety.md`).
 
 ## Runtime npm dependencies
 
-- `@modelcontextprotocol/sdk@1.32.1` — MIT, © Anthropic, PBC (MCP server/client).
-- `zod@4` — MIT, © Colin McDonnell (MCP input schemas).
-- `yaml@2.9.1` — ISC, © Eemeli Aro (YAML OpenAPI documents).
+- `@modelcontextprotocol/sdk@1.32.1`: MIT, © Anthropic, PBC (MCP server/client).
+- `zod@4`: MIT, © Colin McDonnell (MCP input schemas).
+- `yaml@2.9.1`: ISC, © Eemeli Aro (YAML OpenAPI documents).
 
 Their transitive dependencies keep their own licenses (see `node_modules/*/LICENSE`).
 
 ## Development dependencies
 
-- `typescript@5.9.3` — Apache-2.0, © Microsoft Corporation.
-- `@types/node@22.20.5` — MIT, © DefinitelyTyped contributors.
-- `@seriousme/openapi-schema-validator@2.11.0` — MIT (validates exported OpenAPI in tests).
+- `typescript@5.9.3`: Apache-2.0, © Microsoft Corporation.
+- `@types/node@22.20.5`: MIT, © DefinitelyTyped contributors.
+- `@seriousme/openapi-schema-validator@2.11.0`: MIT (validates exported OpenAPI in tests).
 
 ## Optional external engines (detected, never bundled or auto-installed)
 
@@ -64,13 +64,13 @@ Their transitive dependencies keep their own licenses (see `node_modules/*/LICEN
 
 ## Third-party data services (passive discovery; only the domain name is sent)
 
-- [APIs.guru](https://apis.guru) OpenAPI directory — spec licenses vary per API.
-- [Internet Archive Wayback Machine](https://web.archive.org) CDX API — subject to the Internet Archive's terms.
-- [crt.sh](https://crt.sh) Certificate Transparency search — operated by Sectigo.
+- [APIs.guru](https://apis.guru) OpenAPI directory; spec licenses vary per API.
+- [Internet Archive Wayback Machine](https://web.archive.org) CDX API; subject to the Internet Archive's terms.
+- [crt.sh](https://crt.sh) Certificate Transparency search, operated by Sectigo.
 
 ## Runtime environment (not distributed)
 
-- Chromium / Playwright browsers — BSD-3-Clause and component licenses; supplied by
+- Chromium / Playwright browsers: BSD-3-Clause and component licenses; supplied by
   the user's environment, never downloaded by rea-from-api.
 - Generated integrations have **no runtime dependencies** beyond Node.js (TypeScript) or the Python standard library.
 

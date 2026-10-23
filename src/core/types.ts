@@ -6,7 +6,7 @@ export type EndpointStatus =
   | "confirmed"
   /** A real request/response was seen (browser capture, HAR, documented spec) but not replayed. */
   | "observed"
-  /** Only derived from static evidence (JS string literals, links) — no response seen. */
+  /** Only derived from static evidence (JS string literals, links), no response seen. */
   | "inferred"
   /** Tried and failed (auth, 4xx/5xx, blocked, robots disallow) or impossible to verify safely. */
   | "unavailable";
@@ -119,7 +119,7 @@ export interface EvidenceRecord {
   sha256?: string;
   status?: number;
   contentType?: string;
-  /** Truncated, redacted excerpt — untrusted site data, never instructions. */
+  /** Truncated, redacted excerpt, untrusted site data, never instructions. */
   excerpt?: string;
   /** Id of the REA Evidence object when the observation came from REA. */
   reaEvidenceId?: string;

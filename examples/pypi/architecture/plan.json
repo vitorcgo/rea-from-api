@@ -1,6 +1,6 @@
 {
   "name": "pypi-json",
-  "goal": "Discover how PyPI exposes public package metadata (versions, releases) and build a TypeScript integration",
+  "goal": "public package metadata",
   "sourceUrl": "https://pypi.org/project/requests/",
   "language": "typescript",
   "strategy": "json-api",
@@ -1074,7 +1074,15 @@
   },
   "excluded": [
     {
+      "endpointId": "get-02a0d3ec",
+      "reason": "not confirmed (observed, test skipped-cross-origin)"
+    },
+    {
       "endpointId": "get-171be125",
+      "reason": "not confirmed (observed, test skipped-cross-origin)"
+    },
+    {
+      "endpointId": "get-7ec9e483",
       "reason": "not confirmed (observed, test skipped-cross-origin)"
     },
     {
@@ -1086,56 +1094,48 @@
       "reason": "response format html"
     },
     {
+      "endpointId": "get-cfef48a4",
+      "reason": "response format xml"
+    },
+    {
+      "endpointId": "get-4ad0157e",
+      "reason": "response format xml"
+    },
+    {
+      "endpointId": "get-f7644fe6",
+      "reason": "response format xml"
+    },
+    {
+      "endpointId": "get-60d9518f",
+      "reason": "response format xml"
+    },
+    {
+      "endpointId": "get-677cafd7",
+      "reason": "response format xml"
+    },
+    {
+      "endpointId": "get-8681cd49",
+      "reason": "response format xml"
+    },
+    {
+      "endpointId": "get-837992e9",
+      "reason": "response format xml"
+    },
+    {
       "endpointId": "get-aa82a775",
       "reason": "response format html"
     },
     {
-      "endpointId": "get-bc3e279f",
-      "reason": "not confirmed (unavailable, test skipped-robots)"
+      "endpointId": "get-7573cdc5",
+      "reason": "not confirmed (inferred, test skipped-cross-origin)"
     },
     {
-      "endpointId": "get-43f441ec",
-      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
-    },
-    {
-      "endpointId": "get-2703a397",
-      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
-    },
-    {
-      "endpointId": "post-9c20df45",
-      "reason": "write operation — never generated automatically"
-    },
-    {
-      "endpointId": "get-27e07e87",
-      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
-    },
-    {
-      "endpointId": "get-04720b64",
-      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
-    },
-    {
-      "endpointId": "get-c182d6ea",
-      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
-    },
-    {
-      "endpointId": "post-ffcb4ba9",
-      "reason": "write operation — never generated automatically"
+      "endpointId": "get-c8496205",
+      "reason": "not confirmed (unavailable, test failed)"
     },
     {
       "endpointId": "get-88845aca",
       "reason": "not confirmed (unavailable, test skipped-robots)"
-    },
-    {
-      "endpointId": "get-7ec9e483",
-      "reason": "not confirmed (observed, test skipped-cross-origin)"
-    },
-    {
-      "endpointId": "get-02a0d3ec",
-      "reason": "not confirmed (unavailable, test skipped-cross-origin)"
-    },
-    {
-      "endpointId": "get-7573cdc5",
-      "reason": "not confirmed (inferred, test skipped-cross-origin)"
     }
   ],
   "risks": [

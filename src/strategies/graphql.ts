@@ -26,7 +26,7 @@ export const typeRefToString = (t: GqlTypeRef | null | undefined): string =>
 /**
  * GraphQL endpoints found by other strategies (traffic, JS, framework) get one
  * standard introspection query. If introspection is disabled the endpoint is
- * reported as such — schema guessing via field suggestions/wordlists is out of
+ * reported as such: schema guessing via field suggestions/wordlists is out of
  * scope by design (see docs/research.md).
  */
 export const graphql: Strategy = {

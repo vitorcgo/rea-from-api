@@ -243,7 +243,7 @@ function sourceFns(s: PlanSource): string[] {
   const pathArg = s.pathParams.length ? `path: { ${s.pathParams.map((x) => `${x}: string | number`).join("; ")} }, ` : "";
   const pathVal = s.pathParams.length ? "path" : "{}";
   const L = [
-    `/** ${s.method} ${s.urlTemplate} — ${s.documented ? "documented" : "undocumented (observed)"}; status at generation: ${s.status}. */`,
+    `/** ${s.method} ${s.urlTemplate}: ${s.documented ? "documented" : "undocumented (observed)"}; status at generation: ${s.status}. */`,
     `export async function ${s.fnName}(ctx: Ctx, ${pathArg}query: ${paramsType(s)} = {}, opts?: CallOptions): Promise<${s.typeName}> {`,
     `  const url = buildUrl(ctx, ${t}, ${pathVal}, query as Query);`,
     `  return cached(ctx, url, opts, async () => validate${s.typeName}((await ctx.http.get(url)).data));`,
@@ -613,9 +613,9 @@ Source: ${p.sourceUrl} · strategy: **${p.strategy}**
 
 ## Functions
 
-${p.sources.map((s) => `- \`${s.fnName}(${s.pathParams.length ? "path, " : ""}query?, opts?)\` → \`${s.typeName}\` — \`GET ${s.urlTemplate}\` (${s.documented ? "documented" : "undocumented"}, ${s.status})`).join("\n")}
-${p.sources.filter((s) => s.pagination).map((s) => `- \`iterate${s.fnName.charAt(0).toUpperCase()}${s.fnName.slice(1)}(…, { maxPages })\` — ${s.pagination!.style} pagination, bounded`).join("\n")}
-${p.embedded.map((e) => `- \`${e.fnName}(pageUrl?)\` → \`${e.typeName}\` — ${e.kind} \`${e.selector}\``).join("\n")}
+${p.sources.map((s) => `- \`${s.fnName}(${s.pathParams.length ? "path, " : ""}query?, opts?)\` → \`${s.typeName}\`: \`GET ${s.urlTemplate}\` (${s.documented ? "documented" : "undocumented"}, ${s.status})`).join("\n")}
+${p.sources.filter((s) => s.pagination).map((s) => `- \`iterate${s.fnName.charAt(0).toUpperCase()}${s.fnName.slice(1)}(…, { maxPages })\`: ${s.pagination!.style} pagination, bounded`).join("\n")}
+${p.embedded.map((e) => `- \`${e.fnName}(pageUrl?)\` → \`${e.typeName}\`: ${e.kind} \`${e.selector}\``).join("\n")}
 
 ## Install & run
 

@@ -1,11 +1,11 @@
 {
   "tool": {
     "name": "rea-from-api",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "input": {
     "url": "https://pypi.org/project/requests/",
-    "goal": "Discover how PyPI exposes public package metadata (versions, releases) and build a TypeScript integration",
+    "goal": "public package metadata",
     "seeds": [
       "https://pypi.org/pypi/{project:requests}/json",
       "https://pypi.org/pypi/{project:requests}/{version:2.32.3}/json"
@@ -17,8 +17,8 @@
     ],
     "passive": true
   },
-  "startedAt": "2026-10-23T07:08:18.923Z",
-  "finishedAt": "2026-10-23T07:08:43.652Z",
+  "startedAt": "2026-10-23T09:06:44.287Z",
+  "finishedAt": "2026-10-23T09:07:52.583Z",
   "appType": "server-rendered HTML site",
   "tech": [
     {
@@ -38,8 +38,8 @@
         "verify"
       ],
       "evidenceIds": [
-        "ev-0006",
-        "ev-0027"
+        "ev-0015",
+        "ev-0038"
       ],
       "purpose": "Read one pypi by project, version (inferred from URL shape)",
       "pathParams": [
@@ -60,7 +60,7 @@
       "notes": [
         "robots.txt disallows /pypi/requests/2.32.3/json for crawlers; called once because the caller declared it an officially documented API (--robots-exempt)"
       ],
-      "verifiedAt": "2026-10-23T07:08:42.722Z",
+      "verifiedAt": "2026-10-23T09:07:52.577Z",
       "contentType": "application/json",
       "schema": {
         "type": "object",
@@ -537,8 +537,8 @@
         "verify"
       ],
       "evidenceIds": [
-        "ev-0005",
-        "ev-0031"
+        "ev-0014",
+        "ev-0036"
       ],
       "purpose": "Read one pypi by project (inferred from URL shape)",
       "pathParams": [
@@ -558,7 +558,7 @@
       "notes": [
         "robots.txt disallows /pypi/requests/json for crawlers; called once because the caller declared it an officially documented API (--robots-exempt)"
       ],
-      "verifiedAt": "2026-10-23T07:08:43.628Z",
+      "verifiedAt": "2026-10-23T09:07:52.265Z",
       "contentType": "application/json",
       "schema": {
         "type": "object",
@@ -1094,6 +1094,100 @@
       }
     },
     {
+      "id": "get-02a0d3ec",
+      "method": "GET",
+      "urlTemplate": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
+      "exampleUrl": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
+      "origin": "https://2p66nmmycsj3.statuspage.io",
+      "discoveredBy": [
+        "rea-browser"
+      ],
+      "evidenceIds": [
+        "ev-0019",
+        "ev-0016"
+      ],
+      "purpose": "List/read status.json (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "unknown",
+      "responseFormat": "json",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "observed",
+      "testStatus": "skipped-cross-origin",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.15,
+      "notes": [
+        "Third-party request seen in browser traffic"
+      ],
+      "contentType": "application/json; charset=utf-8",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "samples": 1
+              },
+              "name": {
+                "type": "string",
+                "samples": 1
+              },
+              "url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "time_zone": {
+                "type": "string",
+                "samples": 1
+              },
+              "updated_at": {
+                "type": "string",
+                "samples": 1,
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "url",
+              "time_zone",
+              "updated_at"
+            ],
+            "samples": 1
+          },
+          "status": {
+            "type": "object",
+            "properties": {
+              "indicator": {
+                "type": "string",
+                "samples": 1
+              },
+              "description": {
+                "type": "string",
+                "samples": 1
+              }
+            },
+            "required": [
+              "indicator",
+              "description"
+            ],
+            "samples": 1
+          }
+        },
+        "required": [
+          "page",
+          "status"
+        ],
+        "samples": 1
+      }
+    },
+    {
       "id": "get-171be125",
       "method": "GET",
       "urlTemplate": "https://api.github.com/repos/psf/requests",
@@ -1103,9 +1197,9 @@
         "rea-browser"
       ],
       "evidenceIds": [
-        "ev-0011",
-        "ev-0007",
-        "ev-0013"
+        "ev-0020",
+        "ev-0016",
+        "ev-0022"
       ],
       "purpose": "List/read requests (inferred from URL shape)",
       "pathParams": [],
@@ -1119,7 +1213,7 @@
       "testStatus": "skipped-cross-origin",
       "confidence": "medium",
       "documented": false,
-      "goalRelevance": 0.35,
+      "goalRelevance": 0.15,
       "notes": [
         "Third-party request seen in browser traffic"
       ],
@@ -1867,382 +1961,6 @@
       }
     },
     {
-      "id": "get-b0a2c059",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/_includes/unauthed/flash-messages/",
-      "exampleUrl": "https://pypi.org/_includes/unauthed/flash-messages/",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "rea-browser",
-        "verify"
-      ],
-      "evidenceIds": [
-        "ev-0009",
-        "ev-0007",
-        "ev-0029"
-      ],
-      "purpose": "List/read flash-messages (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "none",
-      "responseFormat": "binary",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "confirmed",
-      "testStatus": "passed",
-      "confidence": "medium",
-      "documented": false,
-      "goalRelevance": 0.3,
-      "notes": [
-        "Seen in browser traffic (REA ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b)"
-      ],
-      "rateLimit": {
-        "retry-after": "0"
-      },
-      "verifiedAt": "2026-10-23T07:08:43.321Z",
-      "contentType": ""
-    },
-    {
-      "id": "get-0ff29434",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/_includes/unauthed/notification-banners/",
-      "exampleUrl": "https://pypi.org/_includes/unauthed/notification-banners/",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "rea-browser",
-        "verify"
-      ],
-      "evidenceIds": [
-        "ev-0008",
-        "ev-0007",
-        "ev-0028"
-      ],
-      "purpose": "List/read notification-banners (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "none",
-      "responseFormat": "html",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "confirmed",
-      "testStatus": "passed",
-      "confidence": "medium",
-      "documented": false,
-      "goalRelevance": 0.3,
-      "notes": [
-        "Seen in browser traffic (REA ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b)"
-      ],
-      "contentType": "text/html; charset=UTF-8",
-      "verifiedAt": "2026-10-23T07:08:43.021Z"
-    },
-    {
-      "id": "get-aa82a775",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/project/requests/",
-      "exampleUrl": "https://pypi.org/project/requests/",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "html-static"
-      ],
-      "evidenceIds": [
-        "ev-0001"
-      ],
-      "purpose": "Public HTML page \"requests · PyPI\"",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "none",
-      "responseFormat": "html",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "confirmed",
-      "testStatus": "passed",
-      "confidence": "high",
-      "documented": false,
-      "goalRelevance": 0.3,
-      "notes": [],
-      "contentType": "text/html; charset=UTF-8",
-      "verifiedAt": "2026-10-23T07:08:19.277Z"
-    },
-    {
-      "id": "get-bc3e279f",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/_includes/authed/",
-      "exampleUrl": "https://pypi.org/_includes/authed/",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "js-static"
-      ],
-      "evidenceIds": [
-        "ev-0018"
-      ],
-      "purpose": "List/read authed (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "unavailable",
-      "testStatus": "skipped-robots",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "Found in JavaScript; not seen on the wire",
-        "robots.txt disallows /_includes/authed/"
-      ]
-    },
-    {
-      "id": "get-43f441ec",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/account/login",
-      "exampleUrl": "https://pypi.org/account/login",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "js-static"
-      ],
-      "evidenceIds": [
-        "ev-0023"
-      ],
-      "purpose": "List/read login (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "id": "get-2703a397",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/account/webauthn-authenticate/options{param}",
-      "exampleUrl": "https://pypi.org/account/webauthn-authenticate/options%7Bparam%7D",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "js-static"
-      ],
-      "evidenceIds": [
-        "ev-0022"
-      ],
-      "purpose": "Read one options{param} by param (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "id": "post-9c20df45",
-      "method": "POST",
-      "urlTemplate": "https://pypi.org/account/webauthn-authenticate/validate{param}",
-      "exampleUrl": "https://pypi.org/account/webauthn-authenticate/validate%7Bparam%7D",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "js-static"
-      ],
-      "evidenceIds": [
-        "ev-0024"
-      ],
-      "purpose": "POST validate{param} (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "inferred",
-      "testStatus": "skipped-unsafe-method",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "id": "get-27e07e87",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/manage/account",
-      "exampleUrl": "https://pypi.org/manage/account",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "js-static"
-      ],
-      "evidenceIds": [
-        "ev-0021"
-      ],
-      "purpose": "List/read account (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "id": "get-04720b64",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/manage/account/webauthn-provision/options",
-      "exampleUrl": "https://pypi.org/manage/account/webauthn-provision/options",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "rea-bundle",
-        "js-static"
-      ],
-      "evidenceIds": [
-        "ev-0016",
-        "ev-0015",
-        "ev-0019"
-      ],
-      "purpose": "List/read options (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "REA static bundle candidate; does not prove the call executes",
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "id": "get-c182d6ea",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/manage/account/webauthn-provision/validate",
-      "exampleUrl": "https://pypi.org/manage/account/webauthn-provision/validate",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "rea-bundle"
-      ],
-      "evidenceIds": [
-        "ev-0017",
-        "ev-0015"
-      ],
-      "purpose": "List/read validate (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "inferred",
-      "testStatus": "skipped-sensitive-path",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "REA static bundle candidate; does not prove the call executes"
-      ]
-    },
-    {
-      "id": "post-ffcb4ba9",
-      "method": "POST",
-      "urlTemplate": "https://pypi.org/manage/account/webauthn-provision/validate",
-      "exampleUrl": "https://pypi.org/manage/account/webauthn-provision/validate",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "js-static"
-      ],
-      "evidenceIds": [
-        "ev-0020"
-      ],
-      "purpose": "POST validate (inferred from URL shape)",
-      "pathParams": [],
-      "queryParams": [],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [],
-      "errorsObserved": [],
-      "status": "inferred",
-      "testStatus": "skipped-unsafe-method",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "Found in JavaScript; not seen on the wire"
-      ]
-    },
-    {
-      "id": "get-88845aca",
-      "method": "GET",
-      "urlTemplate": "https://pypi.org/search/",
-      "exampleUrl": "https://pypi.org/search/?q=",
-      "origin": "https://pypi.org",
-      "discoveredBy": [
-        "html-static"
-      ],
-      "evidenceIds": [
-        "ev-0002",
-        "ev-0003"
-      ],
-      "purpose": "HTML search/filter form (q)",
-      "pathParams": [],
-      "queryParams": [
-        {
-          "name": "q",
-          "role": "search"
-        }
-      ],
-      "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
-      "filters": [
-        "q"
-      ],
-      "errorsObserved": [],
-      "status": "unavailable",
-      "testStatus": "skipped-robots",
-      "confidence": "low",
-      "documented": false,
-      "goalRelevance": 0.2,
-      "notes": [
-        "Derived from a GET <form>; response format unknown until verified",
-        "robots.txt disallows /search/"
-      ]
-    },
-    {
       "id": "get-7ec9e483",
       "method": "GET",
       "urlTemplate": "https://api.github.com/search/issues",
@@ -2252,9 +1970,9 @@
         "rea-browser"
       ],
       "evidenceIds": [
-        "ev-0012",
-        "ev-0007",
-        "ev-0014"
+        "ev-0021",
+        "ev-0016",
+        "ev-0023"
       ],
       "purpose": "List/read issues (inferred from URL shape)",
       "pathParams": [],
@@ -2724,34 +2442,335 @@
       }
     },
     {
-      "id": "get-02a0d3ec",
+      "id": "get-b0a2c059",
       "method": "GET",
-      "urlTemplate": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
-      "exampleUrl": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
-      "origin": "https://2p66nmmycsj3.statuspage.io",
+      "urlTemplate": "https://pypi.org/_includes/unauthed/flash-messages/",
+      "exampleUrl": "https://pypi.org/_includes/unauthed/flash-messages/",
+      "origin": "https://pypi.org",
       "discoveredBy": [
-        "rea-browser"
+        "rea-browser",
+        "verify"
       ],
       "evidenceIds": [
-        "ev-0010",
-        "ev-0007"
+        "ev-0018",
+        "ev-0016",
+        "ev-0026"
       ],
-      "purpose": "List/read status.json (inferred from URL shape)",
+      "purpose": "List/read flash-messages (inferred from URL shape)",
       "pathParams": [],
       "queryParams": [],
       "requiredHeaders": [],
-      "auth": "unknown",
-      "responseFormat": "unknown",
+      "auth": "none",
+      "responseFormat": "binary",
       "filters": [],
       "errorsObserved": [],
-      "status": "unavailable",
-      "testStatus": "skipped-cross-origin",
-      "confidence": "low",
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
       "documented": false,
-      "goalRelevance": 0,
+      "goalRelevance": 0.1,
       "notes": [
-        "Third-party request seen in browser traffic"
-      ]
+        "Seen in browser traffic (REA ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da)"
+      ],
+      "rateLimit": {
+        "retry-after": "0"
+      },
+      "verifiedAt": "2026-10-23T09:07:49.447Z",
+      "contentType": ""
+    },
+    {
+      "id": "get-0ff29434",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/_includes/unauthed/notification-banners/",
+      "exampleUrl": "https://pypi.org/_includes/unauthed/notification-banners/",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "rea-browser",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0017",
+        "ev-0016",
+        "ev-0025"
+      ],
+      "purpose": "List/read notification-banners (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "html",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [
+        "Seen in browser traffic (REA ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da)"
+      ],
+      "contentType": "text/html; charset=UTF-8",
+      "verifiedAt": "2026-10-23T09:07:49.138Z"
+    },
+    {
+      "id": "get-cfef48a4",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/0.sitemap.xml",
+      "exampleUrl": "https://pypi.org/0.sitemap.xml",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "wayback",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0005",
+        "ev-0027"
+      ],
+      "purpose": "List/read 0.sitemap.xml (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "xml",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [
+        "Historical URL from the Wayback Machine (2020); may no longer exist"
+      ],
+      "verifiedAt": "2026-10-23T09:07:49.770Z",
+      "contentType": "text/xml; charset=UTF-8"
+    },
+    {
+      "id": "get-4ad0157e",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/0a.sitemap.xml",
+      "exampleUrl": "https://pypi.org/0a.sitemap.xml",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "wayback",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0006",
+        "ev-0028"
+      ],
+      "purpose": "List/read 0a.sitemap.xml (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "xml",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [
+        "Historical URL from the Wayback Machine (2022); may no longer exist"
+      ],
+      "verifiedAt": "2026-10-23T09:07:50.092Z",
+      "contentType": "text/xml; charset=UTF-8"
+    },
+    {
+      "id": "get-f7644fe6",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/0b.sitemap.xml",
+      "exampleUrl": "https://pypi.org/0b.sitemap.xml",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "wayback",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0007",
+        "ev-0029"
+      ],
+      "purpose": "List/read 0b.sitemap.xml (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "xml",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [
+        "Historical URL from the Wayback Machine (2022); may no longer exist"
+      ],
+      "verifiedAt": "2026-10-23T09:07:50.392Z",
+      "contentType": "text/xml; charset=UTF-8"
+    },
+    {
+      "id": "get-60d9518f",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/0c.sitemap.xml",
+      "exampleUrl": "https://pypi.org/0c.sitemap.xml",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "wayback",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0008",
+        "ev-0030"
+      ],
+      "purpose": "List/read 0c.sitemap.xml (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "xml",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [
+        "Historical URL from the Wayback Machine (2022); may no longer exist"
+      ],
+      "verifiedAt": "2026-10-23T09:07:50.703Z",
+      "contentType": "text/xml; charset=UTF-8"
+    },
+    {
+      "id": "get-677cafd7",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/0d.sitemap.xml",
+      "exampleUrl": "https://pypi.org/0d.sitemap.xml",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "wayback",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0009",
+        "ev-0031"
+      ],
+      "purpose": "List/read 0d.sitemap.xml (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "xml",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [
+        "Historical URL from the Wayback Machine (2022); may no longer exist"
+      ],
+      "verifiedAt": "2026-10-23T09:07:51.017Z",
+      "contentType": "text/xml; charset=UTF-8"
+    },
+    {
+      "id": "get-8681cd49",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/0e.sitemap.xml",
+      "exampleUrl": "https://pypi.org/0e.sitemap.xml",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "wayback",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0010",
+        "ev-0032"
+      ],
+      "purpose": "List/read 0e.sitemap.xml (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "xml",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [
+        "Historical URL from the Wayback Machine (2022); may no longer exist"
+      ],
+      "verifiedAt": "2026-10-23T09:07:51.329Z",
+      "contentType": "text/xml; charset=UTF-8"
+    },
+    {
+      "id": "get-837992e9",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/0f.sitemap.xml",
+      "exampleUrl": "https://pypi.org/0f.sitemap.xml",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "wayback",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0011",
+        "ev-0033"
+      ],
+      "purpose": "List/read 0f.sitemap.xml (inferred from URL shape)",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "xml",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "medium",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [
+        "Historical URL from the Wayback Machine (2022); may no longer exist"
+      ],
+      "verifiedAt": "2026-10-23T09:07:51.640Z",
+      "contentType": "text/xml; charset=UTF-8"
+    },
+    {
+      "id": "get-aa82a775",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/project/requests/",
+      "exampleUrl": "https://pypi.org/project/requests/",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "html-static"
+      ],
+      "evidenceIds": [
+        "ev-0001"
+      ],
+      "purpose": "Public HTML page \"requests · PyPI\"",
+      "pathParams": [],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "none",
+      "responseFormat": "html",
+      "filters": [],
+      "errorsObserved": [],
+      "status": "confirmed",
+      "testStatus": "passed",
+      "confidence": "high",
+      "documented": false,
+      "goalRelevance": 0.1,
+      "notes": [],
+      "contentType": "text/html; charset=UTF-8",
+      "verifiedAt": "2026-10-23T09:06:44.656Z"
     },
     {
       "id": "get-7573cdc5",
@@ -2763,7 +2782,7 @@
         "js-static"
       ],
       "evidenceIds": [
-        "ev-0025"
+        "ev-0024"
       ],
       "purpose": "Read one projects by param (inferred from URL shape)",
       "pathParams": [
@@ -2783,6 +2802,83 @@
       "notes": [
         "Third-party URL in JavaScript"
       ]
+    },
+    {
+      "id": "get-c8496205",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/{resourceId}/fst-post-back",
+      "exampleUrl": "https://pypi.org/_fs-ch-1T1wmsGaOgGaSxcX/fst-post-back",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "wayback",
+        "verify"
+      ],
+      "evidenceIds": [
+        "ev-0012",
+        "ev-0034"
+      ],
+      "purpose": "Read one fst-post-back by resourceId (inferred from URL shape)",
+      "pathParams": [
+        "resourceId"
+      ],
+      "queryParams": [],
+      "requiredHeaders": [],
+      "auth": "unknown",
+      "responseFormat": "unknown",
+      "filters": [],
+      "errorsObserved": [
+        {
+          "status": 405,
+          "at": "2026-10-23T09:07:51.949Z"
+        }
+      ],
+      "status": "unavailable",
+      "testStatus": "failed",
+      "confidence": "low",
+      "documented": false,
+      "goalRelevance": 0,
+      "notes": [
+        "Historical URL from the Wayback Machine (2024); may no longer exist"
+      ],
+      "verifiedAt": "2026-10-23T09:07:51.949Z"
+    },
+    {
+      "id": "get-88845aca",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/search/",
+      "exampleUrl": "https://pypi.org/search/?q=",
+      "origin": "https://pypi.org",
+      "discoveredBy": [
+        "html-static"
+      ],
+      "evidenceIds": [
+        "ev-0002",
+        "ev-0003"
+      ],
+      "purpose": "HTML search/filter form (q)",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "q",
+          "role": "search"
+        }
+      ],
+      "requiredHeaders": [],
+      "auth": "unknown",
+      "responseFormat": "unknown",
+      "filters": [
+        "q"
+      ],
+      "errorsObserved": [],
+      "status": "unavailable",
+      "testStatus": "skipped-robots",
+      "confidence": "low",
+      "documented": false,
+      "goalRelevance": 0,
+      "notes": [
+        "Derived from a GET <form>; response format unknown until verified",
+        "robots.txt disallows /search/"
+      ]
     }
   ],
   "embedded": [],
@@ -2791,13 +2887,13 @@
       "id": "html-static",
       "status": "ok",
       "detail": "HTTP 200; 6 scripts, 0 embedded data blocks, 4 doc/API links, 3 forms",
-      "durationMs": 355
+      "durationMs": 369
     },
     {
       "id": "well-known",
       "status": "ok",
       "detail": "no api-catalog, Link service-desc, ai-plugin.json or llms.txt",
-      "durationMs": 917
+      "durationMs": 1065
     },
     {
       "id": "official-docs",
@@ -2809,19 +2905,19 @@
       "id": "framework-data",
       "status": "ok",
       "detail": "no supported framework data convention detected",
-      "durationMs": 2
+      "durationMs": 1
     },
     {
       "id": "passive-sources",
-      "status": "unavailable",
-      "detail": "APIs.guru: unavailable (fetch failed); Wayback CDX: unavailable (fetch failed); crt.sh: unavailable (fetch failed)",
-      "durationMs": 3636
+      "status": "ok",
+      "detail": "APIs.guru: not listed; Wayback CDX: 1000 archived URLs scanned, 8 API-like candidates; crt.sh: 1 API-like hosts (docs.pypi.org), 0 operations from their specs",
+      "durationMs": 42113
     },
     {
       "id": "seeds",
       "status": "ok",
       "detail": "2 seeds registered",
-      "durationMs": 2
+      "durationMs": 1
     },
     {
       "id": "har",
@@ -2832,20 +2928,20 @@
     {
       "id": "rea-browser",
       "status": "partial",
-      "detail": "7 data requests (fetch/XHR/JSON) observed; REA evidence ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b",
-      "durationMs": 7621
+      "detail": "7 data requests (fetch/XHR/JSON) observed; REA evidence ev_4790b53ce2b2be8e08fcf02c9e7d6e3f5c16cce8225f873949972de043e044da",
+      "durationMs": 8656
     },
     {
       "id": "rea-bundle",
-      "status": "ok",
-      "detail": "2 candidates from REA (evidence ev_63015f6a422faa7c7cbc799ce50415f4e89f6171ea8c9338664364a5c90fc74f)",
-      "durationMs": 6922
+      "status": "unavailable",
+      "detail": "REA analyze-web-bundle: target_not_allowed on this platform/browser (js-static covers bundles)",
+      "durationMs": 8254
     },
     {
       "id": "js-static",
       "status": "ok",
-      "detail": "3 sources (0 recovered from 1 source maps), 8 URLs via jsluice",
-      "durationMs": 1053
+      "detail": "3 sources (0 recovered from 1 source maps), 1 URLs via built-in scanner",
+      "durationMs": 981
     },
     {
       "id": "graphql",
@@ -2856,8 +2952,8 @@
     {
       "id": "verify",
       "status": "ok",
-      "detail": "6 replayed, 4 confirmed",
-      "durationMs": 1096
+      "detail": "13 replayed, 11 confirmed",
+      "durationMs": 3724
     }
   ],
   "limitations": [
@@ -2866,11 +2962,13 @@
     "REA: Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
     "REA: Captured response-body bytes are the result of Playwright's Response.body() API. Playwright may satisfy that API with a credentialed follow-up load of the request URL when CDP has no body, so transaction and event links do not verify that retained bytes came from the original network transaction.",
     "REA: Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+    "REA analyze-web-bundle refused the page (target_not_allowed) on this platform/browser; bundle analysis relied on js-static (source maps + scanner/jsluice).",
+    "jsluice not installed: JS extraction used the built-in literal scanner (install: go install github.com/BishopFox/jsluice/cmd/jsluice@latest).",
     "Some documented endpoints are disallowed by robots.txt for crawlers and were verified only because --robots-exempt was given. Check the provider's API terms; keep request volume low and cache aggressively."
   ],
   "budget": {
-    "requestsUsed": 32,
+    "requestsUsed": 38,
     "requestLimit": 60,
-    "elapsedMs": 24737
+    "elapsedMs": 68310
   }
 }
