@@ -28,7 +28,19 @@ jobs:
           python-version: "3.12"
       - run: npm ci
       - run: npm run typecheck
-      - run: npm test
+      - name: npm test
+        shell: bash
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee test-output.txt
+      # Surface failing tests as annotations (readable on the run page without opening logs).
+      - name: Report failing tests
+        if: failure()
+        shell: bash
+        run: |
+          grep -nE "^\s*✖|AssertionError|Error \[|error:" test-output.txt | head -40 | while IFS= read -r line; do
+            echo "::error title=test failure::${line//%/%25}"
+          done
       # The published package must work from node_modules (compiled dist/, hoisted deps).
       - name: Pack and run from a clean install
         shell: bash
