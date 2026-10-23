@@ -1,5 +1,5 @@
 import type { Strategy } from "./types.ts";
-import { analyzeWebBundle, findChromium, reaAvailability } from "../rea/reaCli.ts";
+import { analyzeWebBundle, findChromium, reaAvailability, ReaError } from "../rea/reaCli.ts";
 
 /**
  * Runs REA's `analyze-web-bundle` against the live page (via a short-lived,
@@ -18,7 +18,17 @@ export const reaBundle: Strategy = {
     return undefined;
   },
   async run(ctx) {
-    const ev = await analyzeWebBundle(ctx.input.url, findChromium()!, ctx.limits.reaTimeoutMs);
+    let ev: Awaited<ReturnType<typeof analyzeWebBundle>>;
+    try {
+      ev = await analyzeWebBundle(ctx.input.url, findChromium()!, ctx.limits.reaTimeoutMs);
+    } catch (e) {
+      if (e instanceof ReaError && e.reason === "target_not_allowed") {
+        // Observed with REA 6.7.0 on Windows / newer Chromium builds; js-static still analyses the bundles.
+        ctx.limitations.push("REA analyze-web-bundle refused the page (target_not_allowed) on this platform/browser; bundle analysis relied on js-static (source maps + scanner/jsluice).");
+        return { status: "unavailable", detail: "REA analyze-web-bundle: target_not_allowed on this platform/browser (js-static covers bundles)" };
+      }
+      throw e;
+    }
     const n = ev.normalized_result;
     const reaEv = ctx.evidence.add({
       strategy: this.id,

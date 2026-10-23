@@ -75,6 +75,15 @@ export function createServer(): McpServer {
         har_path: z.string().optional().describe("HAR recorded by the user in their own session"),
         browser: z.enum(["auto", "rea", "off"]).optional(),
         passive: z.boolean().optional().describe("Query APIs.guru, Wayback CDX and crt.sh (default true)"),
+        auth: z
+          .object({
+            env_var: z.string().describe("Name of an environment variable holding the USER'S OWN key/token (the value is never returned or stored)"),
+            header: z.string().optional().describe("Header name, default Authorization"),
+            scheme: z.string().optional().describe('Header value prefix, default "Bearer " for Authorization'),
+            query: z.string().optional().describe("Send as this query parameter instead of a header"),
+          })
+          .optional()
+          .describe("Only for APIs the user has their own credential for"),
         max_requests: z.number().int().positive().max(500).optional(),
         only: z.array(z.string()).optional(),
         skip: z.array(z.string()).optional(),
@@ -94,6 +103,7 @@ export function createServer(): McpServer {
           allowCrossOrigin: a.allow_origins ?? [],
           robotsExempt: a.robots_exempt ?? [],
           passive: a.passive ?? true,
+          auth: a.auth ? { envVar: a.auth.env_var, header: a.auth.header, scheme: a.auth.scheme, query: a.auth.query } : undefined,
         },
         { only: a.only, skip: a.skip, echo: false, limits: { maxRequests: a.max_requests } },
       );

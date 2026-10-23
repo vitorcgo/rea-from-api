@@ -9,14 +9,17 @@
 **See data on a site you need. Find out exactly how it is served — with evidence — and get a tested client.**
 
 [![MIT license](https://img.shields.io/badge/license-MIT-f4c430?style=flat-square)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/rea-from-api?style=flat-square&color=cb3837)](https://www.npmjs.com/package/rea-from-api)
+[![CI](https://github.com/vitorcgo/rea-from-api/actions/workflows/ci.yml/badge.svg)](https://github.com/vitorcgo/rea-from-api/actions/workflows/ci.yml)
 [![Node.js 22.18+](https://img.shields.io/badge/Node.js-22.18%2B-339933?style=flat-square&logo=nodedotjs&logoColor=white)](#quick-start)
+[![Windows · macOS · Linux](https://img.shields.io/badge/platforms-Windows_·_macOS_·_Linux-555?style=flat-square)](#quick-start)
 [![MCP server](https://img.shields.io/badge/MCP-12_tools-5c4ee5?style=flat-square)](#mcp-tools)
 [![OpenAPI 3.1](https://img.shields.io/badge/output-OpenAPI_3.1-6BA539?style=flat-square&logo=openapiinitiative&logoColor=white)](docs/evidence-model.md)
 [![Built on REA](https://img.shields.io/badge/engine-REA-cb3837?style=flat-square)](https://github.com/morluto/rea)
 
 [Quick start](#quick-start) · [How it works](#how-it-works) · [What you can discover](#what-you-can-discover) · [Showcases](#showcases) · [FAQ](#faq) · [Documentation](#documentation)
 
-<code>node bin/rea-from-api.mjs setup --agent claude-code</code>
+<code>npx rea-from-api setup</code>
 
 </div>
 
@@ -46,19 +49,50 @@ inference, OpenAPI export, conformance testing, drift monitoring and code genera
 
 ## Quick start
 
-Requires Node.js 22.18+ (TypeScript runs directly, no build step) and npm.
+Works on Windows, macOS and Linux with Node.js 22.18+ and npm.
 
 ### Set up your agent
 
 ```bash
-git clone https://github.com/vitorcgo/rea-from-api && cd rea-from-api
-npm install                                   # also installs rea-agents (REA) as an optional dependency
-node bin/rea-from-api.mjs doctor              # Node, REA, Chromium and optional engines
-node bin/rea-from-api.mjs setup --agent claude-code   # or: cursor, gemini, project (.mcp.json)
+npx rea-from-api setup
 ```
 
-Setup registers the `rea-from-api` MCP server (backing up the existing config) and links the skill
-(`SKILL.md`). Restart your agent afterward. `--dry-run` shows the changes without making them.
+Setup detects your agents, shows exactly what it will change, and asks before applying. It registers
+the `rea-from-api` MCP server (backing up each config) and installs the skill (`SKILL.md`). Restart your
+agents afterward.
+
+| Agent | `--agent` | Config |
+|---|---|---|
+| Claude Code | `claude-code` | `~/.claude.json` + `~/.claude/skills/rea-from-api` |
+| Claude Desktop | `claude-desktop` | `claude_desktop_config.json` |
+| Codex | `codex` | `~/.codex/config.toml` |
+| Cursor | `cursor` | `~/.cursor/mcp.json` |
+| VS Code (Copilot) | `vscode` | user `mcp.json` |
+| Windsurf | `windsurf` | `~/.codeium/windsurf/mcp_config.json` |
+| Gemini CLI | `gemini` | `~/.gemini/settings.json` |
+| Current project | `project` | `.mcp.json` + `.claude/skills/rea-from-api` |
+
+`--agent <id>` (repeatable) or `--all` choose agents non-interactively, `--yes` skips the prompt,
+`--dry-run` only prints the plan and `--uninstall` removes everything setup added. Any other MCP client
+can run the server with `npx -y rea-from-api mcp`.
+
+Check what is available for deeper analysis:
+
+```bash
+npx rea-from-api doctor      # Node, REA, Chromium and the optional engines (jsluice, Schemathesis, oasdiff)
+```
+
+<details>
+<summary><strong>From source</strong></summary>
+
+```bash
+git clone https://github.com/vitorcgo/rea-from-api && cd rea-from-api
+npm install
+node bin/rea-from-api.mjs setup --agent claude-code
+```
+
+A checkout runs the TypeScript sources directly; setup links the skill to it so updates apply at once.
+</details>
 
 ### Ask your agent
 
@@ -70,12 +104,24 @@ show me the evidence, and build a TypeScript integration for my project.
 ### Use the terminal
 
 ```bash
-node bin/rea-from-api.mjs run https://example.com \
+npx rea-from-api run https://example.com \
   --goal "public product data" --target ../my-project --live --fuzz
 ```
 
 `run` = `investigate` → `plan` → `generate` → `validate` (+ Schemathesis with `--fuzz`).
 Every step also exists on its own; see `rea-from-api help`.
+
+### APIs that need your key
+
+Most official APIs require an API key. Give rea-from-api **your own** key through an environment
+variable; it is sent only to the target's API, verified like everything else, and never written to
+reports, fixtures or generated code. The generated client reads it from the environment the same way.
+
+```bash
+export MY_API_KEY=...            # PowerShell: $env:MY_API_KEY = "..."
+npx rea-from-api run https://api.example.com/docs --goal "orders data" \
+  --auth-env MY_API_KEY --auth-header X-Api-Key        # or: --auth-query api_key
+```
 
 ## How it works
 
@@ -190,18 +236,20 @@ restricted by the site's terms. Check them before depending on the data.
 </details>
 
 <details>
-<summary><strong>What if the data needs a login?</strong></summary>
+<summary><strong>What if the API needs a key or a login?</strong></summary>
 
-Endpoints that answer 401/403 or redirect to a login page are marked `auth: required` and are not
-pursued. Record a HAR of **your own** session and pass `--har`, or configure your own token through the
-generated client's environment variable. Nothing is extracted from the site.
+Endpoints that answer 401/403 or redirect to a login page are marked `auth: required`. Use your own
+key with `--auth-env` (see [APIs that need your key](#apis-that-need-your-key)), or record a HAR of
+**your own** session and pass `--har`. Nothing is extracted from the site, and no authentication is
+bypassed.
 </details>
 
 <details>
 <summary><strong>Which agents can use it?</strong></summary>
 
-Any agent that supports local MCP servers. `setup` configures Claude Code, Cursor, Gemini CLI or a
-project `.mcp.json`; the skill is plain `SKILL.md`.
+Any agent that supports local MCP servers. `setup` configures Claude Code, Claude Desktop, Codex,
+Cursor, VS Code, Windsurf, Gemini CLI or a project `.mcp.json`; any other client can run
+`npx -y rea-from-api mcp`. The skill is plain `SKILL.md`.
 </details>
 
 <details>
@@ -225,8 +273,12 @@ Passive sources send only the domain name to APIs.guru, the Wayback Machine and 
 
 ```bash
 npm run typecheck
-npm test     # unit tests + full pipeline, MCP and generator tests against a local fixture site
+npm test        # unit tests + full pipeline, MCP, setup and generator tests against a local fixture site
+npm run build   # compiles dist/ (what the npm package runs)
 ```
+
+CI runs the suite on Windows, macOS and Linux with Node 22 and 24, and installs the packed tarball into
+a clean directory to prove the published package works.
 
 ## License
 

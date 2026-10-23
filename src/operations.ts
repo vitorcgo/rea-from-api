@@ -118,7 +118,7 @@ export async function conformance(dir: string, opts: { baseUrl?: string; maxExam
   const abs = resolve(dir);
   const doc = buildOpenApi(loadInvestigation(abs), abs);
   const reportDir = join(abs, "conformance");
-  const r = await runConformance(doc, { ...opts, reportDir });
+  const r = await runConformance(doc, { ...opts, reportDir, auth: loadInvestigation(abs).input.auth });
   const fence = "`".repeat(3);
   const md = [`# Conformance (Schemathesis) — ${r.status.toUpperCase()}`, "", `${r.operations} confirmed GET operations · positive inputs · rate limited`, "", r.command ? `Command: ${r.command}` : "", "", fence, r.output.replaceAll(fence, "'''"), fence, ""].join("\n");
   mkdirSync(reportDir, { recursive: true });

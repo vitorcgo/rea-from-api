@@ -9,6 +9,8 @@ import { USER_AGENT } from "./limits.ts";
 import { parseRobots, ALLOW_ALL, type RobotsPolicy } from "./robots.ts";
 import { redactUrl } from "./redact.ts";
 import type { ProgressLog } from "./progress.ts";
+import type { AuthSpec } from "./types.ts";
+import { registerSecret } from "./redact.ts";
 
 export interface FetchResult {
   url: string;
@@ -70,10 +72,28 @@ export class SafeHttp {
 
   readonly limits: Limits;
   private log?: ProgressLog;
+  private auth?: { spec: AuthSpec; value: string; origins: Set<string> };
 
   constructor(limits: Limits, log?: ProgressLog) {
     this.limits = limits;
     this.log = log;
+  }
+
+  /**
+   * Uses the user's own credential (read from an env var) for requests to
+   * `origins` only, never for third-party indexes. The value is registered for
+   * redaction so it cannot reach logs, evidence or samples.
+   */
+  useCredential(spec: AuthSpec, origins: Set<string>): void {
+    const value = process.env[spec.envVar];
+    if (!value) throw new Error(`--auth-env ${spec.envVar}: environment variable is not set`);
+    registerSecret(value);
+    this.auth = { spec, value, origins };
+  }
+
+  /** True when a request to this URL carries the user's credential. */
+  credentialApplies(url: string): boolean {
+    return !!this.auth && this.auth.origins.has(new URL(url).origin);
   }
 
   elapsedMs(): number {
@@ -119,6 +139,16 @@ export class SafeHttp {
       if (!robots.isAllowed(u.pathname + u.search)) throw new BlockedByPolicy(`robots.txt disallows ${u.pathname}`);
     }
 
+    const authHeaders: Record<string, string> = {};
+    if (this.auth && this.auth.origins.has(u.origin) && opts.respectRobots !== false) {
+      const { spec, value } = this.auth;
+      if (spec.query) u.searchParams.set(spec.query, value);
+      else {
+        const header = spec.header ?? "Authorization";
+        authHeaders[header] = `${spec.scheme ?? (header.toLowerCase() === "authorization" ? "Bearer " : "")}${value}`;
+      }
+    }
+
     let attempt = 0;
     for (;;) {
       this.checkTime();
@@ -136,6 +166,7 @@ export class SafeHttp {
             accept: opts.accept ?? "*/*",
             ...(introspection ? { "content-type": "application/json" } : {}),
             ...opts.headers,
+            ...authHeaders,
           },
           ...(introspection ? { body: JSON.stringify({ query: GRAPHQL_INTROSPECTION_QUERY, operationName: "IntrospectionQuery" }) } : {}),
         });

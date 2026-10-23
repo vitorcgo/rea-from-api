@@ -34,6 +34,8 @@ export async function investigate(input: InvestigationInput, opts: InvestigateOp
   const http = new SafeHttp(limits, log);
   const allowed = new Set([target.origin, ...input.allowCrossOrigin.map((o) => new URL(o).origin)]);
 
+  if (input.auth) http.useCredential(input.auth, allowed);
+
   const ctx: InvestigationContext = {
     input,
     limits,
@@ -91,7 +93,7 @@ export async function investigate(input: InvestigationInput, opts: InvestigateOp
 
   const inv: Investigation = {
     tool: { name: "rea-from-api", version: VERSION },
-    input: { url: input.url, goal: input.goal, targetProject: input.targetProject, seeds: input.seeds, harPath: input.harPath, browser: input.browser, allowCrossOrigin: input.allowCrossOrigin, robotsExempt: input.robotsExempt, passive: input.passive },
+    input: { url: input.url, goal: input.goal, targetProject: input.targetProject, seeds: input.seeds, harPath: input.harPath, browser: input.browser, allowCrossOrigin: input.allowCrossOrigin, robotsExempt: input.robotsExempt, passive: input.passive, auth: input.auth },
     startedAt,
     finishedAt: new Date().toISOString(),
     appType: ctx.appType,

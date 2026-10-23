@@ -18,6 +18,7 @@ code, not only documented.
 | Bot challenges / CAPTCHAs stop all requests to that host; no solving, no evasion | `detectChallenge` |
 | 429 → honour Retry-After up to 10 s once or twice, otherwise stop the host | `SafeHttp` |
 | Request, time, body, script, page budgets with hard ceilings | `limits.ts` |
+| The user's own key (`--auth-env`) is read from the environment, sent only to the target's allowed origins (never to APIs.guru/Wayback/crt.sh), and its exact value is scrubbed from every log, evidence record, sample, report and conformance output; only the env var name is stored | `SafeHttp.useCredential`, `registerSecret` |
 | URLs with userinfo rejected; sensitive query values, JSON keys and inline secrets redacted everywhere | `redact.ts` |
 | Header values never stored (names only); REA redacts transport credentials in captures | `reaBrowser.ts`, REA |
 | Cross-origin hosts are observed but not replayed unless `--allow-origin` | `verify.ts` |

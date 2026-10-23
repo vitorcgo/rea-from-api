@@ -7,7 +7,7 @@ import { existsSync, writeFileSync, mkdtempSync, rmSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { IS_WINDOWS, commandFor, findOnPath } from "./core/platform.ts";
+import { IS_WINDOWS, commandFor, findOnPath, packageDir } from "./core/platform.ts";
 
 export interface CheckResult {
   name: string;
@@ -32,7 +32,7 @@ function runCheck(name: string, cmd: string, args: string[], cwd: string, env: N
   const t0 = Date.now();
   return new Promise((resolvePromise) => {
     const c = commandFor(cmd);
-    const child = spawn(c.cmd, [...c.pre, ...args], { cwd, env: { ...process.env, ...env }, stdio: ["ignore", "pipe", "pipe"] });
+    const child = spawn(c.cmd, [...c.pre, ...args], { cwd, env: childEnv(env), stdio: ["ignore", "pipe", "pipe"] });
     let output = "";
     child.stdout.on("data", (d) => (output += d));
     child.stderr.on("data", (d) => (output += d));
@@ -55,9 +55,16 @@ function runCheck(name: string, cmd: string, args: string[], cwd: string, env: N
   });
 }
 
+/** Where @types/node lives for this install (checkout or hoisted npm install). */
+function typeRoots(): string[] {
+  const nodeTypes = packageDir("@types/node");
+  return nodeTypes ? [dirname(nodeTypes)] : [resolve(here, "../node_modules/@types")];
+}
+
 function findTsc(integrationDir: string): string | undefined {
   // The package's JS entry (run through node) works everywhere; .bin shims are .cmd on Windows.
-  for (const p of [join(integrationDir, "node_modules/typescript/bin/tsc"), resolve(here, "../node_modules/typescript/bin/tsc")]) if (existsSync(p)) return p;
+  const own = packageDir("typescript");
+  for (const p of [join(integrationDir, "node_modules/typescript/bin/tsc"), own && join(own, "bin", "tsc")]) if (p && existsSync(p)) return p;
   return undefined;
 }
 
@@ -78,7 +85,7 @@ export async function validateIntegration(integrationDir: string, opts: { live?:
       writeFileSync(
         project,
         JSON.stringify({
-          compilerOptions: { target: "ES2023", module: "NodeNext", moduleResolution: "NodeNext", strict: true, noEmit: true, allowImportingTsExtensions: true, verbatimModuleSyntax: true, skipLibCheck: true, types: ["node"], typeRoots: [resolve(here, "../node_modules/@types")] },
+          compilerOptions: { target: "ES2023", module: "NodeNext", moduleResolution: "NodeNext", strict: true, noEmit: true, allowImportingTsExtensions: true, verbatimModuleSyntax: true, skipLibCheck: true, types: ["node"], typeRoots: typeRoots() },
           include: [join(dir, "src"), join(dir, "tests"), join(dir, "examples")],
         }),
       );
@@ -141,4 +148,14 @@ export function renderValidation(r: ValidationReport): string {
     L.push(`## ${c.name}`, "", c.command ? `\`${c.command}\`` : "", "", "```", c.output.replace(/```/g, "'''"), "```", "");
   }
   return L.join("\n");
+}
+
+/**
+ * Child environment for checks. NODE_TEST_CONTEXT must not leak from a parent
+ * `node --test` run: with it, the child `node --test` silently skips its files.
+ */
+function childEnv(extra: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
+  const env = { ...process.env, ...extra };
+  delete env.NODE_TEST_CONTEXT;
+  return env;
 }

@@ -9,6 +9,7 @@
 
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
+import { pathToFileURL } from "node:url";
 
 const PRODUCTS = Array.from({ length: 7 }, (_, i) => ({
   id: i + 1,
@@ -20,6 +21,9 @@ const PRODUCTS = Array.from({ length: 7 }, (_, i) => ({
 }));
 
 const PAGE_SIZE = 3;
+
+/** API key the fixture accepts on /api/v1/partner/prices (stands in for the user's own key). */
+export const FIXTURE_API_KEY = "fixture-key-7f3a9c";
 
 export interface FixtureSite {
   url: string;
@@ -120,6 +124,7 @@ function gql(q){ return fetch("/graphql", { method: "POST", body: JSON.stringify
             "/products": { get: { summary: "List products", parameters: [{ name: "page", in: "query" }, { name: "limit", in: "query" }, { name: "category", in: "query" }] } },
             "/products/{id}": { get: { summary: "Get one product", parameters: [{ name: "id", in: "path", required: true }] } },
             "/categories": { get: { summary: "List categories" } },
+            "/partner/prices": { get: { summary: "Partner price list (API key)", security: [{ apiKey: [] }] } },
             "/orders": { post: { summary: "Create order", security: [{ bearer: [] }] } },
           },
         });
@@ -138,6 +143,9 @@ function gql(q){ return fetch("/graphql", { method: "POST", body: JSON.stringify
           { "x-ratelimit-limit": "60", "x-ratelimit-remaining": "59" },
         );
       }
+      case "/api/v1/partner/prices":
+        if (req.headers["x-api-key"] !== FIXTURE_API_KEY) return json(401, { error: "missing or invalid X-Api-Key" });
+        return json(200, { prices: PRODUCTS.map((p) => ({ id: p.id, price: p.price, currency: "BRL" })) });
       case "/api/v1/categories":
         return json(200, [{ id: "books", label: "Books" }, { id: "tools", label: "Tools" }]);
       case "/api/v1/admin/users":
@@ -208,7 +216,7 @@ function escape(s: string): string {
 }
 
 // Allow `node tests/fixtures/site.ts` for manual exploration.
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const s = await startFixtureSite();
   process.stdout.write(`fixture site on ${s.url}\n`);
 }

@@ -2,14 +2,15 @@
 name: rea-from-api
 description: Reverse engineer how a website serves its data — publisher API catalogs (RFC 9727), OpenAPI/Swagger, framework data routes, APIs.guru, Wayback history, Certificate Transparency, REA browser capture and bundle analysis, jsluice + source maps, GraphQL introspection — verify every endpoint with evidence, export OpenAPI 3.1, then generate and test a TypeScript or Python client. Use when the user gives a URL plus a data goal. Not for bypassing auth, CAPTCHAs, anti-bot or rate limits.
 metadata:
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # rea-from-api
 
 A real pipeline (CLI + MCP server), not just instructions. Prefer the MCP tools when the
-`rea-from-api` server is connected; otherwise run `node <skill-dir>/bin/rea-from-api.mjs <command>`
-(`<skill-dir>` = the directory containing this file). Both surfaces have the same contracts.
+`rea-from-api` server is connected; otherwise run `npx -y rea-from-api <command>` (in a source
+checkout: `node <skill-dir>/bin/rea-from-api.mjs <command>`). Both surfaces have the same contracts.
+If the tools are missing, suggest `npx rea-from-api setup` and a restart of the agent.
 
 | Step | MCP tool | CLI |
 |---|---|---|
@@ -34,8 +35,10 @@ CAPTCHA/anti-bot circumvention, load testing, vulnerability hunting.
 1. URL and the goal in one sentence.
 2. Target project path (optional). Language follows the project (TypeScript/Node or Python); with no
    project, propose standalone TypeScript (or Python if the user prefers) and proceed.
-3. Whether data needs login. Never ask for passwords; the user supplies **their own** token (env var)
-   or a HAR of their own session.
+3. Whether the API needs a key or login. Never ask for passwords or for the key itself in chat. The
+   user puts **their own** key in an environment variable and you pass only its name
+   (`auth: {env_var, header?, query?}` / `--auth-env VAR [--auth-header H | --auth-query Q]`), using the
+   placement the provider documents. Or they supply a HAR of their own session.
 
 ## 3. Prepare once
 
@@ -58,6 +61,9 @@ Then read `findings.md` (or `list_endpoints`) and decide:
   documents for programmatic use, and tell the user.
 - **API on another origin**: re-run with `allow_origins`. Same-site servers declared in official specs
   are allowed automatically.
+- **401/403 (`auth: required`)**: tell the user the API needs their own key; once they set the env var,
+  re-run with `auth`. "Rejected the provided credential" means wrong header/query/scope — check the
+  provider's docs. Never look for keys in pages, bundles or traffic.
 - **Data needs interaction/login**: ask for a HAR of the user's own session (`har_path`).
 - **Nothing usable**: report it honestly with evidence ids. Never invent endpoints.
 

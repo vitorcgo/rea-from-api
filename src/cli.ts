@@ -14,7 +14,9 @@ and ship a tested client (TypeScript or Python). Powered by REA.
 
 Usage:
   rea-from-api doctor                      check Node, REA, Chromium and optional engines
-  rea-from-api setup [--agent A] [--dry-run]   register the MCP server + skill with your agent
+  rea-from-api setup [--agent A|--all] [--yes] [--dry-run] [--uninstall]
+                                           register the MCP server + skill with your agents
+                                           (claude-code, claude-desktop, codex, cursor, vscode, windsurf, gemini, project)
   rea-from-api mcp                         run the MCP server (stdio)
   rea-from-api investigate <url> --goal "<text>" [--out DIR] [options]
   rea-from-api endpoints <DIR> [--status S] [--query Q]
@@ -34,6 +36,10 @@ Investigation options:
   --passive on|off        APIs.guru, Wayback CDX, crt.sh (default on; sends only the domain)
   --browser auto|rea|off  REA browser strategies (default auto: used when REA + Chromium exist)
   --allow-origin ORIGIN   extra origin the verifier may call (repeatable)
+  --auth-env VAR          use YOUR OWN key/token from env var VAR for the target's API (never stored)
+  --auth-header NAME      send it in this header instead of Authorization (e.g. X-Api-Key)
+  --auth-scheme PREFIX    header value prefix (default "Bearer " for Authorization, none otherwise)
+  --auth-query NAME       send it as this query parameter instead (e.g. api_key)
   --robots-exempt PREFIX  seed URLs under PREFIX are officially documented APIs: verify them even if
                           robots.txt disallows crawling them (explicit, recorded in evidence)
   --only a,b / --skip a,b select strategies (verify always runs)
@@ -58,6 +64,10 @@ const { positionals, values } = parseArgs({
     "allow-origin": { type: "string", multiple: true },
     "robots-exempt": { type: "string", multiple: true },
     passive: { type: "string" },
+    "auth-env": { type: "string" },
+    "auth-header": { type: "string" },
+    "auth-scheme": { type: "string" },
+    "auth-query": { type: "string" },
     only: { type: "string" },
     skip: { type: "string" },
     select: { type: "string" },
@@ -71,6 +81,9 @@ const { positionals, values } = parseArgs({
     query: { type: "string" },
     agent: { type: "string", multiple: true },
     "dry-run": { type: "boolean" },
+    all: { type: "boolean" },
+    yes: { type: "boolean", short: "y" },
+    uninstall: { type: "boolean" },
     "max-examples": { type: "string" },
     report: { type: "string" },
     quiet: { type: "boolean" },
@@ -96,7 +109,7 @@ async function main(): Promise<number> {
       return doctor();
     case "setup": {
       const { setup } = await import("./setup.ts");
-      return setup({ agents: values.agent, dryRun: values["dry-run"], say });
+      return setup({ agents: values.agent, all: values.all, yes: values.yes, dryRun: values["dry-run"], uninstall: values.uninstall, say });
     }
     case "mcp": {
       const { startMcpServer } = await import("./mcp/server.ts");
@@ -193,6 +206,9 @@ async function doInvestigate(): Promise<{ code: number; dir: string }> {
       allowCrossOrigin: values["allow-origin"] ?? [],
       robotsExempt: values["robots-exempt"] ?? [],
       passive: values.passive !== "off",
+      auth: values["auth-env"]
+        ? { envVar: values["auth-env"], header: values["auth-header"], scheme: values["auth-scheme"], query: values["auth-query"] }
+        : undefined,
     },
     {
       only: list(values.only),

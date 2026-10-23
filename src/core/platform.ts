@@ -4,7 +4,8 @@
 
 import { closeSync, existsSync, openSync, readSync } from "node:fs";
 import { homedir } from "node:os";
-import { delimiter, join } from "node:path";
+import { delimiter, dirname, join } from "node:path";
+import { createRequire } from "node:module";
 
 export const IS_WINDOWS = process.platform === "win32";
 
@@ -45,5 +46,17 @@ function hasNodeShebang(file: string): boolean {
     return /^#!.*\bnode\b/.test(buf.toString("utf8"));
   } catch {
     return false;
+  }
+}
+
+/**
+ * Resolves an installed package's root directory the way Node does, so it works
+ * from a git checkout and from an npm/npx install where dependencies are hoisted.
+ */
+export function packageDir(name: string): string | undefined {
+  try {
+    return dirname(createRequire(import.meta.url).resolve(`${name}/package.json`));
+  } catch {
+    return undefined;
   }
 }

@@ -11,7 +11,7 @@ import { existsSync, mkdtempSync, writeFileSync, rmSync, chmodSync, readdirSync 
 import { tmpdir } from "node:os";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { IS_WINDOWS, commandFor, findOnPath } from "../core/platform.ts";
+import { IS_WINDOWS, commandFor, findOnPath, packageDir } from "../core/platform.ts";
 
 export interface ReaAvailability {
   available: boolean;
@@ -23,9 +23,10 @@ export interface ReaAvailability {
 const here = dirname(fileURLToPath(import.meta.url));
 
 export function findReaBin(): string | undefined {
+  const pkg = packageDir("rea-agents");
   const candidates = [
     process.env.REA_BIN,
-    resolve(here, "../../node_modules/rea-agents/scripts/rea.mjs"),
+    pkg && join(pkg, "scripts", "rea.mjs"),
     resolve(process.cwd(), "node_modules/rea-agents/scripts/rea.mjs"),
   ].filter((c): c is string => !!c);
   for (const c of candidates) if (existsSync(c)) return c;
@@ -128,10 +129,38 @@ export interface ReaEvidence<T = unknown> {
   confidence?: string;
 }
 
+/** A structured REA failure (REA prints `{code, details: {reason}}` JSON on stdout). */
+export class ReaError extends Error {
+  readonly code?: string;
+  readonly reason?: string;
+  constructor(command: string, code?: string, reason?: string, fallback?: string) {
+    super(code || reason ? `REA ${command}: ${[code, reason].filter(Boolean).join(" / ")}` : (fallback ?? `REA ${command} failed`));
+    this.name = "ReaError";
+    this.code = code;
+    this.reason = reason;
+  }
+
+  static from(command: string, e: unknown): ReaError {
+    const out = String((e as { stdout?: unknown }).stdout ?? "");
+    try {
+      const j = JSON.parse(out) as { code?: string; details?: { reason?: string } };
+      if (j.code) return new ReaError(command, j.code, j.details?.reason);
+    } catch {
+      /* not JSON */
+    }
+    return new ReaError(command, undefined, undefined, (e as Error).message.split("\n")[0]);
+  }
+}
+
 export async function reaJson<T>(args: string[], timeoutMs: number): Promise<ReaEvidence<T>> {
   const a = await reaAvailability();
   if (!a.available || !a.bin) throw new Error(a.reason);
-  const { stdout } = await run(a.bin, [...args, "--format", "json"], timeoutMs);
+  let stdout: string;
+  try {
+    ({ stdout } = await run(a.bin, [...args, "--format", "json"], timeoutMs));
+  } catch (e) {
+    throw ReaError.from(args[0] ?? "rea", e);
+  }
   const parsed = JSON.parse(stdout) as ReaEvidence<T>;
   if (!parsed || typeof parsed !== "object" || !("evidence_id" in parsed)) throw new Error("unexpected REA output (no evidence_id)");
   return parsed;

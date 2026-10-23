@@ -63,7 +63,7 @@ export interface IntegrationPlan {
   embedded: PlanEmbeddedSource[];
   dependencies: PlanDependency[];
   executionOrder: string[];
-  auth: { required: boolean; envVar?: string; note: string };
+  auth: { required: boolean; envVar?: string; header?: string; scheme?: string; query?: string; note: string };
   rateLimit: { minIntervalMs: number; basis: string };
   cache: { kind: "memory-ttl"; defaultTtlMs: number };
   errors: string[];
@@ -146,7 +146,9 @@ export function buildPlan(inv: Investigation, opts: PlanOptions = {}): Integrati
 
   const dependencies = findDependencies(sources);
   const order = topo(sources.map((s) => s.fnName), dependencies);
-  const authRequired = sources.some((s) => s.auth === "required");
+  const authRequired = sources.some((s) => s.auth === "required" || s.auth === "credential");
+  const userAuth = inv.input.auth;
+  const authHeader = userAuth?.header ?? "Authorization";
   const rateHeaders = inv.endpoints.find((e) => chosen.includes(e) && e.rateLimit)?.rateLimit;
 
   return {
@@ -160,7 +162,16 @@ export function buildPlan(inv: Investigation, opts: PlanOptions = {}): Integrati
     dependencies,
     executionOrder: order,
     auth: authRequired
-      ? { required: true, envVar: `${constName(name)}_TOKEN`, note: "At least one endpoint answered 401/403. Provide your own authorized token via env; nothing is extracted from the site." }
+      ? {
+          required: true,
+          envVar: `${constName(name)}_TOKEN`,
+          header: userAuth?.query ? undefined : authHeader,
+          scheme: userAuth?.query ? undefined : (userAuth?.scheme ?? (authHeader.toLowerCase() === "authorization" ? "Bearer " : "")),
+          query: userAuth?.query,
+          note: userAuth
+            ? `Verified with your own credential (${userAuth.query ? `query parameter "${userAuth.query}"` : `header ${authHeader}`}). The client reads it from the environment; it is never stored.`
+            : "At least one endpoint answered 401/403. Provide your own authorized token via env; nothing is extracted from the site.",
+        }
       : { required: false, note: "Selected endpoints answered without credentials during verification." },
     rateLimit: rateHeaders
       ? { minIntervalMs: 1000, basis: `rate-limit headers observed: ${Object.keys(rateHeaders).join(", ")}` }

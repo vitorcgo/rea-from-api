@@ -8,10 +8,13 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { OpenApiDoc } from "./openapi/build.ts";
+import type { AuthSpec } from "./core/types.ts";
 import { findTool, runTool, TOOLS } from "./providers/external.ts";
 
 export interface ConformanceOptions {
   baseUrl?: string;
+  /** The user's own credential, re-read from the environment (same spec as the investigation). */
+  auth?: AuthSpec;
   maxExamples?: number;
   rateLimit?: string;
   maxTimeSec?: number;
@@ -79,14 +82,21 @@ export async function runConformance(doc: OpenApiDoc, o: ConformanceOptions): Pr
       o.reportDir,
       "--no-color",
     ];
+    const token = o.auth ? process.env[o.auth.envVar] : undefined;
+    if (o.auth && token && !o.auth.query) {
+      const header = o.auth.header ?? "Authorization";
+      args.push("--header", `${header}: ${o.auth.scheme ?? (header.toLowerCase() === "authorization" ? "Bearer " : "")}${token}`);
+    }
     if (process.env.REQUESTS_CA_BUNDLE || process.env.SSL_CERT_FILE) args.push("--tls-verify", (process.env.REQUESTS_CA_BUNDLE ?? process.env.SSL_CERT_FILE)!);
     const r = await runTool(bin, args, ((o.maxTimeSec ?? 120) + 60) * 1000);
     const output = `${r.stdout}${r.stderr}`.trim();
+    const safe = token ? output.split(token).join("[REDACTED]") : output;
     return {
       status: r.code === 0 ? "passed" : "failed",
       operations,
-      command: [bin, ...args].join(" "),
-      output: output.length > 8000 ? `${output.slice(0, 2000)}\n…\n${output.slice(-6000)}` : output,
+      // Never echo the credential back.
+      command: [bin, ...args].join(" ").split(token || "\u0000").join("[REDACTED]"),
+      output: safe.length > 8000 ? `${safe.slice(0, 2000)}\n…\n${safe.slice(-6000)}` : safe,
       reportDir: o.reportDir,
     };
   } finally {

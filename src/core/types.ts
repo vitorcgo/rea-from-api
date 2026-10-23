@@ -78,7 +78,8 @@ export interface EndpointRecord {
   bodyFormat?: string;
   /** Header *names* the client needs. Values are never stored. */
   requiredHeaders: string[];
-  auth: "none" | "required" | "unknown";
+  /** "credential": answered when called with the user's own credential (--auth-env). */
+  auth: "none" | "required" | "credential" | "unknown";
   authEvidence?: string;
   responseFormat: ResponseFormat;
   contentType?: string;
@@ -126,6 +127,17 @@ export interface EvidenceRecord {
   samplePath?: string;
 }
 
+export interface AuthSpec {
+  /** Environment variable holding the user's own token/key. */
+  envVar: string;
+  /** Header to send it in (default Authorization). Ignored when `query` is set. */
+  header?: string;
+  /** Prefix for the header value (default "Bearer " for Authorization, "" otherwise). */
+  scheme?: string;
+  /** Send as this query parameter instead of a header (e.g. api_key). */
+  query?: string;
+}
+
 export interface TechFinding {
   name: string;
   basis: string;
@@ -158,6 +170,8 @@ export interface InvestigationInput {
   robotsExempt?: string[];
   /** Query third-party passive indexes (APIs.guru, Wayback CDX, crt.sh). Default true. */
   passive?: boolean;
+  /** The user's own credential for APIs that need one. Only the env var NAME is stored, never the value. */
+  auth?: AuthSpec;
 }
 
 export interface Investigation {

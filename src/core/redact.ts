@@ -18,6 +18,21 @@ const SENSITIVE_HEADER = new Set([
 
 export const REDACTED = "[REDACTED]";
 
+/** Exact secret values (e.g. the user's API key) scrubbed from every artifact. */
+const SECRET_VALUES = new Set<string>();
+export function registerSecret(value: string | undefined): void {
+  if (value && value.length >= 4) SECRET_VALUES.add(value);
+}
+function scrubSecrets(text: string): string {
+  let out = text;
+  for (const v of SECRET_VALUES) {
+    out = out.split(v).join(REDACTED);
+    const enc = encodeURIComponent(v);
+    if (enc !== v) out = out.split(enc).join(REDACTED);
+  }
+  return out;
+}
+
 export function isSensitiveName(name: string): boolean {
   return SENSITIVE_NAME.test(name) || SENSITIVE_HEADER.has(name.toLowerCase());
 }
@@ -37,10 +52,10 @@ export function redactUrl(raw: string): string {
   }
   u.username = "";
   u.password = "";
-  for (const key of [...u.searchParams.keys()]) {
-    if (isSensitiveName(key)) u.searchParams.set(key, REDACTED);
+  for (const [key, value] of [...u.searchParams.entries()]) {
+    if (isSensitiveName(key) || SECRET_VALUES.has(value)) u.searchParams.set(key, REDACTED);
   }
-  return u.toString();
+  return scrubSecrets(u.toString());
 }
 
 const INLINE_SECRET_PATTERNS: RegExp[] = [
@@ -54,7 +69,7 @@ const INLINE_SECRET_PATTERNS: RegExp[] = [
 
 /** Best-effort scrub of free text (excerpts, error messages). */
 export function redactText(text: string): string {
-  let out = text;
+  let out = scrubSecrets(text);
   for (const re of INLINE_SECRET_PATTERNS) {
     out = out.replace(re, (m, p1: string | undefined) =>
       typeof p1 === "string" && /[:=]\s*$/.test(p1) ? `${p1}"${REDACTED}"` : REDACTED,

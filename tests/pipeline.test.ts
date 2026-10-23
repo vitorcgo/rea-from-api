@@ -4,10 +4,11 @@
 
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, existsSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, existsSync, rmSync, mkdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { startFixtureSite, type FixtureSite } from "./fixtures/site.ts";
+import { startFixtureSite, FIXTURE_API_KEY, type FixtureSite } from "./fixtures/site.ts";
+import { readdirSync, statSync } from "node:fs";
 import { investigate } from "../src/investigate.ts";
 import { buildPlan, writePlan, renderMermaid } from "../src/plan/planner.ts";
 import { generateTypeScript, writeFiles } from "../src/generate/typescript.ts";
@@ -166,13 +167,33 @@ test("generated Python integration passes its own checks (offline + live)", asyn
   assert.ok(report.checks.some((c) => c.name === "offline tests (recorded fixtures)" && c.status === "passed"));
 });
 
-test("setup --dry-run plans MCP registration without touching files", async () => {
-  const { setup, mcpEntry } = await import("../src/setup.ts");
+test("setup installs and uninstalls MCP server + skill (project scope)", async () => {
+  const { setup, mcpEntry, stripTomlTable, isEphemeralInstall } = await import("../src/setup.ts");
+  const proj = join(work, "setup-proj");
+  mkdirSync(proj, { recursive: true });
+  writeFileSync(join(proj, ".mcp.json"), JSON.stringify({ mcpServers: { other: { command: "x" } } }));
   const lines: string[] = [];
-  assert.equal(setup({ agents: ["project", "cursor"], dryRun: true, say: (s) => lines.push(s) }), 0);
-  assert.ok(lines.some((l) => /\.mcp\.json/.test(l)));
-  assert.ok(lines.some((l) => /dry run/.test(l)));
-  assert.deepEqual(mcpEntry().args.slice(-1), ["mcp"]);
+  const say = (s: string) => lines.push(s);
+
+  assert.equal(await setup({ agents: ["project"], dryRun: true, say, cwd: proj }), 0);
+  assert.ok(!JSON.parse(readFileSync(join(proj, ".mcp.json"), "utf8")).mcpServers["rea-from-api"], "dry run changes nothing");
+
+  assert.equal(await setup({ agents: ["project"], yes: true, say, cwd: proj }), 0);
+  const cfg = JSON.parse(readFileSync(join(proj, ".mcp.json"), "utf8"));
+  assert.ok(cfg.mcpServers.other, "existing servers are kept");
+  assert.deepEqual(cfg.mcpServers["rea-from-api"].args.slice(-1), ["mcp"]);
+  assert.ok(existsSync(join(proj, ".mcp.json.bak-rea-from-api")), "backup written");
+  assert.match(readFileSync(join(proj, ".claude", "skills", "rea-from-api", "SKILL.md"), "utf8"), /^name: rea-from-api/m);
+
+  assert.equal(await setup({ agents: ["project"], yes: true, uninstall: true, say, cwd: proj }), 0);
+  assert.ok(!JSON.parse(readFileSync(join(proj, ".mcp.json"), "utf8")).mcpServers["rea-from-api"]);
+  assert.ok(!existsSync(join(proj, ".claude", "skills", "rea-from-api")), "skill link removed");
+  assert.ok(existsSync(join(import.meta.dirname, "..", "SKILL.md")), "removing the link never deletes the checkout");
+
+  assert.equal(await setup({ agents: ["nope"], say, cwd: proj }), 1);
+  assert.equal(stripTomlTable('a = 1\n[mcp_servers.rea-from-api]\ncommand = "x"\n[mcp_servers.rea-from-api.env]\nK = "v"\n[other]\nb = 2\n', "mcp_servers.rea-from-api"), "a = 1\n[other]\nb = 2\n");
+  assert.ok(isEphemeralInstall("/home/u/.npm/_npx/abc/node_modules/rea-from-api"));
+  assert.deepEqual(mcpEntry("/home/u/.npm/_npx/abc/node_modules/rea-from-api").args.slice(-2), [`rea-from-api@${(await import("../src/version.ts")).VERSION}`, "mcp"]);
 });
 
 test("HTML-only page yields an embedded-data integration", async () => {
@@ -196,6 +217,42 @@ test("framework convention: Next.js data route derived from buildId and verified
   assert.equal(nd?.status, "confirmed");
   assert.ok(nd?.discoveredBy.includes("framework-data"));
   assert.ok(p.tech.some((t) => t.name === "Next.js (pages router)"));
+});
+
+test("own API key: blocked without it, confirmed with it, never written anywhere", async () => {
+  const url = `${site.url}/`;
+  const opts = { only: ["official-docs"], limits: { perHostDelayMs: 0 } };
+  const without = await investigate(input(join(work, "nokey"), url, { browser: "off", passive: false }), opts);
+  const blocked = without.endpoints.find((e) => e.urlTemplate.endsWith("/api/v1/partner/prices"));
+  assert.equal(blocked?.auth, "required");
+  assert.notEqual(blocked?.status, "confirmed");
+  assert.ok(blocked?.notes.some((n) => /--auth-env/.test(n)), "tells the user how to use their own key");
+
+  process.env.RFA_TEST_PARTNER_KEY = FIXTURE_API_KEY;
+  const dir = join(work, "withkey");
+  const withKey = await investigate(
+    input(dir, url, { browser: "off", passive: false, auth: { envVar: "RFA_TEST_PARTNER_KEY", header: "X-Api-Key" } }),
+    opts,
+  );
+  const ok = withKey.endpoints.find((e) => e.urlTemplate.endsWith("/api/v1/partner/prices"));
+  assert.equal(ok?.status, "confirmed");
+  assert.equal(ok?.auth, "credential");
+
+  const plan = buildPlan(withKey, { select: [ok!.id], name: "partner" });
+  assert.equal(plan.auth.header, "X-Api-Key");
+  assert.equal(plan.auth.scheme, "");
+  const out = join(dir, "integration");
+  writeFiles(generateTypeScript(plan, { investigationDir: dir, outDir: out, standalone: true }), out);
+  process.env[plan.auth.envVar!] = FIXTURE_API_KEY;
+  const report = await validateIntegration(out, { live: true });
+  for (const c of report.checks) assert.notEqual(c.status, "failed", `${c.name}:\n${c.output}`);
+
+  // The key value must not appear in any artifact (investigation, plan, generated code, reports).
+  const walk = (d: string): string[] => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));
+  const leaks = walk(dir).filter((f) => readFileSync(f, "utf8").includes(FIXTURE_API_KEY));
+  assert.deepEqual(leaks, []);
+  delete process.env.RFA_TEST_PARTNER_KEY;
+  delete process.env[plan.auth.envVar!];
 });
 
 test("bot challenge stops the investigation without bypass attempts", async () => {

@@ -228,3 +228,15 @@ test("drift: removed operation/field and type change are breaking; new field is 
   assert.equal(report.breaking, 3);
   if (report.oasdiff?.available) assert.match(report.oasdiff.output, /error|breaking|removed/i, "oasdiff agrees when installed");
 });
+
+test("package.json, server.json and VERSION agree", async () => {
+  const { readFileSync } = await import("node:fs");
+  const { VERSION } = await import("../src/version.ts");
+  const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+  const server = JSON.parse(readFileSync(new URL("../server.json", import.meta.url), "utf8"));
+  assert.equal(pkg.version, VERSION);
+  assert.equal(server.version, VERSION);
+  assert.equal(server.packages[0].version, VERSION);
+  assert.equal(server.name, pkg.mcpName);
+  assert.ok(server.description.length <= 100, "MCP registry descriptions are limited to 100 characters");
+});

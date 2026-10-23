@@ -176,9 +176,14 @@ async function verifyOne(ctx: InvestigationContext, ep: EndpointRecord): Promise
   if (r.status >= 400) {
     ep.errorsObserved.push({ status: r.status, at: now });
     if (r.status === 401 || r.status === 403) {
+      const withCred = ctx.http.credentialApplies(ep.exampleUrl);
       ep.auth = "required";
-      ep.authEvidence = `HTTP ${r.status} on unauthenticated GET`;
-      ep.notes.push("Requires authorization. Configure your own authorized credentials; none are inferred or extracted.");
+      ep.authEvidence = withCred ? `HTTP ${r.status} even with the provided credential` : `HTTP ${r.status} on unauthenticated GET`;
+      ep.notes.push(
+        withCred
+          ? "Rejected the provided credential (wrong scope, header or key?). Check the provider's docs for --auth-header/--auth-query."
+          : "Requires authorization. Re-run with your own key: --auth-env VAR (plus --auth-header/--auth-query if the API documents them). Nothing is inferred or extracted.",
+      );
     }
     if (r.status === 429) ep.notes.push("Rate limited during verification.");
     ep.status = ep.status === "observed" && r.status === 429 ? "observed" : "unavailable";
@@ -195,7 +200,10 @@ async function verifyOne(ctx: InvestigationContext, ep: EndpointRecord): Promise
     return false;
   }
   ep.contentType = r.contentType;
-  if (ep.auth === "unknown") ep.auth = "none";
+  if (ctx.http.credentialApplies(ep.exampleUrl)) {
+    ep.auth = "credential";
+    ep.authEvidence = "succeeded with the user's credential (whether it is strictly required was not tested)";
+  } else if (ep.auth === "unknown") ep.auth = "none";
   if (/json/i.test(r.contentType) || /^\s*[{[]/.test(r.text)) {
     let data: unknown;
     try {

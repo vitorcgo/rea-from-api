@@ -10,7 +10,7 @@
 
 [Início rápido](#início-rápido) · [Como funciona](#como-funciona) · [O que dá para descobrir](#o-que-dá-para-descobrir) · [Showcases](#showcases) · [FAQ](#faq) · [Documentação](#documentação)
 
-<code>node bin/rea-from-api.mjs setup --agent claude-code</code>
+<code>npx rea-from-api setup</code>
 
 </div>
 
@@ -39,17 +39,30 @@ exportação OpenAPI, testes de conformidade, monitoramento de drift e geração
 
 ## Início rápido
 
-Requer Node.js 22.18+ (o TypeScript roda direto, sem build) e npm.
+Funciona em Windows, macOS e Linux com Node.js 22.18+ e npm.
 
 ```bash
-git clone https://github.com/vitorcgo/rea-from-api && cd rea-from-api
-npm install
-node bin/rea-from-api.mjs doctor
-node bin/rea-from-api.mjs setup --agent claude-code   # ou: cursor, gemini, project (.mcp.json)
+npx rea-from-api setup
+npx rea-from-api doctor
 ```
 
-O `setup` registra o servidor MCP `rea-from-api` (com backup da configuração existente) e vincula a skill
-(`SKILL.md`). Reinicie o agente depois. `--dry-run` mostra as mudanças sem aplicá-las.
+O `setup` detecta os seus agentes (Claude Code, Claude Desktop, Codex, Cursor, VS Code, Windsurf, Gemini
+CLI ou o projeto atual), mostra o que vai mudar e pergunta antes de aplicar. Ele registra o servidor MCP
+(com backup de cada configuração) e instala a skill. Reinicie os agentes depois. Opções: `--agent <id>`,
+`--all`, `--yes`, `--dry-run` e `--uninstall`. Qualquer outro cliente MCP pode rodar
+`npx -y rea-from-api mcp`.
+
+### APIs que exigem a sua chave
+
+A maioria das APIs oficiais pede uma chave. Passe **a sua própria** por variável de ambiente: ela vai só
+para a API do alvo, é verificada como todo o resto e nunca aparece em relatórios, fixtures ou código
+gerado. O cliente gerado lê a chave do ambiente do mesmo jeito.
+
+```powershell
+$env:MINHA_CHAVE = "..."
+npx rea-from-api run https://api.exemplo.com/docs --goal "dados de pedidos" `
+  --auth-env MINHA_CHAVE --auth-header X-Api-Key     # ou: --auth-query api_key
+```
 
 Peça ao agente:
 
@@ -61,7 +74,7 @@ me mostre as evidências e crie uma integração TypeScript para o meu projeto.
 Ou no terminal:
 
 ```bash
-node bin/rea-from-api.mjs run https://exemplo.com \
+npx rea-from-api run https://exemplo.com \
   --goal "dados públicos de produtos" --target ../meu-projeto --language python --live --fuzz
 ```
 
@@ -113,8 +126,8 @@ relatórios ou código. Detalhes em [docs/safety.md](../safety.md).
   outras funcionam com `--browser off`.
 - **Acha endpoints não documentados?** Sim, os que o próprio site usa — sempre rotulados como não
   documentados. Verifique os termos de uso antes de depender deles.
-- **E se precisar de login?** O endpoint é marcado `auth: required`. Use um HAR da **sua** sessão (`--har`) ou
-  configure o seu token na variável de ambiente do cliente gerado.
+- **E se precisar de chave ou login?** O endpoint é marcado `auth: required`. Use a sua chave com `--auth-env`
+  ou um HAR da **sua** sessão (`--har`). Nada é extraído do site e nenhuma autenticação é contornada.
 - **Envia meu alvo para terceiros?** As fontes passivas enviam só o domínio para APIs.guru, Wayback Machine e
   crt.sh; desative com `--passive off`.
 

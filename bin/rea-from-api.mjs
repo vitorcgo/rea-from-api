@@ -1,4 +1,10 @@
 #!/usr/bin/env node
-// Thin launcher: Node >= 22.18 runs the TypeScript sources directly (type stripping).
-// import() needs a file:// URL: a raw "V:\..." path fails on Windows.
-await import(new URL("../src/cli.ts", import.meta.url).href);
+// Launcher. In a git checkout it runs the TypeScript sources directly (Node type
+// stripping); in an npm/npx install it runs the compiled dist/ (Node refuses to
+// strip types inside node_modules). import() needs a file:// URL on Windows.
+import { existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
+const src = new URL("../src/cli.ts", import.meta.url);
+const dist = new URL("../dist/cli.js", import.meta.url);
+await import((existsSync(fileURLToPath(src)) ? src : dist).href);

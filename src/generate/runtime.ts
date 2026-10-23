@@ -102,10 +102,17 @@ export class HttpClient {
     for (;;) {
       await this.pace();
       const headers: Record<string, string> = { accept, "user-agent": this.config.userAgent };
-      if (this.config.token) headers.authorization = \`Bearer \${this.config.token}\`;
+      let target = url;
+      if (this.config.token) {
+        if (this.config.authQuery) {
+          const u = new URL(url);
+          u.searchParams.set(this.config.authQuery, this.config.token);
+          target = u.toString();
+        } else headers[this.config.authHeader] = \`\${this.config.authPrefix}\${this.config.token}\`;
+      }
       let res: Response;
       try {
-        res = await fetch(url, { headers, signal: AbortSignal.timeout(this.config.timeoutMs) });
+        res = await fetch(target, { headers, signal: AbortSignal.timeout(this.config.timeoutMs) });
       } catch (e) {
         const err = e as Error;
         const timeout = err.name === "TimeoutError" || err.name === "AbortError";
