@@ -117,8 +117,10 @@ function finish(dir: string, checks: CheckResult[], opts: { live?: boolean; repo
 }
 
 function findPython(): string {
-  for (const c of [process.env.REA_FROM_API_PYTHON, "/usr/bin/python3", "/usr/local/bin/python3"]) if (c && existsSync(c)) return c;
-  return findOnPath(IS_WINDOWS ? ["python", "py", "python3"] : ["python3", "python"]) ?? "python3";
+  // The user's PATH first (virtualenv, pyenv, setup-python); system interpreters only as a fallback.
+  const env = process.env.REA_FROM_API_PYTHON;
+  if (env && existsSync(env)) return env;
+  return findOnPath(IS_WINDOWS ? ["python", "py", "python3"] : ["python3", "python"]) ?? ["/usr/bin/python3", "/usr/local/bin/python3"].find((c) => existsSync(c)) ?? "python3";
 }
 
 async function validatePython(dir: string, live: boolean): Promise<CheckResult[]> {

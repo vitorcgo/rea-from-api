@@ -30,6 +30,9 @@ jobs:
       - run: npm run typecheck
       - name: npm test
         shell: bash
+        env:
+          # macOS also proves generated Python clients run on the system Python 3.9 (no typing_extensions).
+          REA_FROM_API_PYTHON: ${{ runner.os == 'macOS' && '/usr/bin/python3' || '' }}
         run: |
           set -o pipefail
           npm test 2>&1 | tee test-output.txt
