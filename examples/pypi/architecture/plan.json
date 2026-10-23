@@ -1,0 +1,1144 @@
+{
+  "name": "pypi-json",
+  "goal": "Discover how PyPI exposes public package metadata (versions, releases) and build a TypeScript integration",
+  "sourceUrl": "https://pypi.org/project/requests/",
+  "language": "typescript",
+  "strategy": "json-api",
+  "sources": [
+    {
+      "endpointId": "get-d006766a",
+      "fnName": "getPypiByProjectVersion",
+      "typeName": "PypiByProjectVersionResponse",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/pypi/{project}/{version}/json",
+      "pathParams": [
+        "project",
+        "version"
+      ],
+      "examples": {
+        "project": "requests",
+        "version": "2.32.3"
+      },
+      "queryParams": [],
+      "schema": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "string",
+                "samples": 1
+              },
+              "author_email": {
+                "type": "string",
+                "samples": 1,
+                "format": "email"
+              },
+              "bugtrack_url": {
+                "type": "null",
+                "samples": 1
+              },
+              "classifiers": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "samples": 18
+                },
+                "samples": 1
+              },
+              "description": {
+                "type": "string",
+                "samples": 1
+              },
+              "description_content_type": {
+                "type": "string",
+                "samples": 1
+              },
+              "docs_url": {
+                "type": "null",
+                "samples": 1
+              },
+              "download_url": {
+                "type": "null",
+                "samples": 1
+              },
+              "downloads": {
+                "type": "object",
+                "properties": {
+                  "last_day": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "last_month": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "last_week": {
+                    "type": "integer",
+                    "samples": 1
+                  }
+                },
+                "required": [
+                  "last_day",
+                  "last_month",
+                  "last_week"
+                ],
+                "samples": 1
+              },
+              "dynamic": {
+                "type": "null",
+                "samples": 1
+              },
+              "home_page": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "keywords": {
+                "type": "null",
+                "samples": 1
+              },
+              "license": {
+                "type": "string",
+                "samples": 1
+              },
+              "license_expression": {
+                "type": "null",
+                "samples": 1
+              },
+              "license_files": {
+                "type": "null",
+                "samples": 1
+              },
+              "maintainer": {
+                "type": "null",
+                "samples": 1
+              },
+              "maintainer_email": {
+                "type": "null",
+                "samples": 1
+              },
+              "name": {
+                "type": "string",
+                "samples": 1
+              },
+              "package_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "platform": {
+                "type": "null",
+                "samples": 1
+              },
+              "project_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "project_urls": {
+                "type": "object",
+                "properties": {
+                  "Documentation": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "Homepage": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "Source": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "Documentation",
+                  "Homepage",
+                  "Source"
+                ],
+                "samples": 1
+              },
+              "provides_extra": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "samples": 3
+                },
+                "samples": 1
+              },
+              "release_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "requires_dist": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "samples": 6
+                },
+                "samples": 1
+              },
+              "requires_python": {
+                "type": "string",
+                "samples": 1
+              },
+              "summary": {
+                "type": "string",
+                "samples": 1
+              },
+              "version": {
+                "type": "string",
+                "samples": 1
+              },
+              "yanked": {
+                "type": "boolean",
+                "samples": 1
+              },
+              "yanked_reason": {
+                "type": "null",
+                "samples": 1
+              }
+            },
+            "required": [
+              "author",
+              "author_email",
+              "bugtrack_url",
+              "classifiers",
+              "description",
+              "description_content_type",
+              "docs_url",
+              "download_url",
+              "downloads",
+              "dynamic",
+              "home_page",
+              "keywords",
+              "license",
+              "license_expression",
+              "license_files",
+              "maintainer",
+              "maintainer_email",
+              "name",
+              "package_url",
+              "platform",
+              "project_url",
+              "project_urls",
+              "provides_extra",
+              "release_url",
+              "requires_dist",
+              "requires_python",
+              "summary",
+              "version",
+              "yanked",
+              "yanked_reason"
+            ],
+            "samples": 1
+          },
+          "last_serial": {
+            "type": "integer",
+            "samples": 1
+          },
+          "ownership": {
+            "type": "object",
+            "properties": {
+              "organization": {
+                "type": "null",
+                "samples": 1
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "samples": 3,
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "samples": 3
+                    },
+                    "user": {
+                      "type": "string",
+                      "samples": 3
+                    }
+                  },
+                  "required": [
+                    "role",
+                    "user"
+                  ]
+                },
+                "samples": 1
+              }
+            },
+            "required": [
+              "organization",
+              "roles"
+            ],
+            "samples": 1
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "samples": 2,
+              "properties": {
+                "comment_text": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "core-metadata": {
+                  "type": "unknown",
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "sha256": {
+                          "type": "string",
+                          "samples": 1
+                        }
+                      },
+                      "required": [
+                        "sha256"
+                      ],
+                      "samples": 1
+                    },
+                    {
+                      "type": "boolean",
+                      "samples": 1
+                    }
+                  ],
+                  "samples": 2
+                },
+                "digests": {
+                  "type": "object",
+                  "samples": 2,
+                  "properties": {
+                    "blake2b_256": {
+                      "type": "string",
+                      "samples": 2
+                    },
+                    "md5": {
+                      "type": "string",
+                      "samples": 2
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "samples": 2
+                    }
+                  },
+                  "required": [
+                    "blake2b_256",
+                    "md5",
+                    "sha256"
+                  ]
+                },
+                "downloads": {
+                  "type": "integer",
+                  "samples": 2
+                },
+                "filename": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "has_sig": {
+                  "type": "boolean",
+                  "samples": 2
+                },
+                "md5_digest": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "packagetype": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "python_version": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "requires_python": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "size": {
+                  "type": "integer",
+                  "samples": 2
+                },
+                "upload_time": {
+                  "type": "string",
+                  "samples": 2,
+                  "format": "date-time"
+                },
+                "upload_time_iso_8601": {
+                  "type": "string",
+                  "samples": 2,
+                  "format": "date-time"
+                },
+                "url": {
+                  "type": "string",
+                  "samples": 2,
+                  "format": "uri"
+                },
+                "yanked": {
+                  "type": "boolean",
+                  "samples": 2
+                },
+                "yanked_reason": {
+                  "type": "null",
+                  "samples": 2
+                }
+              },
+              "required": [
+                "comment_text",
+                "core-metadata",
+                "digests",
+                "downloads",
+                "filename",
+                "has_sig",
+                "md5_digest",
+                "packagetype",
+                "python_version",
+                "requires_python",
+                "size",
+                "upload_time",
+                "upload_time_iso_8601",
+                "url",
+                "yanked",
+                "yanked_reason"
+              ]
+            },
+            "samples": 1
+          },
+          "vulnerabilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "samples": 4,
+              "properties": {
+                "aliases": {
+                  "type": "array",
+                  "samples": 4,
+                  "items": {
+                    "type": "string",
+                    "samples": 8
+                  }
+                },
+                "details": {
+                  "type": "string",
+                  "samples": 4
+                },
+                "fixed_in": {
+                  "type": "array",
+                  "samples": 4,
+                  "items": {
+                    "type": "string",
+                    "samples": 4
+                  }
+                },
+                "id": {
+                  "type": "string",
+                  "samples": 4
+                },
+                "link": {
+                  "type": "string",
+                  "samples": 4,
+                  "format": "uri"
+                },
+                "source": {
+                  "type": "string",
+                  "samples": 4
+                },
+                "summary": {
+                  "type": "null",
+                  "samples": 4
+                },
+                "withdrawn": {
+                  "type": "null",
+                  "samples": 4
+                }
+              },
+              "required": [
+                "aliases",
+                "details",
+                "fixed_in",
+                "id",
+                "link",
+                "source",
+                "summary",
+                "withdrawn"
+              ]
+            },
+            "samples": 1
+          }
+        },
+        "required": [
+          "info",
+          "last_serial",
+          "ownership",
+          "urls",
+          "vulnerabilities"
+        ],
+        "samples": 1
+      },
+      "auth": "none",
+      "documented": true,
+      "status": "confirmed",
+      "cacheTtlMs": 60000
+    },
+    {
+      "endpointId": "get-d181f4ff",
+      "fnName": "getPypi",
+      "typeName": "PypiResponse",
+      "method": "GET",
+      "urlTemplate": "https://pypi.org/pypi/{project}/json",
+      "pathParams": [
+        "project"
+      ],
+      "examples": {
+        "project": "requests"
+      },
+      "queryParams": [],
+      "schema": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "null",
+                "samples": 1
+              },
+              "author_email": {
+                "type": "string",
+                "samples": 1
+              },
+              "bugtrack_url": {
+                "type": "null",
+                "samples": 1
+              },
+              "classifiers": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "samples": 20
+                },
+                "samples": 1
+              },
+              "description": {
+                "type": "string",
+                "samples": 1
+              },
+              "description_content_type": {
+                "type": "string",
+                "samples": 1
+              },
+              "docs_url": {
+                "type": "null",
+                "samples": 1
+              },
+              "download_url": {
+                "type": "null",
+                "samples": 1
+              },
+              "downloads": {
+                "type": "object",
+                "properties": {
+                  "last_day": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "last_month": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "last_week": {
+                    "type": "integer",
+                    "samples": 1
+                  }
+                },
+                "required": [
+                  "last_day",
+                  "last_month",
+                  "last_week"
+                ],
+                "samples": 1
+              },
+              "dynamic": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "samples": 1
+                },
+                "samples": 1
+              },
+              "home_page": {
+                "type": "null",
+                "samples": 1
+              },
+              "keywords": {
+                "type": "null",
+                "samples": 1
+              },
+              "license": {
+                "type": "string",
+                "samples": 1
+              },
+              "license_expression": {
+                "type": "null",
+                "samples": 1
+              },
+              "license_files": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "samples": 1
+              },
+              "maintainer": {
+                "type": "null",
+                "samples": 1
+              },
+              "maintainer_email": {
+                "type": "string",
+                "samples": 1
+              },
+              "name": {
+                "type": "string",
+                "samples": 1
+              },
+              "package_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "platform": {
+                "type": "null",
+                "samples": 1
+              },
+              "project_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "project_urls": {
+                "type": "object",
+                "properties": {
+                  "Documentation": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "Source": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "Documentation",
+                  "Source"
+                ],
+                "samples": 1
+              },
+              "provides_extra": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "samples": 3
+                },
+                "samples": 1
+              },
+              "release_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "requires_dist": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "samples": 6
+                },
+                "samples": 1
+              },
+              "requires_python": {
+                "type": "string",
+                "samples": 1
+              },
+              "summary": {
+                "type": "string",
+                "samples": 1
+              },
+              "version": {
+                "type": "string",
+                "samples": 1
+              },
+              "yanked": {
+                "type": "boolean",
+                "samples": 1
+              },
+              "yanked_reason": {
+                "type": "null",
+                "samples": 1
+              }
+            },
+            "required": [
+              "author",
+              "author_email",
+              "bugtrack_url",
+              "classifiers",
+              "description",
+              "description_content_type",
+              "docs_url",
+              "download_url",
+              "downloads",
+              "dynamic",
+              "home_page",
+              "keywords",
+              "license",
+              "license_expression",
+              "license_files",
+              "maintainer",
+              "maintainer_email",
+              "name",
+              "package_url",
+              "platform",
+              "project_url",
+              "project_urls",
+              "provides_extra",
+              "release_url",
+              "requires_dist",
+              "requires_python",
+              "summary",
+              "version",
+              "yanked",
+              "yanked_reason"
+            ],
+            "samples": 1
+          },
+          "last_serial": {
+            "type": "integer",
+            "samples": 1
+          },
+          "ownership": {
+            "type": "object",
+            "properties": {
+              "organization": {
+                "type": "null",
+                "samples": 1
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "samples": 3,
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "samples": 3
+                    },
+                    "user": {
+                      "type": "string",
+                      "samples": 3
+                    }
+                  },
+                  "required": [
+                    "role",
+                    "user"
+                  ]
+                },
+                "samples": 1
+              }
+            },
+            "required": [
+              "organization",
+              "roles"
+            ],
+            "samples": 1
+          },
+          "releases": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "samples": 163,
+              "items": {
+                "type": "object",
+                "samples": 244,
+                "properties": {
+                  "comment_text": {
+                    "type": "string",
+                    "samples": 244,
+                    "nullable": true
+                  },
+                  "core-metadata": {
+                    "type": "unknown",
+                    "samples": 244
+                  },
+                  "digests": {
+                    "type": "object",
+                    "samples": 244,
+                    "properties": {
+                      "blake2b_256": {
+                        "type": "string",
+                        "samples": 244
+                      },
+                      "md5": {
+                        "type": "string",
+                        "samples": 244
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "samples": 244
+                      }
+                    },
+                    "required": [
+                      "blake2b_256",
+                      "md5",
+                      "sha256"
+                    ]
+                  },
+                  "downloads": {
+                    "type": "integer",
+                    "samples": 244
+                  },
+                  "filename": {
+                    "type": "string",
+                    "samples": 244
+                  },
+                  "has_sig": {
+                    "type": "boolean",
+                    "samples": 244
+                  },
+                  "md5_digest": {
+                    "type": "string",
+                    "samples": 244
+                  },
+                  "packagetype": {
+                    "type": "string",
+                    "samples": 244
+                  },
+                  "python_version": {
+                    "type": "string",
+                    "samples": 244
+                  },
+                  "requires_python": {
+                    "type": "string",
+                    "samples": 244,
+                    "nullable": true
+                  },
+                  "size": {
+                    "type": "integer",
+                    "samples": 244
+                  },
+                  "upload_time": {
+                    "type": "string",
+                    "samples": 244,
+                    "format": "date-time"
+                  },
+                  "upload_time_iso_8601": {
+                    "type": "string",
+                    "samples": 244,
+                    "format": "date-time"
+                  },
+                  "url": {
+                    "type": "string",
+                    "samples": 244,
+                    "format": "uri"
+                  },
+                  "yanked": {
+                    "type": "boolean",
+                    "samples": 244
+                  },
+                  "yanked_reason": {
+                    "type": "string",
+                    "samples": 244,
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "comment_text",
+                  "core-metadata",
+                  "digests",
+                  "downloads",
+                  "filename",
+                  "has_sig",
+                  "md5_digest",
+                  "packagetype",
+                  "python_version",
+                  "requires_python",
+                  "size",
+                  "upload_time",
+                  "upload_time_iso_8601",
+                  "url",
+                  "yanked",
+                  "yanked_reason"
+                ]
+              }
+            },
+            "samples": 1
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "samples": 2,
+              "properties": {
+                "comment_text": {
+                  "type": "null",
+                  "samples": 2
+                },
+                "core-metadata": {
+                  "type": "unknown",
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "sha256": {
+                          "type": "string",
+                          "samples": 1
+                        }
+                      },
+                      "required": [
+                        "sha256"
+                      ],
+                      "samples": 1
+                    },
+                    {
+                      "type": "boolean",
+                      "samples": 1
+                    }
+                  ],
+                  "samples": 2
+                },
+                "digests": {
+                  "type": "object",
+                  "samples": 2,
+                  "properties": {
+                    "blake2b_256": {
+                      "type": "string",
+                      "samples": 2
+                    },
+                    "md5": {
+                      "type": "string",
+                      "samples": 2
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "samples": 2
+                    }
+                  },
+                  "required": [
+                    "blake2b_256",
+                    "md5",
+                    "sha256"
+                  ]
+                },
+                "downloads": {
+                  "type": "integer",
+                  "samples": 2
+                },
+                "filename": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "has_sig": {
+                  "type": "boolean",
+                  "samples": 2
+                },
+                "md5_digest": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "packagetype": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "python_version": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "requires_python": {
+                  "type": "string",
+                  "samples": 2
+                },
+                "size": {
+                  "type": "integer",
+                  "samples": 2
+                },
+                "upload_time": {
+                  "type": "string",
+                  "samples": 2,
+                  "format": "date-time"
+                },
+                "upload_time_iso_8601": {
+                  "type": "string",
+                  "samples": 2,
+                  "format": "date-time"
+                },
+                "url": {
+                  "type": "string",
+                  "samples": 2,
+                  "format": "uri"
+                },
+                "yanked": {
+                  "type": "boolean",
+                  "samples": 2
+                },
+                "yanked_reason": {
+                  "type": "null",
+                  "samples": 2
+                }
+              },
+              "required": [
+                "comment_text",
+                "core-metadata",
+                "digests",
+                "downloads",
+                "filename",
+                "has_sig",
+                "md5_digest",
+                "packagetype",
+                "python_version",
+                "requires_python",
+                "size",
+                "upload_time",
+                "upload_time_iso_8601",
+                "url",
+                "yanked",
+                "yanked_reason"
+              ]
+            },
+            "samples": 1
+          },
+          "vulnerabilities": {
+            "type": "array",
+            "items": {
+              "type": "unknown",
+              "samples": 0
+            },
+            "samples": 1
+          }
+        },
+        "required": [
+          "info",
+          "last_serial",
+          "ownership",
+          "releases",
+          "urls",
+          "vulnerabilities"
+        ],
+        "samples": 1
+      },
+      "auth": "none",
+      "documented": true,
+      "status": "confirmed",
+      "cacheTtlMs": 60000
+    }
+  ],
+  "embedded": [],
+  "dependencies": [],
+  "executionOrder": [
+    "getPypiByProjectVersion",
+    "getPypi"
+  ],
+  "auth": {
+    "required": false,
+    "note": "Selected endpoints answered without credentials during verification."
+  },
+  "rateLimit": {
+    "minIntervalMs": 500,
+    "basis": "no rate-limit headers observed; conservative default of 2 req/s"
+  },
+  "cache": {
+    "kind": "memory-ttl",
+    "defaultTtlMs": 60000
+  },
+  "errors": [
+    "HttpError (non-2xx) with status, retryable flag and redacted URL",
+    "ValidationError when a response no longer matches the observed schema (format drift)",
+    "TimeoutError per request (AbortSignal)",
+    "bounded retries with exponential backoff for network errors, 429 (honouring Retry-After up to a cap) and 502/503/504"
+  ],
+  "transformations": [],
+  "target": {
+    "kind": "none",
+    "integrationDir": "integration",
+    "moduleSystem": "esm",
+    "notes": [
+      "No target project given: a standalone package is generated."
+    ]
+  },
+  "excluded": [
+    {
+      "endpointId": "get-171be125",
+      "reason": "not confirmed (observed, test skipped-cross-origin)"
+    },
+    {
+      "endpointId": "get-b0a2c059",
+      "reason": "response format binary"
+    },
+    {
+      "endpointId": "get-0ff29434",
+      "reason": "response format html"
+    },
+    {
+      "endpointId": "get-aa82a775",
+      "reason": "response format html"
+    },
+    {
+      "endpointId": "get-bc3e279f",
+      "reason": "not confirmed (unavailable, test skipped-robots)"
+    },
+    {
+      "endpointId": "get-43f441ec",
+      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
+    },
+    {
+      "endpointId": "get-2703a397",
+      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
+    },
+    {
+      "endpointId": "post-9c20df45",
+      "reason": "write operation — never generated automatically"
+    },
+    {
+      "endpointId": "get-27e07e87",
+      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
+    },
+    {
+      "endpointId": "get-04720b64",
+      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
+    },
+    {
+      "endpointId": "get-c182d6ea",
+      "reason": "not confirmed (inferred, test skipped-sensitive-path)"
+    },
+    {
+      "endpointId": "post-ffcb4ba9",
+      "reason": "write operation — never generated automatically"
+    },
+    {
+      "endpointId": "get-88845aca",
+      "reason": "not confirmed (unavailable, test skipped-robots)"
+    },
+    {
+      "endpointId": "get-7ec9e483",
+      "reason": "not confirmed (observed, test skipped-cross-origin)"
+    },
+    {
+      "endpointId": "get-02a0d3ec",
+      "reason": "not confirmed (unavailable, test skipped-cross-origin)"
+    },
+    {
+      "endpointId": "get-7573cdc5",
+      "reason": "not confirmed (inferred, test skipped-cross-origin)"
+    }
+  ],
+  "risks": [
+    "Respect the site's terms of use, robots.txt and rate limits; confirm that reuse/redistribution of the data is permitted."
+  ]
+}

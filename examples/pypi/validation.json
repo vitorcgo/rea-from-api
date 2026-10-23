@@ -1,0 +1,36 @@
+{
+  "integrationDir": "/home/user/rea-from-api/examples/pypi/integration",
+  "at": "2026-10-23T07:08:47.139Z",
+  "live": true,
+  "checks": [
+    {
+      "name": "typecheck",
+      "status": "passed",
+      "command": "/home/user/rea-from-api/node_modules/.bin/tsc -p /tmp/rfa-tsc-sX2cB1/tsconfig.json",
+      "durationMs": 1096,
+      "output": ""
+    },
+    {
+      "name": "offline tests (recorded fixtures)",
+      "status": "passed",
+      "command": "/opt/node22/bin/node --test tests/schemas.test.ts tests/client.test.ts",
+      "durationMs": 1312,
+      "output": "TAP version 13\n# Subtest: getPypiByProjectVersion returns validated data\nok 1 - getPypiByProjectVersion returns validated data\n  ---\n  duration_ms: 36.643663\n  type: 'test'\n  ...\n# Subtest: getPypi returns validated data\nok 2 - getPypi returns validated data\n  ---\n  duration_ms: 10.58867\n  type: 'test'\n  ...\n# Subtest: retries transient 503 then succeeds\nok 3 - retries transient 503 then succeeds\n  ---\n  duration_ms: 257.611676\n  type: 'test'\n  ...\n# Subtest: gives up after maxRetries with HttpError\nok 4 - gives up after maxRetries with HttpError\n  ---\n  duration_ms: 757.480775\n  type: 'test'\n  ...\n# Subtest: serves repeated calls from cache\nok 5 - serves repeated calls from cache\n  ---\n  duration_ms: 4.396664\n  type: 'test'\n  ...\n# Subtest: PypiByProjectVersionResponse accepts the recorded response\nok 6 - PypiByProjectVersionResponse accepts the recorded response\n  ---\n  duration_ms: 1.994772\n  type: 'test'\n  ...\n# Subtest: PypiByProjectVersionResponse rejects a drifted response\nok 7 - PypiByProjectVersionResponse rejects a drifted response\n  ---\n  duration_ms: 0.490117\n  type: 'test'\n  ...\n# Subtest: PypiResponse accepts the recorded response\nok 8 - PypiResponse accepts the recorded response\n  ---\n  duration_ms: 2.512303\n  type: 'test'\n  ...\n# Subtest: PypiResponse rejects a drifted response\nok 9 - PypiResponse rejects a drifted response\n  ---\n  duration_ms: 0.215425\n  type: 'test'\n  ...\n1..9\n# tests 9\n# suites 0\n# pass 9\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1270.033855"
+    },
+    {
+      "name": "live smoke tests",
+      "status": "passed",
+      "command": "/opt/node22/bin/node --test tests/live.test.ts",
+      "durationMs": 744,
+      "output": "TAP version 13\n# Subtest: live: getPypiByProjectVersion\nok 1 - live: getPypiByProjectVersion\n  ---\n  duration_ms: 99.932134\n  type: 'test'\n  ...\n# Subtest: live: getPypi\nok 2 - live: getPypi\n  ---\n  duration_ms: 431.549262\n  type: 'test'\n  ...\n1..2\n# tests 2\n# suites 0\n# pass 2\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 700.084814"
+    },
+    {
+      "name": "usage example",
+      "status": "passed",
+      "command": "/opt/node22/bin/node examples/basic.ts",
+      "durationMs": 305,
+      "output": "[ok] https://pypi.org/pypi/requests/2.32.3/json 200\n{\n  \"info\": {\n    \"author\": \"Kenneth Reitz\",\n    \"author_email\": \"me@kennethreitz.org\",\n    \"bugtrack_url\": null,\n    \"classifiers\": [\n      \"Development Status :: 5 - Production/Stable\",\n      \"Environment :: Web Environment\",\n      \"Intended Audience :: Developers\",\n      \"License :: OSI Approved :: Apache Software License\",\n      \"Natural Language :: English\",\n      \"Operating System :: OS Independent\",\n      \"Programming Language :: Python\",\n      \"Programming Language :: Python :: 3\",\n      \"Programming Language :: Python :: 3 :: Only\",\n      \"Programming Language :: Python :: 3.10\",\n      \"Programming Language :: Python :: 3.11\",\n      \"Programming Language :: Python :: 3.12\",\n      \"Programming Language :: Python :: 3.8\",\n      \"Programming Language :: Python :: 3.9\",\n      \"Programming Language :: Python :: Implementation :: CPython\",\n      \"Programming Language :: Python :: Implementation :: PyPy\",\n      \"Topic :: Internet :: WWW/HTTP\",\n      \"Topic :: Software Development :: Libraries\"\n    ],\n    \"description\": \"# Requests\\n\\n**Requests** is a simple, yet elegant, HTTP library.\\n\\n```python\\n>>> import requests\\n>>> r = requests.get('https://httpbin.org/basic-auth/user/pass', auth=('user', 'pass'))\\n>>> r.status_code\\n200\\n>>> r.headers['content-type']\\n'application/json; charset=utf8'\\n>>> r.encoding\\n'utf-8'\\n>>> r.text\\n'{\\\"authenticated\\\": true, ...'\\n>>> r.json()\\n{'authenticated': True, ...}\\n```\\n\\nRequests allows you to send HTTP/1.1 requests extremely easily. There’s no need to manually add query strings to your URLs, or to form-encode your `PUT` & `POST` data — but nowadays, just use the `json` method!\\n\\nRequests is one of the most downloaded Python packages today, pulling in around `30M downloads / week`— according to GitHub, Requests is currently [depended upon](https://github.com/psf/requests/network/dependents?package_id=UGFja2FnZS01NzA4OTExNg%3D%3D) by `1,000,000+` repositories. You may certainly put your trust in this code.\\n\\n[![Downloads"
+    }
+  ],
+  "ok": true
+}

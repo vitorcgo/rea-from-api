@@ -1,0 +1,16 @@
+flowchart LR
+  consumer["Consumer code (examples/)"]
+  cache[("In-memory TTL cache<br/>60s")]
+  client["HTTP client<br/>timeout · bounded retry · 500ms pacing"]
+  src_getPypiByProjectVersion[/"GET pypi.org/pypi/{project}/{version}/json<br/>documented · confirmed"/]
+  fn_getPypiByProjectVersion["getPypiByProjectVersion()"]
+  val_getPypiByProjectVersion{{"validate PypiByProjectVersionResponse"}}
+  src_getPypiByProjectVersion --> client --> val_getPypiByProjectVersion --> fn_getPypiByProjectVersion
+  fn_getPypiByProjectVersion <--> cache
+  fn_getPypiByProjectVersion --> consumer
+  src_getPypi[/"GET pypi.org/pypi/{project}/json<br/>documented · confirmed"/]
+  fn_getPypi["getPypi()"]
+  val_getPypi{{"validate PypiResponse"}}
+  src_getPypi --> client --> val_getPypi --> fn_getPypi
+  fn_getPypi <--> cache
+  fn_getPypi --> consumer

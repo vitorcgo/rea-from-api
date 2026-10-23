@@ -1,0 +1,2759 @@
+[
+  {
+    "id": "get-d006766a",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/pypi/{project}/{version}/json",
+    "exampleUrl": "https://pypi.org/pypi/requests/2.32.3/json",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "seeds",
+      "verify"
+    ],
+    "evidenceIds": [
+      "ev-0006",
+      "ev-0027"
+    ],
+    "purpose": "Read one pypi by project, version (inferred from URL shape)",
+    "pathParams": [
+      "project",
+      "version"
+    ],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "none",
+    "responseFormat": "json",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "confirmed",
+    "testStatus": "passed",
+    "confidence": "high",
+    "documented": true,
+    "goalRelevance": 1,
+    "notes": [
+      "robots.txt disallows /pypi/requests/2.32.3/json for crawlers; called once because the caller declared it an officially documented API (--robots-exempt)"
+    ],
+    "verifiedAt": "2026-10-23T07:08:42.722Z",
+    "contentType": "application/json",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "type": "object",
+          "properties": {
+            "author": {
+              "type": "string",
+              "samples": 1
+            },
+            "author_email": {
+              "type": "string",
+              "samples": 1,
+              "format": "email"
+            },
+            "bugtrack_url": {
+              "type": "null",
+              "samples": 1
+            },
+            "classifiers": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "samples": 18
+              },
+              "samples": 1
+            },
+            "description": {
+              "type": "string",
+              "samples": 1
+            },
+            "description_content_type": {
+              "type": "string",
+              "samples": 1
+            },
+            "docs_url": {
+              "type": "null",
+              "samples": 1
+            },
+            "download_url": {
+              "type": "null",
+              "samples": 1
+            },
+            "downloads": {
+              "type": "object",
+              "properties": {
+                "last_day": {
+                  "type": "integer",
+                  "samples": 1
+                },
+                "last_month": {
+                  "type": "integer",
+                  "samples": 1
+                },
+                "last_week": {
+                  "type": "integer",
+                  "samples": 1
+                }
+              },
+              "required": [
+                "last_day",
+                "last_month",
+                "last_week"
+              ],
+              "samples": 1
+            },
+            "dynamic": {
+              "type": "null",
+              "samples": 1
+            },
+            "home_page": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "keywords": {
+              "type": "null",
+              "samples": 1
+            },
+            "license": {
+              "type": "string",
+              "samples": 1
+            },
+            "license_expression": {
+              "type": "null",
+              "samples": 1
+            },
+            "license_files": {
+              "type": "null",
+              "samples": 1
+            },
+            "maintainer": {
+              "type": "null",
+              "samples": 1
+            },
+            "maintainer_email": {
+              "type": "null",
+              "samples": 1
+            },
+            "name": {
+              "type": "string",
+              "samples": 1
+            },
+            "package_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "platform": {
+              "type": "null",
+              "samples": 1
+            },
+            "project_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "project_urls": {
+              "type": "object",
+              "properties": {
+                "Documentation": {
+                  "type": "string",
+                  "samples": 1,
+                  "format": "uri"
+                },
+                "Homepage": {
+                  "type": "string",
+                  "samples": 1,
+                  "format": "uri"
+                },
+                "Source": {
+                  "type": "string",
+                  "samples": 1,
+                  "format": "uri"
+                }
+              },
+              "required": [
+                "Documentation",
+                "Homepage",
+                "Source"
+              ],
+              "samples": 1
+            },
+            "provides_extra": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "samples": 3
+              },
+              "samples": 1
+            },
+            "release_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "requires_dist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "samples": 6
+              },
+              "samples": 1
+            },
+            "requires_python": {
+              "type": "string",
+              "samples": 1
+            },
+            "summary": {
+              "type": "string",
+              "samples": 1
+            },
+            "version": {
+              "type": "string",
+              "samples": 1
+            },
+            "yanked": {
+              "type": "boolean",
+              "samples": 1
+            },
+            "yanked_reason": {
+              "type": "null",
+              "samples": 1
+            }
+          },
+          "required": [
+            "author",
+            "author_email",
+            "bugtrack_url",
+            "classifiers",
+            "description",
+            "description_content_type",
+            "docs_url",
+            "download_url",
+            "downloads",
+            "dynamic",
+            "home_page",
+            "keywords",
+            "license",
+            "license_expression",
+            "license_files",
+            "maintainer",
+            "maintainer_email",
+            "name",
+            "package_url",
+            "platform",
+            "project_url",
+            "project_urls",
+            "provides_extra",
+            "release_url",
+            "requires_dist",
+            "requires_python",
+            "summary",
+            "version",
+            "yanked",
+            "yanked_reason"
+          ],
+          "samples": 1
+        },
+        "last_serial": {
+          "type": "integer",
+          "samples": 1
+        },
+        "ownership": {
+          "type": "object",
+          "properties": {
+            "organization": {
+              "type": "null",
+              "samples": 1
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "samples": 3,
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "samples": 3
+                  },
+                  "user": {
+                    "type": "string",
+                    "samples": 3
+                  }
+                },
+                "required": [
+                  "role",
+                  "user"
+                ]
+              },
+              "samples": 1
+            }
+          },
+          "required": [
+            "organization",
+            "roles"
+          ],
+          "samples": 1
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "samples": 2,
+            "properties": {
+              "comment_text": {
+                "type": "string",
+                "samples": 2
+              },
+              "core-metadata": {
+                "type": "unknown",
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "sha256": {
+                        "type": "string",
+                        "samples": 1
+                      }
+                    },
+                    "required": [
+                      "sha256"
+                    ],
+                    "samples": 1
+                  },
+                  {
+                    "type": "boolean",
+                    "samples": 1
+                  }
+                ],
+                "samples": 2
+              },
+              "digests": {
+                "type": "object",
+                "samples": 2,
+                "properties": {
+                  "blake2b_256": {
+                    "type": "string",
+                    "samples": 2
+                  },
+                  "md5": {
+                    "type": "string",
+                    "samples": 2
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "samples": 2
+                  }
+                },
+                "required": [
+                  "blake2b_256",
+                  "md5",
+                  "sha256"
+                ]
+              },
+              "downloads": {
+                "type": "integer",
+                "samples": 2
+              },
+              "filename": {
+                "type": "string",
+                "samples": 2
+              },
+              "has_sig": {
+                "type": "boolean",
+                "samples": 2
+              },
+              "md5_digest": {
+                "type": "string",
+                "samples": 2
+              },
+              "packagetype": {
+                "type": "string",
+                "samples": 2
+              },
+              "python_version": {
+                "type": "string",
+                "samples": 2
+              },
+              "requires_python": {
+                "type": "string",
+                "samples": 2
+              },
+              "size": {
+                "type": "integer",
+                "samples": 2
+              },
+              "upload_time": {
+                "type": "string",
+                "samples": 2,
+                "format": "date-time"
+              },
+              "upload_time_iso_8601": {
+                "type": "string",
+                "samples": 2,
+                "format": "date-time"
+              },
+              "url": {
+                "type": "string",
+                "samples": 2,
+                "format": "uri"
+              },
+              "yanked": {
+                "type": "boolean",
+                "samples": 2
+              },
+              "yanked_reason": {
+                "type": "null",
+                "samples": 2
+              }
+            },
+            "required": [
+              "comment_text",
+              "core-metadata",
+              "digests",
+              "downloads",
+              "filename",
+              "has_sig",
+              "md5_digest",
+              "packagetype",
+              "python_version",
+              "requires_python",
+              "size",
+              "upload_time",
+              "upload_time_iso_8601",
+              "url",
+              "yanked",
+              "yanked_reason"
+            ]
+          },
+          "samples": 1
+        },
+        "vulnerabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "samples": 4,
+            "properties": {
+              "aliases": {
+                "type": "array",
+                "samples": 4,
+                "items": {
+                  "type": "string",
+                  "samples": 8
+                }
+              },
+              "details": {
+                "type": "string",
+                "samples": 4
+              },
+              "fixed_in": {
+                "type": "array",
+                "samples": 4,
+                "items": {
+                  "type": "string",
+                  "samples": 4
+                }
+              },
+              "id": {
+                "type": "string",
+                "samples": 4
+              },
+              "link": {
+                "type": "string",
+                "samples": 4,
+                "format": "uri"
+              },
+              "source": {
+                "type": "string",
+                "samples": 4
+              },
+              "summary": {
+                "type": "null",
+                "samples": 4
+              },
+              "withdrawn": {
+                "type": "null",
+                "samples": 4
+              }
+            },
+            "required": [
+              "aliases",
+              "details",
+              "fixed_in",
+              "id",
+              "link",
+              "source",
+              "summary",
+              "withdrawn"
+            ]
+          },
+          "samples": 1
+        }
+      },
+      "required": [
+        "info",
+        "last_serial",
+        "ownership",
+        "urls",
+        "vulnerabilities"
+      ],
+      "samples": 1
+    }
+  },
+  {
+    "id": "get-d181f4ff",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/pypi/{project}/json",
+    "exampleUrl": "https://pypi.org/pypi/requests/json",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "seeds",
+      "verify"
+    ],
+    "evidenceIds": [
+      "ev-0005",
+      "ev-0031"
+    ],
+    "purpose": "Read one pypi by project (inferred from URL shape)",
+    "pathParams": [
+      "project"
+    ],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "none",
+    "responseFormat": "json",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "confirmed",
+    "testStatus": "passed",
+    "confidence": "high",
+    "documented": true,
+    "goalRelevance": 1,
+    "notes": [
+      "robots.txt disallows /pypi/requests/json for crawlers; called once because the caller declared it an officially documented API (--robots-exempt)"
+    ],
+    "verifiedAt": "2026-10-23T07:08:43.628Z",
+    "contentType": "application/json",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "type": "object",
+          "properties": {
+            "author": {
+              "type": "null",
+              "samples": 1
+            },
+            "author_email": {
+              "type": "string",
+              "samples": 1
+            },
+            "bugtrack_url": {
+              "type": "null",
+              "samples": 1
+            },
+            "classifiers": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "samples": 20
+              },
+              "samples": 1
+            },
+            "description": {
+              "type": "string",
+              "samples": 1
+            },
+            "description_content_type": {
+              "type": "string",
+              "samples": 1
+            },
+            "docs_url": {
+              "type": "null",
+              "samples": 1
+            },
+            "download_url": {
+              "type": "null",
+              "samples": 1
+            },
+            "downloads": {
+              "type": "object",
+              "properties": {
+                "last_day": {
+                  "type": "integer",
+                  "samples": 1
+                },
+                "last_month": {
+                  "type": "integer",
+                  "samples": 1
+                },
+                "last_week": {
+                  "type": "integer",
+                  "samples": 1
+                }
+              },
+              "required": [
+                "last_day",
+                "last_month",
+                "last_week"
+              ],
+              "samples": 1
+            },
+            "dynamic": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "samples": 1
+              },
+              "samples": 1
+            },
+            "home_page": {
+              "type": "null",
+              "samples": 1
+            },
+            "keywords": {
+              "type": "null",
+              "samples": 1
+            },
+            "license": {
+              "type": "string",
+              "samples": 1
+            },
+            "license_expression": {
+              "type": "null",
+              "samples": 1
+            },
+            "license_files": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "samples": 2
+              },
+              "samples": 1
+            },
+            "maintainer": {
+              "type": "null",
+              "samples": 1
+            },
+            "maintainer_email": {
+              "type": "string",
+              "samples": 1
+            },
+            "name": {
+              "type": "string",
+              "samples": 1
+            },
+            "package_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "platform": {
+              "type": "null",
+              "samples": 1
+            },
+            "project_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "project_urls": {
+              "type": "object",
+              "properties": {
+                "Documentation": {
+                  "type": "string",
+                  "samples": 1,
+                  "format": "uri"
+                },
+                "Source": {
+                  "type": "string",
+                  "samples": 1,
+                  "format": "uri"
+                }
+              },
+              "required": [
+                "Documentation",
+                "Source"
+              ],
+              "samples": 1
+            },
+            "provides_extra": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "samples": 3
+              },
+              "samples": 1
+            },
+            "release_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "requires_dist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "samples": 6
+              },
+              "samples": 1
+            },
+            "requires_python": {
+              "type": "string",
+              "samples": 1
+            },
+            "summary": {
+              "type": "string",
+              "samples": 1
+            },
+            "version": {
+              "type": "string",
+              "samples": 1
+            },
+            "yanked": {
+              "type": "boolean",
+              "samples": 1
+            },
+            "yanked_reason": {
+              "type": "null",
+              "samples": 1
+            }
+          },
+          "required": [
+            "author",
+            "author_email",
+            "bugtrack_url",
+            "classifiers",
+            "description",
+            "description_content_type",
+            "docs_url",
+            "download_url",
+            "downloads",
+            "dynamic",
+            "home_page",
+            "keywords",
+            "license",
+            "license_expression",
+            "license_files",
+            "maintainer",
+            "maintainer_email",
+            "name",
+            "package_url",
+            "platform",
+            "project_url",
+            "project_urls",
+            "provides_extra",
+            "release_url",
+            "requires_dist",
+            "requires_python",
+            "summary",
+            "version",
+            "yanked",
+            "yanked_reason"
+          ],
+          "samples": 1
+        },
+        "last_serial": {
+          "type": "integer",
+          "samples": 1
+        },
+        "ownership": {
+          "type": "object",
+          "properties": {
+            "organization": {
+              "type": "null",
+              "samples": 1
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "samples": 3,
+                "properties": {
+                  "role": {
+                    "type": "string",
+                    "samples": 3
+                  },
+                  "user": {
+                    "type": "string",
+                    "samples": 3
+                  }
+                },
+                "required": [
+                  "role",
+                  "user"
+                ]
+              },
+              "samples": 1
+            }
+          },
+          "required": [
+            "organization",
+            "roles"
+          ],
+          "samples": 1
+        },
+        "releases": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "samples": 163,
+            "items": {
+              "type": "object",
+              "samples": 244,
+              "properties": {
+                "comment_text": {
+                  "type": "string",
+                  "samples": 244,
+                  "nullable": true
+                },
+                "core-metadata": {
+                  "type": "unknown",
+                  "samples": 244
+                },
+                "digests": {
+                  "type": "object",
+                  "samples": 244,
+                  "properties": {
+                    "blake2b_256": {
+                      "type": "string",
+                      "samples": 244
+                    },
+                    "md5": {
+                      "type": "string",
+                      "samples": 244
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "samples": 244
+                    }
+                  },
+                  "required": [
+                    "blake2b_256",
+                    "md5",
+                    "sha256"
+                  ]
+                },
+                "downloads": {
+                  "type": "integer",
+                  "samples": 244
+                },
+                "filename": {
+                  "type": "string",
+                  "samples": 244
+                },
+                "has_sig": {
+                  "type": "boolean",
+                  "samples": 244
+                },
+                "md5_digest": {
+                  "type": "string",
+                  "samples": 244
+                },
+                "packagetype": {
+                  "type": "string",
+                  "samples": 244
+                },
+                "python_version": {
+                  "type": "string",
+                  "samples": 244
+                },
+                "requires_python": {
+                  "type": "string",
+                  "samples": 244,
+                  "nullable": true
+                },
+                "size": {
+                  "type": "integer",
+                  "samples": 244
+                },
+                "upload_time": {
+                  "type": "string",
+                  "samples": 244,
+                  "format": "date-time"
+                },
+                "upload_time_iso_8601": {
+                  "type": "string",
+                  "samples": 244,
+                  "format": "date-time"
+                },
+                "url": {
+                  "type": "string",
+                  "samples": 244,
+                  "format": "uri"
+                },
+                "yanked": {
+                  "type": "boolean",
+                  "samples": 244
+                },
+                "yanked_reason": {
+                  "type": "string",
+                  "samples": 244,
+                  "nullable": true
+                }
+              },
+              "required": [
+                "comment_text",
+                "core-metadata",
+                "digests",
+                "downloads",
+                "filename",
+                "has_sig",
+                "md5_digest",
+                "packagetype",
+                "python_version",
+                "requires_python",
+                "size",
+                "upload_time",
+                "upload_time_iso_8601",
+                "url",
+                "yanked",
+                "yanked_reason"
+              ]
+            }
+          },
+          "samples": 1
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "samples": 2,
+            "properties": {
+              "comment_text": {
+                "type": "null",
+                "samples": 2
+              },
+              "core-metadata": {
+                "type": "unknown",
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "sha256": {
+                        "type": "string",
+                        "samples": 1
+                      }
+                    },
+                    "required": [
+                      "sha256"
+                    ],
+                    "samples": 1
+                  },
+                  {
+                    "type": "boolean",
+                    "samples": 1
+                  }
+                ],
+                "samples": 2
+              },
+              "digests": {
+                "type": "object",
+                "samples": 2,
+                "properties": {
+                  "blake2b_256": {
+                    "type": "string",
+                    "samples": 2
+                  },
+                  "md5": {
+                    "type": "string",
+                    "samples": 2
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "samples": 2
+                  }
+                },
+                "required": [
+                  "blake2b_256",
+                  "md5",
+                  "sha256"
+                ]
+              },
+              "downloads": {
+                "type": "integer",
+                "samples": 2
+              },
+              "filename": {
+                "type": "string",
+                "samples": 2
+              },
+              "has_sig": {
+                "type": "boolean",
+                "samples": 2
+              },
+              "md5_digest": {
+                "type": "string",
+                "samples": 2
+              },
+              "packagetype": {
+                "type": "string",
+                "samples": 2
+              },
+              "python_version": {
+                "type": "string",
+                "samples": 2
+              },
+              "requires_python": {
+                "type": "string",
+                "samples": 2
+              },
+              "size": {
+                "type": "integer",
+                "samples": 2
+              },
+              "upload_time": {
+                "type": "string",
+                "samples": 2,
+                "format": "date-time"
+              },
+              "upload_time_iso_8601": {
+                "type": "string",
+                "samples": 2,
+                "format": "date-time"
+              },
+              "url": {
+                "type": "string",
+                "samples": 2,
+                "format": "uri"
+              },
+              "yanked": {
+                "type": "boolean",
+                "samples": 2
+              },
+              "yanked_reason": {
+                "type": "null",
+                "samples": 2
+              }
+            },
+            "required": [
+              "comment_text",
+              "core-metadata",
+              "digests",
+              "downloads",
+              "filename",
+              "has_sig",
+              "md5_digest",
+              "packagetype",
+              "python_version",
+              "requires_python",
+              "size",
+              "upload_time",
+              "upload_time_iso_8601",
+              "url",
+              "yanked",
+              "yanked_reason"
+            ]
+          },
+          "samples": 1
+        },
+        "vulnerabilities": {
+          "type": "array",
+          "items": {
+            "type": "unknown",
+            "samples": 0
+          },
+          "samples": 1
+        }
+      },
+      "required": [
+        "info",
+        "last_serial",
+        "ownership",
+        "releases",
+        "urls",
+        "vulnerabilities"
+      ],
+      "samples": 1
+    }
+  },
+  {
+    "id": "get-171be125",
+    "method": "GET",
+    "urlTemplate": "https://api.github.com/repos/psf/requests",
+    "exampleUrl": "https://api.github.com/repos/psf/requests",
+    "origin": "https://api.github.com",
+    "discoveredBy": [
+      "rea-browser"
+    ],
+    "evidenceIds": [
+      "ev-0011",
+      "ev-0007",
+      "ev-0013"
+    ],
+    "purpose": "List/read requests (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "json",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "observed",
+    "testStatus": "skipped-cross-origin",
+    "confidence": "medium",
+    "documented": false,
+    "goalRelevance": 0.35,
+    "notes": [
+      "Third-party request seen in browser traffic"
+    ],
+    "contentType": "application/json; charset=utf-8",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "samples": 1
+        },
+        "node_id": {
+          "type": "string",
+          "samples": 1
+        },
+        "name": {
+          "type": "string",
+          "samples": 1
+        },
+        "full_name": {
+          "type": "string",
+          "samples": 1
+        },
+        "private": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "owner": {
+          "type": "object",
+          "properties": {
+            "login": {
+              "type": "string",
+              "samples": 1
+            },
+            "id": {
+              "type": "integer",
+              "samples": 1
+            },
+            "node_id": {
+              "type": "string",
+              "samples": 1
+            },
+            "avatar_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "gravatar_id": {
+              "type": "string",
+              "samples": 1
+            },
+            "url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "html_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "followers_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "following_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "gists_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "starred_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "subscriptions_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "organizations_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "repos_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "events_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "received_events_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "type": {
+              "type": "string",
+              "samples": 1
+            },
+            "user_view_type": {
+              "type": "string",
+              "samples": 1
+            },
+            "site_admin": {
+              "type": "boolean",
+              "samples": 1
+            }
+          },
+          "required": [
+            "login",
+            "id",
+            "node_id",
+            "avatar_url",
+            "gravatar_id",
+            "url",
+            "html_url",
+            "followers_url",
+            "following_url",
+            "gists_url",
+            "starred_url",
+            "subscriptions_url",
+            "organizations_url",
+            "repos_url",
+            "events_url",
+            "received_events_url",
+            "type",
+            "user_view_type",
+            "site_admin"
+          ],
+          "samples": 1
+        },
+        "html_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "description": {
+          "type": "string",
+          "samples": 1
+        },
+        "fork": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "forks_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "keys_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "collaborators_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "teams_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "hooks_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "issue_events_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "events_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "assignees_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "branches_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "tags_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "blobs_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "git_tags_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "git_refs_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "trees_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "statuses_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "languages_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "stargazers_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "contributors_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "subscribers_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "subscription_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "commits_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "git_commits_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "comments_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "issue_comment_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "contents_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "compare_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "merges_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "archive_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "downloads_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "issues_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "pulls_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "milestones_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "notifications_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "labels_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "releases_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "deployments_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "created_at": {
+          "type": "string",
+          "samples": 1,
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "samples": 1,
+          "format": "date-time"
+        },
+        "pushed_at": {
+          "type": "string",
+          "samples": 1,
+          "format": "date-time"
+        },
+        "git_url": {
+          "type": "string",
+          "samples": 1
+        },
+        "ssh_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "email"
+        },
+        "clone_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "svn_url": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "homepage": {
+          "type": "string",
+          "samples": 1,
+          "format": "uri"
+        },
+        "size": {
+          "type": "integer",
+          "samples": 1
+        },
+        "stargazers_count": {
+          "type": "integer",
+          "samples": 1
+        },
+        "watchers_count": {
+          "type": "integer",
+          "samples": 1
+        },
+        "language": {
+          "type": "string",
+          "samples": 1
+        },
+        "has_issues": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "has_projects": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "has_downloads": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "has_wiki": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "has_pages": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "has_discussions": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "forks_count": {
+          "type": "integer",
+          "samples": 1
+        },
+        "mirror_url": {
+          "type": "null",
+          "samples": 1
+        },
+        "archived": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "disabled": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "open_issues_count": {
+          "type": "integer",
+          "samples": 1
+        },
+        "license": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "samples": 1
+            },
+            "name": {
+              "type": "string",
+              "samples": 1
+            },
+            "spdx_id": {
+              "type": "string",
+              "samples": 1
+            },
+            "url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "node_id": {
+              "type": "string",
+              "samples": 1
+            }
+          },
+          "required": [
+            "key",
+            "name",
+            "spdx_id",
+            "url",
+            "node_id"
+          ],
+          "samples": 1
+        },
+        "allow_forking": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "is_template": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "web_commit_signoff_required": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "has_pull_requests": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "pull_request_creation_policy": {
+          "type": "string",
+          "samples": 1
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "samples": 8
+          },
+          "samples": 1
+        },
+        "visibility": {
+          "type": "string",
+          "samples": 1
+        },
+        "forks": {
+          "type": "integer",
+          "samples": 1
+        },
+        "open_issues": {
+          "type": "integer",
+          "samples": 1
+        },
+        "watchers": {
+          "type": "integer",
+          "samples": 1
+        },
+        "default_branch": {
+          "type": "string",
+          "samples": 1
+        },
+        "temp_clone_token": {
+          "type": "null",
+          "samples": 1
+        },
+        "custom_properties": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "samples": 1
+        },
+        "organization": {
+          "type": "object",
+          "properties": {
+            "login": {
+              "type": "string",
+              "samples": 1
+            },
+            "id": {
+              "type": "integer",
+              "samples": 1
+            },
+            "node_id": {
+              "type": "string",
+              "samples": 1
+            },
+            "avatar_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "gravatar_id": {
+              "type": "string",
+              "samples": 1
+            },
+            "url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "html_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "followers_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "following_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "gists_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "starred_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "subscriptions_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "organizations_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "repos_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "events_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "received_events_url": {
+              "type": "string",
+              "samples": 1,
+              "format": "uri"
+            },
+            "type": {
+              "type": "string",
+              "samples": 1
+            },
+            "user_view_type": {
+              "type": "string",
+              "samples": 1
+            },
+            "site_admin": {
+              "type": "boolean",
+              "samples": 1
+            }
+          },
+          "required": [
+            "login",
+            "id",
+            "node_id",
+            "avatar_url",
+            "gravatar_id",
+            "url",
+            "html_url",
+            "followers_url",
+            "following_url",
+            "gists_url",
+            "starred_url",
+            "subscriptions_url",
+            "organizations_url",
+            "repos_url",
+            "events_url",
+            "received_events_url",
+            "type",
+            "user_view_type",
+            "site_admin"
+          ],
+          "samples": 1
+        },
+        "network_count": {
+          "type": "integer",
+          "samples": 1
+        },
+        "subscribers_count": {
+          "type": "integer",
+          "samples": 1
+        }
+      },
+      "required": [
+        "id",
+        "node_id",
+        "name",
+        "full_name",
+        "private",
+        "owner",
+        "html_url",
+        "description",
+        "fork",
+        "url",
+        "forks_url",
+        "keys_url",
+        "collaborators_url",
+        "teams_url",
+        "hooks_url",
+        "issue_events_url",
+        "events_url",
+        "assignees_url",
+        "branches_url",
+        "tags_url",
+        "blobs_url",
+        "git_tags_url",
+        "git_refs_url",
+        "trees_url",
+        "statuses_url",
+        "languages_url",
+        "stargazers_url",
+        "contributors_url",
+        "subscribers_url",
+        "subscription_url",
+        "commits_url",
+        "git_commits_url",
+        "comments_url",
+        "issue_comment_url",
+        "contents_url",
+        "compare_url",
+        "merges_url",
+        "archive_url",
+        "downloads_url",
+        "issues_url",
+        "pulls_url",
+        "milestones_url",
+        "notifications_url",
+        "labels_url",
+        "releases_url",
+        "deployments_url",
+        "created_at",
+        "updated_at",
+        "pushed_at",
+        "git_url",
+        "ssh_url",
+        "clone_url",
+        "svn_url",
+        "homepage",
+        "size",
+        "stargazers_count",
+        "watchers_count",
+        "language",
+        "has_issues",
+        "has_projects",
+        "has_downloads",
+        "has_wiki",
+        "has_pages",
+        "has_discussions",
+        "forks_count",
+        "mirror_url",
+        "archived",
+        "disabled",
+        "open_issues_count",
+        "license",
+        "allow_forking",
+        "is_template",
+        "web_commit_signoff_required",
+        "has_pull_requests",
+        "pull_request_creation_policy",
+        "topics",
+        "visibility",
+        "forks",
+        "open_issues",
+        "watchers",
+        "default_branch",
+        "temp_clone_token",
+        "custom_properties",
+        "organization",
+        "network_count",
+        "subscribers_count"
+      ],
+      "samples": 1
+    }
+  },
+  {
+    "id": "get-b0a2c059",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/_includes/unauthed/flash-messages/",
+    "exampleUrl": "https://pypi.org/_includes/unauthed/flash-messages/",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "rea-browser",
+      "verify"
+    ],
+    "evidenceIds": [
+      "ev-0009",
+      "ev-0007",
+      "ev-0029"
+    ],
+    "purpose": "List/read flash-messages (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "none",
+    "responseFormat": "binary",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "confirmed",
+    "testStatus": "passed",
+    "confidence": "medium",
+    "documented": false,
+    "goalRelevance": 0.3,
+    "notes": [
+      "Seen in browser traffic (REA ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b)"
+    ],
+    "rateLimit": {
+      "retry-after": "0"
+    },
+    "verifiedAt": "2026-10-23T07:08:43.321Z",
+    "contentType": ""
+  },
+  {
+    "id": "get-0ff29434",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/_includes/unauthed/notification-banners/",
+    "exampleUrl": "https://pypi.org/_includes/unauthed/notification-banners/",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "rea-browser",
+      "verify"
+    ],
+    "evidenceIds": [
+      "ev-0008",
+      "ev-0007",
+      "ev-0028"
+    ],
+    "purpose": "List/read notification-banners (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "none",
+    "responseFormat": "html",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "confirmed",
+    "testStatus": "passed",
+    "confidence": "medium",
+    "documented": false,
+    "goalRelevance": 0.3,
+    "notes": [
+      "Seen in browser traffic (REA ev_d6e6d78185cf83d36e5178fbe6868a72116ac737945870af300c930eedc02c7b)"
+    ],
+    "contentType": "text/html; charset=UTF-8",
+    "verifiedAt": "2026-10-23T07:08:43.021Z"
+  },
+  {
+    "id": "get-aa82a775",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/project/requests/",
+    "exampleUrl": "https://pypi.org/project/requests/",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "html-static"
+    ],
+    "evidenceIds": [
+      "ev-0001"
+    ],
+    "purpose": "Public HTML page \"requests · PyPI\"",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "none",
+    "responseFormat": "html",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "confirmed",
+    "testStatus": "passed",
+    "confidence": "high",
+    "documented": false,
+    "goalRelevance": 0.3,
+    "notes": [],
+    "contentType": "text/html; charset=UTF-8",
+    "verifiedAt": "2026-10-23T07:08:19.277Z"
+  },
+  {
+    "id": "get-bc3e279f",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/_includes/authed/",
+    "exampleUrl": "https://pypi.org/_includes/authed/",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "js-static"
+    ],
+    "evidenceIds": [
+      "ev-0018"
+    ],
+    "purpose": "List/read authed (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "unavailable",
+    "testStatus": "skipped-robots",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "Found in JavaScript; not seen on the wire",
+      "robots.txt disallows /_includes/authed/"
+    ]
+  },
+  {
+    "id": "get-43f441ec",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/account/login",
+    "exampleUrl": "https://pypi.org/account/login",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "js-static"
+    ],
+    "evidenceIds": [
+      "ev-0023"
+    ],
+    "purpose": "List/read login (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "inferred",
+    "testStatus": "skipped-sensitive-path",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "Found in JavaScript; not seen on the wire"
+    ]
+  },
+  {
+    "id": "get-2703a397",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/account/webauthn-authenticate/options{param}",
+    "exampleUrl": "https://pypi.org/account/webauthn-authenticate/options%7Bparam%7D",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "js-static"
+    ],
+    "evidenceIds": [
+      "ev-0022"
+    ],
+    "purpose": "Read one options{param} by param (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "inferred",
+    "testStatus": "skipped-sensitive-path",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "Found in JavaScript; not seen on the wire"
+    ]
+  },
+  {
+    "id": "post-9c20df45",
+    "method": "POST",
+    "urlTemplate": "https://pypi.org/account/webauthn-authenticate/validate{param}",
+    "exampleUrl": "https://pypi.org/account/webauthn-authenticate/validate%7Bparam%7D",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "js-static"
+    ],
+    "evidenceIds": [
+      "ev-0024"
+    ],
+    "purpose": "POST validate{param} (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "inferred",
+    "testStatus": "skipped-unsafe-method",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "Found in JavaScript; not seen on the wire"
+    ]
+  },
+  {
+    "id": "get-27e07e87",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/manage/account",
+    "exampleUrl": "https://pypi.org/manage/account",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "js-static"
+    ],
+    "evidenceIds": [
+      "ev-0021"
+    ],
+    "purpose": "List/read account (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "inferred",
+    "testStatus": "skipped-sensitive-path",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "Found in JavaScript; not seen on the wire"
+    ]
+  },
+  {
+    "id": "get-04720b64",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/manage/account/webauthn-provision/options",
+    "exampleUrl": "https://pypi.org/manage/account/webauthn-provision/options",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "rea-bundle",
+      "js-static"
+    ],
+    "evidenceIds": [
+      "ev-0016",
+      "ev-0015",
+      "ev-0019"
+    ],
+    "purpose": "List/read options (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "inferred",
+    "testStatus": "skipped-sensitive-path",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "REA static bundle candidate; does not prove the call executes",
+      "Found in JavaScript; not seen on the wire"
+    ]
+  },
+  {
+    "id": "get-c182d6ea",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/manage/account/webauthn-provision/validate",
+    "exampleUrl": "https://pypi.org/manage/account/webauthn-provision/validate",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "rea-bundle"
+    ],
+    "evidenceIds": [
+      "ev-0017",
+      "ev-0015"
+    ],
+    "purpose": "List/read validate (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "inferred",
+    "testStatus": "skipped-sensitive-path",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "REA static bundle candidate; does not prove the call executes"
+    ]
+  },
+  {
+    "id": "post-ffcb4ba9",
+    "method": "POST",
+    "urlTemplate": "https://pypi.org/manage/account/webauthn-provision/validate",
+    "exampleUrl": "https://pypi.org/manage/account/webauthn-provision/validate",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "js-static"
+    ],
+    "evidenceIds": [
+      "ev-0020"
+    ],
+    "purpose": "POST validate (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "inferred",
+    "testStatus": "skipped-unsafe-method",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "Found in JavaScript; not seen on the wire"
+    ]
+  },
+  {
+    "id": "get-88845aca",
+    "method": "GET",
+    "urlTemplate": "https://pypi.org/search/",
+    "exampleUrl": "https://pypi.org/search/?q=",
+    "origin": "https://pypi.org",
+    "discoveredBy": [
+      "html-static"
+    ],
+    "evidenceIds": [
+      "ev-0002",
+      "ev-0003"
+    ],
+    "purpose": "HTML search/filter form (q)",
+    "pathParams": [],
+    "queryParams": [
+      {
+        "name": "q",
+        "role": "search"
+      }
+    ],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [
+      "q"
+    ],
+    "errorsObserved": [],
+    "status": "unavailable",
+    "testStatus": "skipped-robots",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0.2,
+    "notes": [
+      "Derived from a GET <form>; response format unknown until verified",
+      "robots.txt disallows /search/"
+    ]
+  },
+  {
+    "id": "get-7ec9e483",
+    "method": "GET",
+    "urlTemplate": "https://api.github.com/search/issues",
+    "exampleUrl": "https://api.github.com/search/issues?q=repo:psf/requests+type:issue+state:open&per_page=1",
+    "origin": "https://api.github.com",
+    "discoveredBy": [
+      "rea-browser"
+    ],
+    "evidenceIds": [
+      "ev-0012",
+      "ev-0007",
+      "ev-0014"
+    ],
+    "purpose": "List/read issues (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [
+      {
+        "name": "q",
+        "example": "repo:psf/requests type:issue state:open",
+        "role": "search"
+      },
+      {
+        "name": "per_page",
+        "example": "1",
+        "role": "pagination"
+      }
+    ],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "json",
+    "filters": [
+      "q"
+    ],
+    "errorsObserved": [],
+    "status": "observed",
+    "testStatus": "skipped-cross-origin",
+    "confidence": "medium",
+    "documented": false,
+    "goalRelevance": 0.15,
+    "notes": [
+      "Third-party request seen in browser traffic"
+    ],
+    "contentType": "application/json; charset=utf-8",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "total_count": {
+          "type": "integer",
+          "samples": 1
+        },
+        "incomplete_results": {
+          "type": "boolean",
+          "samples": 1
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "repository_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "labels_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "comments_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "events_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "html_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "id": {
+                "type": "integer",
+                "samples": 1
+              },
+              "node_id": {
+                "type": "string",
+                "samples": 1
+              },
+              "number": {
+                "type": "integer",
+                "samples": 1
+              },
+              "title": {
+                "type": "string",
+                "samples": 1
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "login": {
+                    "type": "string",
+                    "samples": 1
+                  },
+                  "id": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "node_id": {
+                    "type": "string",
+                    "samples": 1
+                  },
+                  "avatar_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "gravatar_id": {
+                    "type": "string",
+                    "samples": 1
+                  },
+                  "url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "html_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "followers_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "following_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "gists_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "starred_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "subscriptions_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "organizations_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "repos_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "events_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "received_events_url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "type": {
+                    "type": "string",
+                    "samples": 1
+                  },
+                  "user_view_type": {
+                    "type": "string",
+                    "samples": 1
+                  },
+                  "site_admin": {
+                    "type": "boolean",
+                    "samples": 1
+                  }
+                },
+                "required": [
+                  "login",
+                  "id",
+                  "node_id",
+                  "avatar_url",
+                  "gravatar_id",
+                  "url",
+                  "html_url",
+                  "followers_url",
+                  "following_url",
+                  "gists_url",
+                  "starred_url",
+                  "subscriptions_url",
+                  "organizations_url",
+                  "repos_url",
+                  "events_url",
+                  "received_events_url",
+                  "type",
+                  "user_view_type",
+                  "site_admin"
+                ],
+                "samples": 1
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "unknown",
+                  "samples": 0
+                },
+                "samples": 1
+              },
+              "state": {
+                "type": "string",
+                "samples": 1
+              },
+              "locked": {
+                "type": "boolean",
+                "samples": 1
+              },
+              "assignees": {
+                "type": "array",
+                "items": {
+                  "type": "unknown",
+                  "samples": 0
+                },
+                "samples": 1
+              },
+              "milestone": {
+                "type": "null",
+                "samples": 1
+              },
+              "comments": {
+                "type": "integer",
+                "samples": 1
+              },
+              "created_at": {
+                "type": "string",
+                "samples": 1,
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "samples": 1,
+                "format": "date-time"
+              },
+              "closed_at": {
+                "type": "null",
+                "samples": 1
+              },
+              "assignee": {
+                "type": "null",
+                "samples": 1
+              },
+              "author_association": {
+                "type": "string",
+                "samples": 1
+              },
+              "issue_field_values": {
+                "type": "array",
+                "items": {
+                  "type": "unknown",
+                  "samples": 0
+                },
+                "samples": 1
+              },
+              "type": {
+                "type": "null",
+                "samples": 1
+              },
+              "active_lock_reason": {
+                "type": "null",
+                "samples": 1
+              },
+              "sub_issues_summary": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "completed": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "percent_completed": {
+                    "type": "integer",
+                    "samples": 1
+                  }
+                },
+                "required": [
+                  "total",
+                  "completed",
+                  "percent_completed"
+                ],
+                "samples": 1
+              },
+              "issue_dependencies_summary": {
+                "type": "object",
+                "properties": {
+                  "blocked_by": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "total_blocked_by": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "blocking": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "total_blocking": {
+                    "type": "integer",
+                    "samples": 1
+                  }
+                },
+                "required": [
+                  "blocked_by",
+                  "total_blocked_by",
+                  "blocking",
+                  "total_blocking"
+                ],
+                "samples": 1
+              },
+              "body": {
+                "type": "string",
+                "samples": 1
+              },
+              "reactions": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "samples": 1,
+                    "format": "uri"
+                  },
+                  "total_count": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "+1": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "-1": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "laugh": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "hooray": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "confused": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "heart": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "rocket": {
+                    "type": "integer",
+                    "samples": 1
+                  },
+                  "eyes": {
+                    "type": "integer",
+                    "samples": 1
+                  }
+                },
+                "required": [
+                  "url",
+                  "total_count",
+                  "+1",
+                  "-1",
+                  "laugh",
+                  "hooray",
+                  "confused",
+                  "heart",
+                  "rocket",
+                  "eyes"
+                ],
+                "samples": 1
+              },
+              "timeline_url": {
+                "type": "string",
+                "samples": 1,
+                "format": "uri"
+              },
+              "performed_via_github_app": {
+                "type": "null",
+                "samples": 1
+              },
+              "state_reason": {
+                "type": "null",
+                "samples": 1
+              },
+              "pinned_comment": {
+                "type": "null",
+                "samples": 1
+              },
+              "score": {
+                "type": "integer",
+                "samples": 1
+              }
+            },
+            "required": [
+              "url",
+              "repository_url",
+              "labels_url",
+              "comments_url",
+              "events_url",
+              "html_url",
+              "id",
+              "node_id",
+              "number",
+              "title",
+              "user",
+              "labels",
+              "state",
+              "locked",
+              "assignees",
+              "milestone",
+              "comments",
+              "created_at",
+              "updated_at",
+              "closed_at",
+              "assignee",
+              "author_association",
+              "issue_field_values",
+              "type",
+              "active_lock_reason",
+              "sub_issues_summary",
+              "issue_dependencies_summary",
+              "body",
+              "reactions",
+              "timeline_url",
+              "performed_via_github_app",
+              "state_reason",
+              "pinned_comment",
+              "score"
+            ],
+            "samples": 1
+          },
+          "samples": 1
+        },
+        "search_type": {
+          "type": "string",
+          "samples": 1
+        }
+      },
+      "required": [
+        "total_count",
+        "incomplete_results",
+        "items",
+        "search_type"
+      ],
+      "samples": 1
+    }
+  },
+  {
+    "id": "get-02a0d3ec",
+    "method": "GET",
+    "urlTemplate": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
+    "exampleUrl": "https://2p66nmmycsj3.statuspage.io/api/v2/status.json",
+    "origin": "https://2p66nmmycsj3.statuspage.io",
+    "discoveredBy": [
+      "rea-browser"
+    ],
+    "evidenceIds": [
+      "ev-0010",
+      "ev-0007"
+    ],
+    "purpose": "List/read status.json (inferred from URL shape)",
+    "pathParams": [],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "unavailable",
+    "testStatus": "skipped-cross-origin",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0,
+    "notes": [
+      "Third-party request seen in browser traffic"
+    ]
+  },
+  {
+    "id": "get-7573cdc5",
+    "method": "GET",
+    "urlTemplate": "https://gitlab.com/api/v4/projects/{param}",
+    "exampleUrl": "https://gitlab.com/api/v4/projects/%7Bparam%7D",
+    "origin": "https://gitlab.com",
+    "discoveredBy": [
+      "js-static"
+    ],
+    "evidenceIds": [
+      "ev-0025"
+    ],
+    "purpose": "Read one projects by param (inferred from URL shape)",
+    "pathParams": [
+      "param"
+    ],
+    "queryParams": [],
+    "requiredHeaders": [],
+    "auth": "unknown",
+    "responseFormat": "unknown",
+    "filters": [],
+    "errorsObserved": [],
+    "status": "inferred",
+    "testStatus": "skipped-cross-origin",
+    "confidence": "low",
+    "documented": false,
+    "goalRelevance": 0,
+    "notes": [
+      "Third-party URL in JavaScript"
+    ]
+  }
+]

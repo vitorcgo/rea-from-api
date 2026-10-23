@@ -1,0 +1,49 @@
+{
+  "name": "rea-from-api",
+  "version": "0.2.0",
+  "description": "Reverse engineer any API: discover how a website serves its data (publisher catalogs, OpenAPI, framework routes, APIs.guru, Wayback, CT, REA browser capture, jsluice, source maps, GraphQL), prove it with evidence, export OpenAPI 3.1, and generate tested TypeScript/Python clients. CLI + MCP server built on REA.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "rea-from-api": "bin/rea-from-api.mjs"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --test --test-concurrency=1 \"tests/**/*.test.ts\"",
+    "check": "npm run typecheck && npm test",
+    "cli": "node src/cli.ts"
+  },
+  "optionalDependencies": {
+    "rea-agents": "6.7.0"
+  },
+  "devDependencies": {
+    "@seriousme/openapi-schema-validator": "2.11.0",
+    "@types/node": "22.20.5",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "yaml": "2.9.1",
+    "zod": "4.6.7"
+  },
+  "keywords": [
+    "api",
+    "reverse-engineering",
+    "openapi",
+    "mcp",
+    "mcp-server",
+    "agent-skills",
+    "rea",
+    "api-discovery",
+    "schemathesis",
+    "codegen",
+    "evidence"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitorcgo/rea-from-api.git"
+  }
+}

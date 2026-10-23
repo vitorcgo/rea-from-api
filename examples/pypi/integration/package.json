@@ -1,0 +1,22 @@
+{
+  "name": "pypi-json",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --test tests/schemas.test.ts tests/client.test.ts",
+    "test:live": "LIVE=1 node --test tests/live.test.ts",
+    "example": "node examples/basic.ts"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "22.20.5"
+  }
+}

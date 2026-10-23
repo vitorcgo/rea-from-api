@@ -1,0 +1,83 @@
+{
+  "total_count": 156,
+  "incomplete_results": false,
+  "items": [
+    {
+      "url": "https://api.github.com/repos/psf/requests/issues/7634",
+      "repository_url": "https://api.github.com/repos/psf/requests",
+      "labels_url": "https://api.github.com/repos/psf/requests/issues/7634/labels{/name}",
+      "comments_url": "https://api.github.com/repos/psf/requests/issues/7634/comments",
+      "events_url": "https://api.github.com/repos/psf/requests/issues/7634/events",
+      "html_url": "https://github.com/psf/requests/issues/7634",
+      "id": 5806823841,
+      "node_id": "I_kwDOABTKOs8AAAABWh0ZoQ",
+      "number": 7634,
+      "title": "Non-string form field names raise AttributeError when files are attached",
+      "user": {
+        "login": "jbrown9513",
+        "id": 234285503,
+        "node_id": "U_kgDODfbpvw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/234285503?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/jbrown9513",
+        "html_url": "https://github.com/jbrown9513",
+        "followers_url": "https://api.github.com/users/jbrown9513/followers",
+        "following_url": "https://api.github.com/users/jbrown9513/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jbrown9513/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/jbrown9513/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jbrown9513/subscriptions",
+        "organizations_url": "https://api.github.com/users/jbrown9513/orgs",
+        "repos_url": "https://api.github.com/users/jbrown9513/repos",
+        "events_url": "https://api.github.com/users/jbrown9513/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/jbrown9513/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "labels": [],
+      "state": "open",
+      "locked": false,
+      "assignees": [],
+      "milestone": null,
+      "comments": 11,
+      "created_at": "2026-10-12T00:55:23Z",
+      "updated_at": "2026-10-22T01:56:23Z",
+      "closed_at": null,
+      "assignee": null,
+      "author_association": "NONE",
+      "issue_field_values": [],
+      "type": null,
+      "active_lock_reason": null,
+      "sub_issues_summary": {
+        "total": 0,
+        "completed": 0,
+        "percent_completed": 0
+      },
+      "issue_dependencies_summary": {
+        "blocked_by": 0,
+        "total_blocked_by": 0,
+        "blocking": 0,
+        "total_blocking": 0
+      },
+      "body": "While testing an experimental version of [Perch](https://github.com/lakeday-org/perch), we found the following and figured it was worth a report.\n\nA non-string key in `data` works for a urlencoded body, but the same `data` fails once `files` is added and the body becomes multipart. A non-string key in `files` fails the same way.\n\n## Expected Result\n\nThe request prepares in both cases (the urlencoded path already accepts `{1: \"a\"}` and sends `1=a`), or a `TypeError` that names the field.\n\n## Actual Result\n\n```\nAttributeError: 'int' object has no attribute 'translate'\n```\n\nraised from inside urllib3. `_encode_files` passes the field name straight to `RequestField(name=k, ...)` (`models.py:245`), which expects a `str`. Values are converted with `str()` a few lines earlier; names aren't.\n\n## Reproduction Steps\n\n```python\nimport requests\n\nrequests.Request(\"POST\", \"http://x\", data={1: \"a\"}).prepare()\n# works\n\nrequests.Request(\"POST\", \"http://x\", data={1: \"a\"}, files={\"f\": b\"x\"}).prepare()\n# AttributeError: 'int' object has no attribute 'translate'\n\nrequests.Request(\"POST\", \"http://x\", files={1: b\"x\"}).prepare()\n# AttributeError: 'int' object has no attribute 'translate'\n```\n\n## System Information\n\n    $ python -m requests.help\n\n```json\n{\n  \"chardet\": {\n    \"version\": null\n  },\n  \"charset_normalizer\": {\n    \"version\": \"3.5.2\"\n  },\n  \"cryptography\": {\n    \"version\": \"\"\n  },\n  \"idna\": {\n    \"version\": \"3.20\"\n  },\n  \"implementation\": {\n    \"name\": \"CPython\",\n    \"version\": \"3.14.2\"\n  },\n  \"platform\": {\n    \"release\": \"25.2.0\",\n    \"system\": \"Darwin\"\n  },\n  \"pyOpenSSL\": {\n    \"openssl_version\": \"\",\n    \"version\": null\n  },\n  \"requests\": {\n    \"version\": \"2.34.2\"\n  },\n  \"system_ssl\": {\n    \"version\": \"30500040\"\n  },\n  \"urllib3\": {\n    \"version\": \"2.8.0\"\n  },\n  \"using_charset_normalizer\": true,\n  \"using_pyopenssl\": false\n}\n```\n",
+      "reactions": {
+        "url": "https://api.github.com/repos/psf/requests/issues/7634/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "timeline_url": "https://api.github.com/repos/psf/requests/issues/7634/timeline",
+      "performed_via_github_app": null,
+      "state_reason": null,
+      "pinned_comment": null,
+      "score": 1
+    }
+  ],
+  "search_type": "lexical"
+}
