@@ -41,7 +41,8 @@ Investigation options:
   --auth-scheme PREFIX    header value prefix (default "Bearer " for Authorization, none otherwise)
   --auth-query NAME       send it as this query parameter instead (e.g. api_key)
   --robots-exempt PREFIX  seed URLs under PREFIX are officially documented APIs: verify them even if
-                          robots.txt disallows crawling them (explicit, recorded in evidence)
+                          robots.txt disallows crawling them (explicit, recorded in evidence).
+                          "documented" allows only routes the site's own docs, spec or API index describe
   --only a,b / --skip a,b select strategies (verify always runs)
   --max-requests N        direct request budget (default 60, max 500)
   --max-duration-ms N     wall-clock budget (default 300000)

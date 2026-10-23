@@ -11,6 +11,7 @@ import { wellKnown } from "./wellKnown.ts";
 import { frameworkData } from "./frameworkData.ts";
 import { passiveSources } from "./passiveSources.ts";
 import { graphql } from "./graphql.ts";
+import { apiHosts } from "./apiHosts.ts";
 
 /**
  * Execution order matters: the page is analysed first, documented sources
@@ -22,6 +23,7 @@ export const STRATEGIES: Strategy[] = [
   officialDocs,
   frameworkData,
   passiveSources,
+  apiHosts,
   seeds,
   har,
   reaBrowser,

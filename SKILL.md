@@ -59,6 +59,9 @@ Then read `findings.md` (or `list_endpoints`) and decide:
 - **Docs exist elsewhere** (links listed in findings/limitations): read them, re-run with
   `seeds: ["https://host/path/{param:example}"]`. Only add `robots_exempt` for paths the provider
   documents for programmatic use, and tell the user.
+- **Documented but `skipped-robots`** (note: "Officially documented, but robots.txt asks crawlers not
+  to call it"): explain it, and only if the user agrees the provider's API terms allow their use, re-run
+  with `robots_exempt: ["documented"]`. It covers only routes from the site's own spec, docs or API index.
 - **API on another origin**: re-run with `allow_origins`. Same-site servers declared in official specs
   are allowed automatically.
 - **401/403 (`auth: required`)**: tell the user the API needs their own key; once they set the env var,

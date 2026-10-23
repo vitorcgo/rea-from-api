@@ -71,7 +71,7 @@ export function createServer(): McpServer {
         out_dir: z.string().optional().describe("Defaults to ./.rea-from-api/<host>"),
         seeds: z.array(z.string()).optional().describe("Documented URLs to verify; {name:example} marks a path param"),
         allow_origins: z.array(z.string()).optional(),
-        robots_exempt: z.array(z.string()).optional().describe("Only for seeds the user confirmed are an officially documented API"),
+        robots_exempt: z.array(z.string()).optional().describe('Seed URL prefixes the user confirmed are an officially documented API, or "documented" for routes the site itself documents (its spec, docs pages or API index). Only when the user agrees'),
         har_path: z.string().optional().describe("HAR recorded by the user in their own session"),
         browser: z.enum(["auto", "rea", "off"]).optional(),
         passive: z.boolean().optional().describe("Query APIs.guru, Wayback CDX and crt.sh (default true)"),

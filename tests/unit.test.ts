@@ -16,6 +16,8 @@ import { parseLinkHeader } from "../src/strategies/wellKnown.ts";
 import { parseStructured, siteOf, sameSite, isOpenApi } from "../src/strategies/specIngest.ts";
 import { typeRefToString } from "../src/strategies/graphql.ts";
 import { toJsonSchema } from "../src/openapi/build.ts";
+import { docRoutes, indexRoutes } from "../src/strategies/apiHosts.ts";
+import { valuesFromPage } from "../src/analysis/pageParams.ts";
 
 test("inferSchema describes observed shape, formats and required keys", () => {
   const s = inferSchema({ id: 1, name: "a", at: "2026-01-01T00:00:00Z", url: "https://x.y/z", tags: ["t"], meta: null });
@@ -250,4 +252,22 @@ test("validation reports hide the user's home directory", async () => {
   assert.ok(!out.includes(h) && !out.includes(slashed), out);
   assert.match(out, /~/);
   assert.equal(hidePersonalPaths("V:\\work\\app\\integration and V:/work/app/x", "V:\\work\\app"), ".\\integration and ./x");
+});
+
+test("api hosts: documented GET routes and hypermedia indexes become templates", () => {
+  assert.deepEqual(docRoutes("<p>GET /pypi/&lt;project&gt;/json</p><code>GET /users/:id/repos.</code> GET https://api.x.io/v1/items/{itemId}", "https://pypi.org"), [
+    "https://pypi.org/pypi/{project}/json",
+    "https://pypi.org/users/{id}/repos",
+    "https://api.x.io/v1/items/{itemId}",
+  ]);
+  const index = { repository_url: "https://api.github.com/repos/{owner}/{repo}", search: "https://api.github.com/search/code?q={query}{&page,per_page}", user: "https://api.github.com/users/{user}{/x}", other: "https://elsewhere.com/a" };
+  assert.deepEqual(indexRoutes(index, "https://api.github.com"), ["https://api.github.com/repos/{owner}/{repo}", "https://api.github.com/search/code?q={query}", "https://api.github.com/users/{user}"]);
+});
+
+test("path placeholders are filled from the page URL by name, else by position, never half-guessed", () => {
+  assert.deepEqual(valuesFromPage(["project"], "https://pypi.org/project/requests/"), { project: "requests" });
+  assert.deepEqual(valuesFromPage(["owner", "repo"], "https://github.com/nodejs/node"), { owner: "nodejs", repo: "node" });
+  assert.deepEqual(valuesFromPage(["crate_id"], "https://crates.io/crates/serde"), { crate_id: "serde" });
+  assert.equal(valuesFromPage(["project", "version"], "https://pypi.org/project/requests/"), undefined);
+  assert.equal(valuesFromPage(["a", "b"], "https://x.com/one"), undefined);
 });

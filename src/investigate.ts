@@ -21,6 +21,9 @@ export interface InvestigateOptions {
   echo?: boolean;
 }
 
+/** Strategies that work without contacting the target's own host. */
+const OFF_TARGET = new Set(["passive-sources", "api-hosts", "seeds", "har", "verify"]);
+
 export async function investigate(input: InvestigationInput, opts: InvestigateOptions = {}): Promise<Investigation> {
   const target = new URL(input.url);
   if (target.protocol !== "http:" && target.protocol !== "https:") throw new Error("only http(s) URLs are supported");
@@ -61,7 +64,7 @@ export async function investigate(input: InvestigationInput, opts: InvestigateOp
   const runs: StrategyRun[] = [];
   for (const s of selectStrategies(opts.only, opts.skip)) {
     const t0 = Date.now();
-    const skip = await s.skip?.(ctx);
+    const skip = ctx.targetBlocked && !OFF_TARGET.has(s.id) ? `target blocked (${ctx.targetBlocked}); not contacted again` : await s.skip?.(ctx);
     if (skip) {
       runs.push({ id: s.id, status: /not found|No Chromium|failed to start|install/i.test(skip) ? "unavailable" : "skipped", detail: skip, durationMs: 0 });
       log.event("strategy-skipped", { id: s.id, reason: skip });
@@ -72,7 +75,8 @@ export async function investigate(input: InvestigationInput, opts: InvestigateOp
       const r = await s.run(ctx);
       runs.push({ id: s.id, ...r, durationMs: Date.now() - t0 });
       log.event("strategy-done", { id: s.id, status: r.status, detail: r.detail });
-      if (r.status === "failed" && s.id === "html-static" && http.stoppedHosts.size) break;
+      // A challenged target is never retried, but its official API may live on another host.
+      if (r.status === "failed" && s.id === "html-static" && http.stoppedHosts.size) ctx.targetBlocked = [...http.stoppedHosts.values()][0];
     } catch (e) {
       const msg = (e as Error).message.split("\n")[0] ?? "error";
       runs.push({ id: s.id, status: e instanceof BudgetExceeded ? "partial" : "failed", detail: msg, durationMs: Date.now() - t0 });

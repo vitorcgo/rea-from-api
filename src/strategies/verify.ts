@@ -5,6 +5,7 @@ import { inferSchema, mergeSchemas, findItemsPath, getPath } from "../analysis/s
 import { detectPagination } from "../analysis/pagination.ts";
 import { goalTokens, scoreEndpoint } from "../analysis/goal.ts";
 import { redactJson, redactText, truncate } from "../core/redact.ts";
+import { valuesFromPage } from "../analysis/pageParams.ts";
 
 const RATE_HEADERS = /^(x-ratelimit-|ratelimit|retry-after|x-rate-limit-)/i;
 // GET is not always side-effect free: never auto-replay account, auth, admin,
@@ -53,6 +54,9 @@ export const verify: Strategy = {
         } else if (e instanceof BlockedByPolicy) {
           ep.testStatus = /robots/.test(e.message) ? "skipped-robots" : "failed";
           ep.notes.push(e.message);
+          if (/robots/.test(e.message) && ep.documented) {
+            ep.notes.push("Officially documented, but robots.txt asks crawlers not to call it. If the provider's API terms allow your use, re-run with --robots-exempt documented");
+          }
           if (/robots/.test(e.message) && ep.status !== "observed") ep.status = "unavailable";
         } else {
           ep.testStatus = "failed";
@@ -94,10 +98,17 @@ function fillTemplate(ctx: InvestigationContext, ep: EndpointRecord): boolean {
     }
     return undefined;
   };
-  const values: Record<string, string> = {};
+  let values: Record<string, string> = {};
   for (const param of ep.pathParams) {
     const v = lookup(param, ep.urlTemplate.slice(0, ep.urlTemplate.indexOf(`{${param}}`)).replace(/\/$/, ""));
-    if (v === undefined) return false;
+    if (v === undefined) {
+      // Documented routes usually describe the very thing on the page the user pointed at.
+      const fromPage = ep.documented ? valuesFromPage(ep.pathParams, ctx.input.url) : undefined;
+      if (!fromPage) return false;
+      ep.notes.push(`Placeholders filled from the page URL: ${Object.entries(fromPage).map(([k, x]) => `{${k}}="${x.slice(0, 40)}"`).join(", ")}`);
+      values = fromPage;
+      break;
+    }
     values[param] = v;
   }
   let out = ep.urlTemplate.replace(/\{(\w+)\}/g, (_m, k: string) => encodeURIComponent(values[k] ?? ""));
@@ -129,8 +140,13 @@ function skipReason(ctx: InvestigationContext, ep: EndpointRecord): EndpointReco
   return undefined;
 }
 
+/** Endpoints the site documents itself (its own spec, docs pages or API index), not third-party or reverse-engineered sources. */
+const FIRST_PARTY_DOCS = new Set(["official-docs", "well-known", "api-hosts"]);
+
 function robotsExempt(ctx: InvestigationContext, ep: EndpointRecord): boolean {
   const prefixes = ctx.input.robotsExempt ?? [];
+  // "documented": the caller allows the routes the site's own documentation describes.
+  if (prefixes.includes("documented") && ep.documented && ep.discoveredBy.some((s) => FIRST_PARTY_DOCS.has(s))) return true;
   return ep.discoveredBy.includes("seeds") && prefixes.some((p) => ep.exampleUrl.startsWith(p));
 }
 
@@ -142,7 +158,7 @@ async function verifyOne(ctx: InvestigationContext, ep: EndpointRecord): Promise
     const robots = await ctx.http.robots(ep.origin);
     const u = new URL(ep.exampleUrl);
     if (!robots.isAllowed(u.pathname + u.search)) {
-      const msg = `robots.txt disallows ${u.pathname} for crawlers; called once because the caller declared it an officially documented API (--robots-exempt)`;
+      const msg = `robots.txt disallows ${u.pathname} for crawlers; called once because the caller allowed officially documented APIs (--robots-exempt)`;
       ep.notes.push(msg);
       ctx.evidence.add({ strategy: "verify", kind: "note", source: ep.exampleUrl, summary: msg });
       if (!ctx.limitations.some((l) => l.includes("--robots-exempt")))

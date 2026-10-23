@@ -84,7 +84,8 @@ export function buildPlan(inv: Investigation, opts: PlanOptions = {}): Integrati
   const name = opts.name ?? deriveName(inv.input.url);
   const excluded: IntegrationPlan["excluded"] = [];
   const max = opts.maxSources ?? 6;
-  const minRel = opts.minRelevance ?? 0.15;
+  // Format and status alone score 0.25 (see analysis/goal.ts): require at least one goal word on top.
+  const minRel = opts.minRelevance ?? 0.3;
 
   let chosen: EndpointRecord[];
   if (opts.select?.length) {

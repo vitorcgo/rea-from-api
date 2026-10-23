@@ -10,9 +10,10 @@ code, not only documented.
 | No wordlist brute forcing of routes or GraphQL fields; framework routes only for the fingerprinted framework and the already-public page | `frameworkData.ts`, docs/research.md |
 | Passive sources send only the domain to APIs.guru / web.archive.org / crt.sh; `--passive off` disables them | `passiveSources.ts` |
 | CT-discovered same-site API hosts are probed only for published descriptions (api-catalog, openapi.json, swagger.json) | `passiveSources.ts` |
+| Same-site API and docs hosts: one GET on the API root and at most 6 documentation pages; routes come only from what they publish | `apiHosts.ts` |
 | Conformance (Schemathesis) only exercises confirmed GET operations with valid inputs, 2 req/s, 120 s budget | `conformance.ts` |
 | robots.txt is honoured for every request the tool issues | `SafeHttp.robots` |
-| Override only for caller-declared documented API seeds (`--robots-exempt`), recorded as evidence + limitation | `verify.ts` |
+| Override only by explicit caller opt-in (`--robots-exempt PREFIX` for documented seeds, `--robots-exempt documented` for routes the site's own spec, docs or API index describe), recorded as evidence + limitation | `verify.ts` |
 | Account/auth/admin/checkout/delete-like paths are never replayed unless documented | `SENSITIVE_PATH` in `verify.ts` |
 | Login redirects mark the endpoint `auth: required` and stop | `verify.ts` |
 | Bot challenges / CAPTCHAs stop all requests to that host; no solving, no evasion | `detectChallenge` |

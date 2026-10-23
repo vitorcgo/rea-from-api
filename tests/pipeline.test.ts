@@ -131,7 +131,9 @@ test("Schemathesis conformance runs on confirmed GET operations (when installed)
 test("plan selects confirmed JSON sources, links dependencies, renders Mermaid", () => {
   const plan = buildPlan(inv);
   assert.equal(plan.strategy, "json-api");
-  assert.deepEqual(plan.sources.map((s) => s.fnName).sort(), ["getCategories", "getProduct", "getReviews", "getStores", "listProducts"]);
+  assert.deepEqual(plan.sources.map((s) => s.fnName).sort(), ["getProduct", "getReviews", "listProducts"]);
+  // The goal is about products: stores and categories are valid JSON but off-goal, so they are left out.
+  assert.ok(plan.excluded.some((x) => /low goal relevance/.test(x.reason)));
   assert.ok(plan.excluded.some((x) => /GraphQL: schema exported/.test(x.reason)));
   assert.deepEqual(plan.dependencies, [{ from: "listProducts", to: "getProduct", param: "id", field: "id" }]);
   assert.deepEqual(plan.executionOrder.slice(0, 2), ["listProducts", "getProduct"]);

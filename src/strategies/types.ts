@@ -28,6 +28,10 @@ export interface InvestigationContext {
   saveSample(name: string, data: unknown): string;
   /** Origins the investigator may contact itself (target origin + explicit allow list). */
   allowedOrigins: Set<string>;
+  /** Same-site API-like hosts found by passive sources (Certificate Transparency), read by api-hosts. */
+  apiHosts?: string[];
+  /** Set when the target answered with a bot challenge: only strategies that do not touch it keep running. */
+  targetBlocked?: string;
   appType: string;
 }
 

@@ -8,7 +8,7 @@ const APIS_GURU = () => process.env.REA_FROM_API_APISGURU_URL ?? "https://api.ap
 const WAYBACK = () => process.env.REA_FROM_API_WAYBACK_URL ?? "https://web.archive.org";
 const CRTSH = () => process.env.REA_FROM_API_CRTSH_URL ?? "https://crt.sh";
 
-const API_HOST = /^(api|apis|developer|developers|dev-api|docs|data|open|opendata|graphql|gateway|public-api)[.-]/i;
+const API_HOST = /^(api|apis|developer|developers|dev-api|docs|data|open|opendata|graphql|gateway|public-api|registry)[.-]/i;
 const API_PATH = /\/(api|apis|v\d+|graphql|rest|wp-json|_next\/data|feeds?)\/|\.json(\?|$)/i;
 
 /**
@@ -91,6 +91,12 @@ async function wayback(ctx: InvestigationContext, site: string): Promise<string>
       continue;
     }
     if (siteOf(u.hostname) !== site) continue;
+    // Archives keep http:// and www./apex variants; replay them on the target's current origin.
+    const t = new URL(ctx.input.url);
+    if (u.hostname.replace(/^www\./, "") === t.hostname.replace(/^www\./, "")) {
+      u.protocol = t.protocol;
+      u.hostname = t.hostname;
+    }
     if (!/json|xml/.test(mime) && !API_PATH.test(u.pathname)) continue;
     if (/\.(js|css|png|jpe?g|svg|woff2?)$/i.test(u.pathname)) continue;
     const key = `${u.origin}${u.pathname.replace(/\d+/g, "#")}`;
@@ -127,6 +133,7 @@ async function certTransparency(ctx: InvestigationContext, site: string): Promis
     }
     probed.push(h);
   }
+  ctx.apiHosts = [...hosts];
   if (hosts.size > probed.length) ctx.limitations.push(`More API-like hosts in Certificate Transparency: ${[...hosts].slice(probed.length, probed.length + 5).join(", ")}`);
   return hosts.size ? `${hosts.size} API-like hosts (${probed.join(", ")}), ${ops} operations from their specs` : "no API-like hosts";
 }
