@@ -108,7 +108,7 @@ npx rea-from-api run https://api.exemplo.com/docs --goal "dados de pedidos" \
 ## Como funciona
 
 <p align="center">
-  <img src="docs/assets/how-it-works.svg" alt="URL e objetivo passam por 11 estratégias de descoberta; cada candidato é verificado com requisições somente leitura; o resultado é um relatório de evidências, um OpenAPI 3.1 e um cliente testado" width="1100" />
+  <img src="docs/assets/how-it-works.svg" alt="URL e objetivo passam por 12 estratégias de descoberta; cada candidato é verificado com requisições somente leitura; o resultado é um relatório de evidências, um OpenAPI 3.1 e um cliente testado" width="1100" />
 </p>
 
 O agente chama pelo MCP as mesmas operações que você roda no terminal. Os resultados são resumos curtos
@@ -121,6 +121,7 @@ com os caminhos dos artefatos completos: `findings.md`, `endpoints.json`, `evide
 |---|---|---|
 | Declarações do publicador | `api-catalog` ([RFC 9727](https://www.rfc-editor.org/rfc/rfc9727)), `Link: rel=service-desc`, `ai-plugin.json`, `llms.txt` → specs e docs | nenhum |
 | OpenAPI / Swagger / WordPress REST | Operações documentadas (JSON ou YAML) | nenhum |
+| Documentação e hosts de API do próprio site | Rotas `GET /caminho` e URLs de exemplo na documentação (`docs.*` ou `/docs`) e raízes de API em JSON que listam as próprias rotas (`api.*`) | nenhum |
 | Diretórios de APIs | Specs oficiais listadas no [APIs.guru](https://apis.guru) para o domínio | internet |
 | Histórico da web | URLs de API/JSON arquivadas pela Wayback Machine, reverificadas hoje | internet |
 | Hosts de API | `api.*`, `developer.*` via Certificate Transparency, checados atrás de specs | internet |
@@ -144,7 +145,28 @@ Motores opcionais são detectados, nunca instalados por conta própria: `jsluice
 
 ## Benchmark
 
-<!-- benchmark -->
+Testado em **22 sites reais**, recebendo só a URL e um objetivo em texto: sem seeds, sem HAR e sem chave.
+Conta como **usável** o endpoint que o `plan` transformaria em código: confirmado por um GET real, em JSON
+e relevante para o objetivo.
+
+| Resultado | Sites |
+|---|---|
+| **API usável** na primeira tentativa | **5** (crates.io, GitHub, dev.to, Internet Archive, Banco Central) |
+| Usável com a autorização explícita `--robots-exempt documented` | **+2** (PyPI, Open-Meteo) |
+| API oficial encontrada, **precisa da sua chave** | 2 (dados.gov.br, TMDB) |
+| Parcial: dados vistos, nada pronto para gerar código | 3 |
+| O `robots.txt` bloqueia a própria página | 2 (Reddit, lobste.rs) |
+| **Bloqueado por anti-bot** (Cloudflare), sem tentativa de contornar | 5 (npm, GitLab, Stack Overflow, IBGE, CoinGecko) |
+| Nada encontrado | 3 |
+
+Exemplos do que ele acha sozinho: `api.github.com/repos/{owner}/{repo}` já preenchido com `nodejs/node`
+a partir da URL da página; `bcb.gov.br/api/servico/sitebcb/taxaselic/ultima` para "taxa selic";
+`crates.io/api/v1/crates/{id}` com paginação.
+
+Rodar o benchmark mudou a ferramenta: a primeira rodada deu **3 de 22**, e cada falha virou uma
+correção (documentação em subdomínios, raízes de API em hipermídia, palavras compostas na relevância,
+JSON de banner de consentimento entrando no código gerado). Tabela completa por site em
+[`benchmark/RESULTS.md`](benchmark/RESULTS.md); para reproduzir, rode `node benchmark/run.mjs`.
 
 ## Showcase
 
@@ -197,7 +219,7 @@ instrução. Detalhes em [docs/safety.md](docs/safety.md).
 <details>
 <summary><strong>É só um scraper com navegador headless?</strong></summary>
 
-Não. O navegador é uma de onze estratégias. Declarações do publicador, sondagem de OpenAPI, convenções de
+Não. O navegador é uma de doze estratégias. Declarações do publicador, sondagem de OpenAPI, a documentação e os hosts de API do próprio site, convenções de
 frameworks, APIs.guru, Wayback Machine, Certificate Transparency, análise de JavaScript e source maps e
 introspecção GraphQL funcionam sem navegador (`--browser off`). O objetivo é a *API* por trás da página,
 verificada e tipada, não HTML raspado.
@@ -217,6 +239,15 @@ de depender dos dados; o `monitor` avisa quando algo muda.
 Endpoints que respondem 401/403 ou redirecionam para login ficam marcados como `auth: required`. Use a sua
 chave com `--auth-env` (veja [APIs que exigem a sua chave](#apis-que-exigem-a-sua-chave)) ou grave um HAR da
 **sua** sessão e passe `--har`. Nada é extraído do site e nenhuma autenticação é contornada.
+</details>
+
+<details>
+<summary><strong>E se o robots.txt bloquear a API?</strong></summary>
+
+Muitos hosts de API (como `api.open-meteo.com`) usam `Disallow: /` para afastar robôs de busca, mesmo sendo
+APIs públicas feitas para programas. Por padrão ele respeita e avisa. Se os termos da API permitem o seu uso,
+rode de novo com `--robots-exempt documented`: libera só as rotas que a documentação do próprio site descreve,
+e isso fica registrado nas evidências.
 </details>
 
 <details>

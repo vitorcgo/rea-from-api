@@ -24,11 +24,11 @@
   <text x="58" y="138" class="s">optional: your API key</text>
 
   <!-- Discovery -->
-  <text x="290" y="52" class="tag">DISCOVERY · 11 STRATEGIES</text>
+  <text x="290" y="52" class="tag">DISCOVERY · 12 STRATEGIES</text>
   <g>
     <rect x="290" y="66" width="250" height="62" rx="10" class="src"/>
     <text x="306" y="92" class="h">Publisher</text>
-    <text x="306" y="113" class="s">api-catalog · OpenAPI · llms.txt</text>
+    <text x="306" y="113" class="s">OpenAPI · docs · api.* hosts</text>
 
     <rect x="290" y="138" width="250" height="62" rx="10" class="src"/>
     <text x="306" y="164" class="h">Passive history</text>

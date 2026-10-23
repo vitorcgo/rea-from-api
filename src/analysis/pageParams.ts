@@ -6,8 +6,9 @@
  * Two rules, in order:
  * 1. By name: a placeholder whose name matches a page path segment takes the
  *    segment after it (/project/requests → {project} = "requests").
- * 2. By position, only when no placeholder matched by name: the last N page
- *    segments fill the N placeholders in order (/nodejs/node → {owner}, {repo}).
+ * 2. By position, only when no placeholder matched by name and the page path
+ *    has exactly N segments for the N placeholders (/nodejs/node → {owner}, {repo}).
+ *    /nodejs/node never fills a lone {org}: which segment it means is unknown.
  * A partial name match never guesses the rest. Returns undefined when unsure.
  */
 export function valuesFromPage(params: string[], pageUrl: string): Record<string, string> | undefined {
@@ -23,7 +24,6 @@ export function valuesFromPage(params: string[], pageUrl: string): Record<string
   }
   const matched = Object.keys(byName).length;
   if (matched === params.length) return byName;
-  if (matched > 0 || segs.length < params.length) return undefined;
-  const tail = segs.slice(-params.length);
-  return Object.fromEntries(params.map((p, i) => [p, tail[i]!]));
+  if (matched > 0 || segs.length !== params.length) return undefined;
+  return Object.fromEntries(params.map((p, i) => [p, segs[i]!]));
 }

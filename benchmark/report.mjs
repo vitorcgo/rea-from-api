@@ -11,23 +11,26 @@ const basePath = bi >= 0 ? args[bi + 1] : join(here, "baseline.json");
 const cur = JSON.parse(readFileSync(join(here, "results.json"), "utf8"));
 const base = existsSync(basePath) ? JSON.parse(readFileSync(basePath, "utf8")) : undefined;
 const before = new Map((base?.results ?? []).map((r) => [r.id, r]));
+const docPath = join(here, "results-documented.json");
+const documented = existsSync(docPath) ? JSON.parse(readFileSync(docPath, "utf8")) : undefined;
+const unlocked = (documented?.results ?? []).filter((d) => d.usable > 0 && !cur.results.find((r) => r.id === d.id && r.usable > 0));
 
 /** One word for what a first-time user gets from the site. */
 function outcome(r) {
   if (r.usable > 0) return "usable";
-  if (r.pageRobots) return "robots";
+  if (r.pageRobots) return "pageRobots";
   if (r.blocked) return "blocked";
   if (r.needsKey > 0) return "key";
   if (r.robotsOnly > 0) return "robots";
   if (r.confirmed > 1 || r.observed > 0) return "partial";
   return "nothing";
 }
-const LABEL = { usable: "usable API", key: "needs your key", robots: "found, robots.txt", blocked: "blocked (anti-bot)", partial: "partial", nothing: "nothing" };
+const LABEL = { usable: "usable API", key: "needs your key", robots: "found, robots.txt", pageRobots: "robots.txt blocks the page", blocked: "blocked (anti-bot)", partial: "partial", nothing: "nothing" };
 
 const host = (u) => {
   try {
     const x = new URL(u);
-    return x.host + x.pathname;
+    return decodeURIComponent(x.host + x.pathname);
   } catch {
     return u;
   }
@@ -47,16 +50,19 @@ const lines = [
   "",
   `**${cur.usable}/${cur.sites} sites** gave at least one usable endpoint${base ? ` (before this round: ${base.usable}/${base.sites})` : ""}.`,
   "",
+  ...(unlocked.length
+    ? [`With the explicit opt-in \`--robots-exempt documented\` (only routes the site documents itself), ${unlocked.length} more: ${unlocked.map((r) => `${r.id} (${r.usable})`).join(", ")}.`, ""]
+    : []),
   "| Outcome | Sites |",
   "|---|---|",
-  ...["usable", "key", "robots", "partial", "blocked", "nothing"].map((o) => `| ${LABEL[o]} | ${count(cur.results, o)}${base ? ` (was ${count(base.results, o)})` : ""} |`),
+  ...["usable", "key", "robots", "pageRobots", "partial", "blocked", "nothing"].map((o) => `| ${LABEL[o]} | ${count(cur.results, o)}${base ? ` (was ${count(base.results, o)})` : ""} |`),
   "",
   `| Site | Kind | Outcome | Usable${base ? " (before → after)" : ""} | Confirmed | Time | Best endpoints |`,
   "|---|---|---|---|---|---|---|",
   ...rows,
   "",
-  "Outcomes: *found, robots.txt* means the API was found and documented but the site's robots.txt asks crawlers not to call it;",
-  "it is verified only with an explicit `--robots-exempt`. *Needs your key* means the documented API answers 401/403: run again with `--auth-env`. *Blocked* means a bot challenge stopped the run (never bypassed).",
+  "Outcomes: *found, robots.txt* means the site's own docs describe the API but its robots.txt asks crawlers not to call it;",
+  "it is verified only with an explicit `--robots-exempt`. *Needs your key* means the documented API answers 401/403: run again with `--auth-env`. *Blocked* means a bot challenge stopped the run (never bypassed). *robots.txt blocks the page* means the site asks crawlers to stay off the page itself, so the run stops there.",
   "",
   "Reproduce: `node benchmark/run.mjs` (about 15 minutes, a few hundred GET requests spread over the sites), then `node benchmark/report.mjs`.",
   "",

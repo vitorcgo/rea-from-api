@@ -15,7 +15,7 @@
 [![Windows · macOS · Linux](https://img.shields.io/badge/platforms-Windows_·_macOS_·_Linux-555?style=flat-square)](#quick-start)
 [![MIT license](https://img.shields.io/badge/license-MIT-f4c430?style=flat-square)](../../LICENSE)
 
-[What you can do](#what-you-can-do) · [Quick start](#quick-start) · [How it works](#how-it-works) · [What it discovers](#what-it-discovers) · [Showcase](#showcase) · [FAQ](#faq) · [Docs](#documentation)
+[What you can do](#what-you-can-do) · [Quick start](#quick-start) · [How it works](#how-it-works) · [What it discovers](#what-it-discovers) · [Benchmark](#benchmark) · [Showcase](#showcase) · [FAQ](#faq) · [Docs](#documentation)
 
 <code>npx rea-from-api setup</code>
 
@@ -109,7 +109,7 @@ npx rea-from-api run https://api.example.com/docs --goal "orders data" \
 ## How it works
 
 <p align="center">
-  <img src="../assets/how-it-works.svg" alt="URL and goal go through 11 discovery strategies; every candidate is verified with read-only requests; the result is an evidence report, an OpenAPI 3.1 document and a tested client" width="1100" />
+  <img src="../assets/how-it-works.svg" alt="URL and goal go through 12 discovery strategies; every candidate is verified with read-only requests; the result is an evidence report, an OpenAPI 3.1 document and a tested client" width="1100" />
 </p>
 
 Your agent calls the same operations through MCP that you can run from the terminal. Results are compact
@@ -122,6 +122,7 @@ summaries with paths to the full artifacts: `findings.md`, `endpoints.json`, `ev
 |---|---|---|
 | Publisher declarations | [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727) `api-catalog`, `Link: rel=service-desc`, `ai-plugin.json`, `llms.txt` → specs and docs | nothing |
 | OpenAPI / Swagger / WordPress REST | Documented operations (JSON or YAML) | nothing |
+| The site's own docs and API hosts | `GET /path` routes and example URLs in its documentation (`docs.*` or `/docs`), and JSON API roots that list their routes (`api.*`) | nothing |
 | API directories | Official specs listed on [APIs.guru](https://apis.guru) for the domain | internet |
 | Web history | API/JSON URLs archived by the Wayback Machine, re-verified today | internet |
 | API hosts | `api.*`, `developer.*` hosts from Certificate Transparency, checked for specs | internet |
@@ -142,6 +143,30 @@ summaries with paths to the full artifacts: `findings.md`, `endpoints.json`, `ev
 | Drift | Structural changes plus [oasdiff](https://github.com/oasdiff/oasdiff) breaking-change classification |
 
 Optional engines are detected, never installed for you: `jsluice`, `schemathesis`, `oasdiff`, `mypy`.
+
+## Benchmark
+
+Tested on **22 real sites**, given only the URL and a goal in plain words: no seeds, no HAR, no key.
+**Usable** means an endpoint `plan` would turn into code: confirmed by a real GET, JSON, relevant to the goal.
+
+| Outcome | Sites |
+|---|---|
+| **Usable API** on the first try | **5** (crates.io, GitHub, dev.to, Internet Archive, Banco Central do Brasil) |
+| Usable with the explicit opt-in `--robots-exempt documented` | **+2** (PyPI, Open-Meteo) |
+| Official API found, **needs your key** | 2 (dados.gov.br, TMDB) |
+| Partial: data seen, nothing ready to generate | 3 |
+| robots.txt blocks the page itself | 2 (Reddit, lobste.rs) |
+| **Blocked by anti-bot** (Cloudflare), never bypassed | 5 (npm, GitLab, Stack Overflow, IBGE, CoinGecko) |
+| Nothing found | 3 |
+
+What it finds on its own: `api.github.com/repos/{owner}/{repo}` filled with `nodejs/node` from the page URL;
+`bcb.gov.br/api/servico/sitebcb/taxaselic/ultima` for a goal about interest rates; `crates.io/api/v1/crates/{id}`
+with pagination.
+
+Running the benchmark changed the tool: the first round scored **3 of 22**, and each failure became a fix
+(docs on subdomains, hypermedia API roots, glued words in goal matching, consent-banner JSON getting into
+generated code). Per-site table in [`benchmark/RESULTS.md`](../../benchmark/RESULTS.md); reproduce with
+`node benchmark/run.mjs`.
 
 ## Showcase
 
@@ -193,7 +218,7 @@ Details: [docs/safety.md](../safety.md).
 <details>
 <summary><strong>Is it just a headless browser scraper?</strong></summary>
 
-No. The browser is one of eleven strategies. Publisher declarations, OpenAPI probes, framework
+No. The browser is one of twelve strategies. Publisher declarations, OpenAPI probes, the site's own docs and API hosts, framework
 conventions, APIs.guru, the Wayback Machine, Certificate Transparency, JavaScript and source-map analysis
 and GraphQL introspection all work without a browser (`--browser off`). The goal is the *API* behind the
 page, verified and typed, not scraped HTML.
@@ -213,6 +238,15 @@ before depending on the data; `monitor` tells you when it changes.
 Endpoints that answer 401/403 or redirect to a login are marked `auth: required`. Use your own key with
 `--auth-env` (see [APIs that need your key](#apis-that-need-your-key)), or record a HAR of **your own**
 session and pass `--har`. Nothing is extracted from the site and no authentication is bypassed.
+</details>
+
+<details>
+<summary><strong>What if robots.txt blocks the API?</strong></summary>
+
+Many API hosts (like `api.open-meteo.com`) use `Disallow: /` to keep search crawlers away, even though they are
+public APIs made for programs. By default it complies and tells you. If the API's terms allow your use, run
+again with `--robots-exempt documented`: it allows only routes the site's own documentation describes, and the
+exemption is recorded in the evidence.
 </details>
 
 <details>

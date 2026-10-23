@@ -27,9 +27,11 @@ export const verify: Strategy = {
     for (const ep of ctx.inventory.all) ep.goalRelevance = scoreEndpoint(ep, tokens);
     const queue = ctx.inventory.all
       .filter((e) => e.responseFormat !== "html" || e.status !== "confirmed")
-      .sort((a, b) => b.goalRelevance - a.goalRelevance || rank(b) - rank(a))
+      // Officially documented routes go first: the budget should prove the real API before page noise (consent, telemetry).
+      .sort((a, b) => priority(b) - priority(a) || rank(b) - rank(a))
       // Templated URLs last: their path params are filled from responses confirmed first.
-      .sort((a, b) => Number(isTemplated(a)) - Number(isTemplated(b)));
+      // Documented routes the page URL fills (/repos/{owner}/{repo} on github.com/nodejs/node) need no wait.
+      .sort((a, b) => Number(waitsForSamples(ctx, a)) - Number(waitsForSamples(ctx, b)));
     let tested = 0;
     let confirmed = 0;
     let budgetHit = false;
@@ -127,6 +129,9 @@ function fillTemplate(ctx: InvestigationContext, ep: EndpointRecord): boolean {
 }
 
 const isTemplated = (e: EndpointRecord) => /\{[^}]*\}|%7B/i.test(e.exampleUrl);
+const waitsForSamples = (ctx: InvestigationContext, e: EndpointRecord) =>
+  isTemplated(e) && !(e.documented && valuesFromPage(e.pathParams, ctx.input.url) && !/\?.*(%7B|\{)/i.test(e.exampleUrl));
+const priority = (e: EndpointRecord) => e.goalRelevance + (e.documented ? 0.3 : 0);
 const rank = (e: EndpointRecord) => ({ observed: 3, inferred: 2, confirmed: 1, unavailable: 0 })[e.status];
 
 function skipReason(ctx: InvestigationContext, ep: EndpointRecord): EndpointRecord["testStatus"] | undefined {

@@ -20,24 +20,27 @@ export const apiHosts: Strategy = {
     const target = new URL(ctx.input.url);
     const site = siteOf(target.hostname);
     const hosts = new Set<string>();
+    // Links the page publishes may point anywhere on its site. Hosts from certificates and the api.* guess
+    // must belong to the target's own host: on hn.algolia.com, data.eu.algolia.com is Algolia's API, not HN's.
+    const base = target.hostname.replace(/^www\./, "");
     for (const l of ctx.page?.analysis.docLinks ?? []) addHost(hosts, l, site, target.hostname);
-    for (const h of ctx.apiHosts ?? []) addHost(hosts, `https://${h}/`, site, target.hostname);
-    addHost(hosts, `https://api.${site}/`, site, target.hostname);
+    for (const h of ctx.apiHosts ?? []) if (h.endsWith(`.${base}`)) addHost(hosts, `https://${h}/`, site, target.hostname);
+    addHost(hosts, `https://api.${base}/`, site, target.hostname);
 
     const parts: string[] = [];
     let found = 0;
     // API hosts first: a JSON API found there is where relative routes in the docs point.
-    const priority = (u: string) => (new URL(u).hostname === `api.${site}` ? -1 : isApiHost(u) ? 0 : new URL(u).hostname !== target.hostname ? 1 : 2);
+    const priority = (u: string) => (new URL(u).hostname === `api.${base}` ? -1 : isApiHost(u) ? 0 : new URL(u).hostname !== target.hostname ? 1 : 2);
     const ordered = [...hosts].sort((a, b) => priority(a) - priority(b)).slice(0, MAX_HOSTS);
     let apiOrigin: string | undefined;
-    for (const base of ordered) {
+    for (const start of ordered) {
       try {
-        const n = await readHost(ctx, base, apiOrigin ?? target.origin, target, (o) => (apiOrigin ??= o));
-        if (n) parts.push(`${new URL(base).host}: ${n}`);
+        const n = await readHost(ctx, start, apiOrigin ?? target.origin, target, (o) => (apiOrigin ??= o));
+        if (n) parts.push(`${new URL(start).host}: ${n}`);
         found += n;
       } catch (e) {
         if (e instanceof BudgetExceeded) throw e;
-        if (!(e instanceof BlockedByPolicy)) parts.push(`${new URL(base).host}: unreachable`);
+        if (!(e instanceof BlockedByPolicy)) parts.push(`${new URL(start).host}: unreachable`);
       }
     }
     return {
@@ -67,6 +70,8 @@ function addHost(set: Set<string>, url: string, site: string, targetHost: string
 
 async function readHost(ctx: InvestigationContext, base: string, routeOrigin: string, target: URL, onApi: (origin: string) => void): Promise<number> {
   const r = await ctx.http.request(base, { accept: "application/json, text/html;q=0.8" });
+  if ((r.status === 403 || r.status === 429) && (r.headers.get("x-ratelimit-remaining") === "0" || r.headers.has("retry-after")))
+    ctx.limitations.push(`${new URL(base).host} answered ${r.status}: its rate limit for anonymous requests is used up. Retry later, or use your own key (--auth-env).`);
   if (!r.ok || r.challenge) return 0;
   const origin = new URL(r.finalUrl).origin;
   const data = /json/i.test(r.contentType) ? parseStructured(r) : undefined;
@@ -148,7 +153,9 @@ async function readDocs(ctx: InvestigationContext, url: string, html: string, ro
   for (const [page, text] of pages) {
     const examples = [...text.replace(/&amp;/g, "&").matchAll(/https:\/\/[a-z0-9.-]+\/[^\s"'<>`\\]+/gi)]
       .map((m) => m[0].replace(/[.,;:)]+$/, ""))
-      .filter((u) => { const h = new URL(u).hostname; return h !== target.hostname && isApiHost(u) && siteOf(h) === siteOf(target.hostname); });
+      .filter((u) => { const h = new URL(u).hostname; return h !== target.hostname && isApiHost(u) && siteOf(h) === siteOf(target.hostname); })
+      // Docs show the same call in several formats (format=csv, xlsx); keep the JSON (default) ones.
+      .filter((u) => !/[?&](format|output|type)=(?!json)[a-z]/i.test(u));
     for (const template of [...docRoutes(text, routeOrigin), ...new Set(examples)].slice(0, 40)) {
       const host = new URL(template).hostname;
       if (siteOf(host) !== siteOf(target.hostname)) continue;

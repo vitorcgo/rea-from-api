@@ -148,6 +148,12 @@ test("goal scoring prefers matching resources (PT→EN)", () => {
   const mk = (urlTemplate: string) =>
     ({ urlTemplate, queryParams: [], responseFormat: "json", status: "confirmed" }) as unknown as Parameters<typeof scoreEndpoint>[0];
   assert.ok(scoreEndpoint(mk("https://x/api/products"), t) > scoreEndpoint(mk("https://x/api/banners"), t));
+  // English goal, Portuguese routes (and back), camelCase and glued words.
+  const fx = goalTokens("exchange rates and interest rate (selic)");
+  assert.ok(scoreEndpoint(mk("https://x/api/servico/indicadorCambio"), fx) >= 0.3);
+  assert.ok(scoreEndpoint(mk("https://x/api/servico/taxaselic/ultima"), fx) >= 0.3);
+  assert.ok(scoreEndpoint(mk("https://x/api/configAmbiente"), fx) < 0.3);
+  assert.ok(scoreEndpoint(mk("https://x/v1/forecast"), goalTokens("previsão do tempo")) >= 0.3);
 });
 
 test("challenge detection stops instead of bypassing", () => {
@@ -270,4 +276,5 @@ test("path placeholders are filled from the page URL by name, else by position, 
   assert.deepEqual(valuesFromPage(["crate_id"], "https://crates.io/crates/serde"), { crate_id: "serde" });
   assert.equal(valuesFromPage(["project", "version"], "https://pypi.org/project/requests/"), undefined);
   assert.equal(valuesFromPage(["a", "b"], "https://x.com/one"), undefined);
+  assert.equal(valuesFromPage(["org"], "https://github.com/nodejs/node"), undefined);
 });

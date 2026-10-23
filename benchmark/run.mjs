@@ -2,6 +2,8 @@
 // no HAR, no key) and summarizes what a new user would get on the first try.
 // Usage: node benchmark/run.mjs [--only id,id] [--parallel N] [--browser auto|off] [--out DIR] [--summarize]
 // --summarize rebuilds results.json from a previous run without sending requests.
+// --robots-documented adds `--robots-exempt documented` (the explicit opt-in) and writes results-documented.json.
+// With --only, the other sites keep their previous results.
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -17,7 +19,9 @@ const opt = (name, dflt) => {
 const only = opt("only", "")?.split(",").filter(Boolean) ?? [];
 const parallel = Number(opt("parallel", "3"));
 const browser = opt("browser", "auto");
-const outRoot = opt("out", join(here, "..", ".rea-from-api", "benchmark"));
+const robotsDocumented = args.includes("--robots-documented");
+const outRoot = opt("out", join(here, "..", ".rea-from-api", robotsDocumented ? "benchmark-documented" : "benchmark"));
+const resultsFile = join(here, robotsDocumented ? "results-documented.json" : "results.json");
 const sites = JSON.parse(readFileSync(join(here, "sites.json"), "utf8")).filter((s) => !only.length || only.includes(s.id));
 
 // Same rule `plan` uses to pick sources: a confirmed JSON GET relevant to the goal.
@@ -28,7 +32,8 @@ function runOne(site) {
   mkdirSync(out, { recursive: true });
   const t0 = Date.now();
   return new Promise((resolve) => {
-    const child = spawn(process.execPath, [cli, "investigate", site.url, "--goal", site.goal, "--out", out, "--browser", browser, "--quiet", "--max-duration-ms", "240000"], { stdio: ["ignore", "pipe", "pipe"] });
+    const extra = robotsDocumented ? ["--robots-exempt", "documented"] : [];
+    const child = spawn(process.execPath, [cli, "investigate", site.url, "--goal", site.goal, "--out", out, "--browser", browser, "--quiet", "--max-duration-ms", "240000", ...extra], { stdio: ["ignore", "pipe", "pipe"] });
     let stderr = "";
     child.stderr.on("data", (d) => (stderr += d));
     child.stdout.resume();
@@ -47,14 +52,14 @@ function summarize(site, out, code, ms, stderr) {
   return {
     ...site,
     exit: code,
-    seconds: Math.round(ms / 1000),
+    seconds: Math.round((ms || inv.budget?.elapsedMs || 0) / 1000),
     appType: inv.appType,
     confirmed: count("confirmed"),
     observed: count("observed"),
     inferred: count("inferred"),
     usable: usable.length,
     documented: usable.filter((e) => e.documented).length,
-    robotsOnly: eps.filter((e) => e.testStatus === "skipped-robots" && e.method === "GET").length,
+    robotsOnly: eps.filter((e) => e.testStatus === "skipped-robots" && e.method === "GET" && e.documented).length,
     pageRobots: /robots/i.test((inv.strategies ?? []).find((s) => s.id === "html-static")?.detail ?? ""),
     needsKey: eps.filter((e) => e.auth === "required" && e.documented).length,
     best: usable.slice(0, 3).map((e) => e.urlTemplate),
@@ -79,10 +84,15 @@ async function pool(items, n, fn) {
 }
 
 const summarizeOnly = args.includes("--summarize");
-const results = summarizeOnly
+const fresh = summarizeOnly
   ? sites.map((s) => summarize(s, join(outRoot, s.id), null, 0, "not run"))
   : await pool(sites, parallel, runOne);
+const previous = only.length && existsSync(resultsFile) ? JSON.parse(readFileSync(resultsFile, "utf8")).results : [];
+const all = JSON.parse(readFileSync(join(here, "sites.json"), "utf8"));
+const results = only.length
+  ? all.map((s) => fresh.find((r) => r.id === s.id) ?? previous.find((r) => r.id === s.id)).filter(Boolean)
+  : fresh;
 const ok = results.filter((r) => r.usable > 0).length;
-const report = { tool: JSON.parse(readFileSync(join(here, "..", "package.json"), "utf8")).version, at: new Date().toISOString(), browser, sites: results.length, usable: ok, results };
-writeFileSync(join(here, "results.json"), JSON.stringify(report, null, 2) + "\n");
+const report = { tool: JSON.parse(readFileSync(join(here, "..", "package.json"), "utf8")).version, at: new Date().toISOString(), browser, robotsExempt: robotsDocumented ? "documented" : undefined, sites: results.length, usable: ok, results };
+writeFileSync(resultsFile, JSON.stringify(report, null, 2) + "\n");
 console.log(`\n${ok}/${results.length} sites gave at least one usable endpoint`);

@@ -42,7 +42,7 @@ CAPTCHA/anti-bot circumvention, load testing, vulnerability hunting.
 
 ## 3. Prepare once
 
-`doctor`. If REA or Chromium is missing, continue: 10 of 11 discovery strategies work without a
+`doctor`. If REA or Chromium is missing, continue: 11 of 12 discovery strategies work without a
 browser; say that browser observation was skipped. Optional engines (`jsluice`, `schemathesis`,
 `oasdiff`, `mypy`) are reported with install commands; offer them, never install without consent.
 
@@ -51,7 +51,7 @@ browser; say that browser observation was skipped. Optional engines (`jsluice`, 
 `investigate(url, goal)` runs, in order: `html-static` → `well-known` (RFC 9727 api-catalog, Link
 service-desc, ai-plugin.json, llms.txt) → `official-docs` (OpenAPI/Swagger JSON+YAML probes) →
 `framework-data` → `passive-sources` (APIs.guru, Wayback CDX, crt.sh; only the domain is sent) →
-`seeds` → `har` → `rea-browser` → `rea-bundle` → `js-static` (jsluice + source maps) → `graphql`
+`api-hosts` (the site's own docs pages and api.* hosts) → `seeds` → `har` → `rea-browser` → `rea-bundle` → `js-static` (jsluice + source maps) → `graphql`
 (standard introspection only) → `verify`.
 
 Then read `findings.md` (or `list_endpoints`) and decide:
