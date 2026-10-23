@@ -90,6 +90,9 @@ test("scanJsForUrls finds literal and concatenated API URLs, ignores assets", ()
   assert.equal(byValue["/api/v2/orders"]?.method, "POST");
   assert.equal(byValue["/api/v2/list"]?.method, undefined, "method from a later call must not leak");
   assert.ok(!found.some((f) => f.value.endsWith(".png")));
+  const short = scanJsForUrls(`fetch("/graphql", { method: "POST", body: b }); fetch("/search?q=" + q);`, "https://ex.com/app.js");
+  assert.equal(short.find((f) => f.value === "/graphql")?.method, "POST", "short API paths are found without jsluice");
+  assert.ok(short.some((f) => f.value.startsWith("/search")));
 });
 
 test("redaction: URLs, JSON keys (type-preserving), free text", () => {

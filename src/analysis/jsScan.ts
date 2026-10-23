@@ -13,7 +13,8 @@ export interface JsUrlCandidate {
 }
 
 const STRING_LITERAL = /(["'`])((?:\\.|(?!\1)[^\\\n]){2,300})\1/g;
-const API_HINT = /^(\/|https?:\/\/)[^\s"'`<>]*?(\/api\/|\/v\d+\/|\/graphql|\/rest\/|\/wp-json\/|\.json(\?|$)|\/ajax\/|\/_next\/data\/|\/services?\/|\/search\b)/i;
+// The leading "/" is a lookahead so that short paths like "/graphql" or "/search" still match.
+const API_HINT = /^(?=\/|https?:\/\/)[^\s"'`<>]*?(\/api\/|\/v\d+\/|\/graphql|\/rest\/|\/wp-json\/|\.json(\?|$)|\/ajax\/|\/_next\/data\/|\/services?\/|\/search\b)/i;
 const ASSET_EXT = /\.(png|jpe?g|gif|svg|webp|ico|css|woff2?|ttf|eot|mp4|webm|mp3|map|js|mjs)(\?|$)/i;
 
 export function scanJsForUrls(source: string, scriptUrl: string, max = 200): JsUrlCandidate[] {

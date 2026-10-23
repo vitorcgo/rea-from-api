@@ -7,6 +7,7 @@ import { existsSync, writeFileSync, mkdtempSync, rmSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
+import { IS_WINDOWS, commandFor, findOnPath } from "./core/platform.ts";
 
 export interface CheckResult {
   name: string;
@@ -30,7 +31,8 @@ const here = dirname(fileURLToPath(import.meta.url));
 function runCheck(name: string, cmd: string, args: string[], cwd: string, env: NodeJS.ProcessEnv = {}, timeoutMs = 180_000): Promise<CheckResult> {
   const t0 = Date.now();
   return new Promise((resolvePromise) => {
-    const child = spawn(cmd, args, { cwd, env: { ...process.env, ...env }, stdio: ["ignore", "pipe", "pipe"] });
+    const c = commandFor(cmd);
+    const child = spawn(c.cmd, [...c.pre, ...args], { cwd, env: { ...process.env, ...env }, stdio: ["ignore", "pipe", "pipe"] });
     let output = "";
     child.stdout.on("data", (d) => (output += d));
     child.stderr.on("data", (d) => (output += d));
@@ -54,7 +56,8 @@ function runCheck(name: string, cmd: string, args: string[], cwd: string, env: N
 }
 
 function findTsc(integrationDir: string): string | undefined {
-  for (const p of [join(integrationDir, "node_modules/.bin/tsc"), resolve(here, "../node_modules/.bin/tsc")]) if (existsSync(p)) return p;
+  // The package's JS entry (run through node) works everywhere; .bin shims are .cmd on Windows.
+  for (const p of [join(integrationDir, "node_modules/typescript/bin/tsc"), resolve(here, "../node_modules/typescript/bin/tsc")]) if (existsSync(p)) return p;
   return undefined;
 }
 
@@ -108,7 +111,7 @@ function finish(dir: string, checks: CheckResult[], opts: { live?: boolean; repo
 
 function findPython(): string {
   for (const c of [process.env.REA_FROM_API_PYTHON, "/usr/bin/python3", "/usr/local/bin/python3"]) if (c && existsSync(c)) return c;
-  return "python3";
+  return findOnPath(IS_WINDOWS ? ["python", "py", "python3"] : ["python3", "python"]) ?? "python3";
 }
 
 async function validatePython(dir: string, live: boolean): Promise<CheckResult[]> {

@@ -5,6 +5,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { execFile } from "node:child_process";
+import { commandFor, findOnPath, home } from "../core/platform.ts";
 
 export interface ExternalTool {
   id: string;
@@ -38,25 +39,25 @@ export const TOOLS: Record<string, ExternalTool> = {
   },
 };
 
-const EXTRA_DIRS = () => [join(process.env.HOME ?? "", "go/bin"), join(process.env.HOME ?? "", ".local/bin"), "/usr/local/bin"];
+const EXTRA_DIRS = () => [
+  join(home(), "go", "bin"),
+  join(home(), ".local", "bin"),
+  "/usr/local/bin",
+  ...(process.env.APPDATA ? [join(process.env.APPDATA, "Python", "Scripts")] : []),
+];
 
 export function findTool(id: keyof typeof TOOLS | string): string | undefined {
   const t = TOOLS[id];
   if (!t) return undefined;
   const env = process.env[t.env];
   if (env) return existsSync(env) ? env : undefined;
-  for (const dir of [...(process.env.PATH ?? "").split(":"), ...EXTRA_DIRS()]) {
-    for (const b of t.bins) {
-      const p = join(dir, b);
-      if (dir && existsSync(p)) return p;
-    }
-  }
-  return undefined;
+  return findOnPath(t.bins, EXTRA_DIRS());
 }
 
 export function runTool(bin: string, args: string[], timeoutMs: number, env: NodeJS.ProcessEnv = {}): Promise<{ code: number; stdout: string; stderr: string }> {
   return new Promise((resolve) => {
-    execFile(bin, args, { timeout: timeoutMs, maxBuffer: 64 * 1024 * 1024, env: { ...process.env, ...env } }, (err, stdout, stderr) => {
+    const { cmd, pre } = commandFor(bin);
+    execFile(cmd, [...pre, ...args], { timeout: timeoutMs, maxBuffer: 64 * 1024 * 1024, env: { ...process.env, ...env } }, (err, stdout, stderr) => {
       const code = err ? (typeof (err as NodeJS.ErrnoException & { code?: unknown }).code === "number" ? Number((err as { code: number }).code) : 1) : 0;
       resolve({ code, stdout: String(stdout), stderr: String(stderr) });
     });

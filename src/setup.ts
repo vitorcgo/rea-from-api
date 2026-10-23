@@ -53,7 +53,8 @@ export function setup(o: { agents?: string[]; dryRun?: boolean; say: (s: string)
     writeFileSync(a.config, `${JSON.stringify(cfg, null, 2)}\n`);
     if (a.skillDir && !exists(a.skillDir)) {
       mkdirSync(dirname(a.skillDir), { recursive: true });
-      symlinkSync(ROOT, a.skillDir, "dir");
+      // Junctions need no admin rights on Windows.
+      symlinkSync(ROOT, a.skillDir, process.platform === "win32" ? "junction" : "dir");
     }
   }
   o.say(o.dryRun ? "dry run: nothing changed" : "done — restart your agent so it loads the MCP server and skill");
